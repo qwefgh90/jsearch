@@ -57,7 +57,7 @@ public class WorkerFunctions implements Runnable {
 				endoff = item.endOff;
 				list = item.getFileList();
 				for (int i = startoff; i < endoff; i++)
-					log.info("fileName : " + list[i].getName());
+					log.info("FileName : " + list[i].getName());
 				break;
 			}
 		}
