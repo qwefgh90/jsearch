@@ -79,18 +79,11 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 			return;
 		}
 		setCallback(callback);
+		arguments.put(argumentsEnum.KEYWORD,query);
 		arguments.put(argumentsEnum.DIRECTORY_PATH,path);
 		arguments.put(argumentsEnum.THREAD_COUNT, threadCount);
 		setArguments(arguments);
 		jobExecutor.execute(workerFindDoc);
-	}
-
-	@Override
-	public final void findKeywordFromOneDirectoryInternalCallback() {
-		// TODO Auto-generated method stub
-		for (int i = 0; i < threadPool.getPoolSize(); i++) {
-			jobExecutor.execute(workerFunctions);
-		}
 	}
 	
 	@Override
@@ -108,6 +101,7 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 			return;
 		}
 		setCallback(callback);
+		arguments.put(argumentsEnum.KEYWORD,query);
 		arguments.put(argumentsEnum.DIRECTORY_PATH,path);
 		arguments.put(argumentsEnum.THREAD_COUNT, threadCount);
 		setArguments(arguments);
@@ -116,6 +110,13 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public final void findKeywordFromOneDirectoryInternalCallback() {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < threadPool.getPoolSize(); i++) {
+			jobExecutor.execute(workerFunctions);
+		}
+	}
 	@Override
 	public final void shutdownExecutor() {
 		// TODO Auto-generated method stub

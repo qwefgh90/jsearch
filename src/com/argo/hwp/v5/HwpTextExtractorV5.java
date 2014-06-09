@@ -90,7 +90,7 @@ public abstract class HwpTextExtractorV5 {
 				fs = new NPOIFSFileSystem(source);
 				header = getHeader(fs);
 			} catch (IOException e) {
-				log.warn("파일정보 확인 중 오류. HWP 포맷이 아닌 것으로 간주함", e);
+				log.warn("파일정보 확인 중 오류. HWP V5 포맷이 아닌 것으로 간주함");//, e);			/* 예외 발생 */
 				return false;
 			}
 

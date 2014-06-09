@@ -7,7 +7,7 @@ import com.d2.osfad.job.IJobItem;
 import com.d2.osfad.main.ICallBack;
 
 public abstract class AbstractInternalExecutor {
-public static enum argumentsEnum{DIRECTORY_PATH,THREAD_COUNT};
+public static enum argumentsEnum{DIRECTORY_PATH,THREAD_COUNT,KEYWORD};
 protected int requestId = 0;						/* caller's request id */
 protected ICallBack callback = null;				/* caller's callback when all jobs are finished */
 protected HashMap<argumentsEnum,Object> arguments = new HashMap<argumentsEnum,Object>();

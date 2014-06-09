@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QS {
-
+	public static QS qs = null;
 	private static void preQsBc(char[] x, int qsBc[]) {
 		int i, m = x.length;
 
@@ -74,7 +74,7 @@ public class QS {
 		qs.m = m;
 		qs.x = x;
 		qs.qsBc = qsBc;
-		
+		qs.pattern = pattern;
 		return qs;
 		
 	}
@@ -99,6 +99,7 @@ public class QS {
 	private char[] x;
 	private int m;
 	private int[] qsBc;
+	String pattern=null;
 	
 	public static void main(String[] s){
 		System.out.print(QS.findAll(""+'\uAC00', "helloabch��elloworldabc"));

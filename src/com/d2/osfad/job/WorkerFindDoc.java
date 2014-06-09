@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.d2.osfad.executor.AbstractInternalExecutor;
 import com.d2.osfad.executor.AbstractInternalExecutor.argumentsEnum;
+import com.search.algorithm.QS;
 
 
 /**
@@ -46,6 +47,7 @@ public class WorkerFindDoc implements Runnable {
 		arguments = (HashMap<argumentsEnum,Object>)iexecutor.getArguments();
 		maxThreadCount = (Integer)arguments.get(argumentsEnum.THREAD_COUNT);
 		directory = (File)arguments.get(argumentsEnum.DIRECTORY_PATH);
+		QS.qs = QS.compile((String) arguments.get(argumentsEnum.KEYWORD));			/* static initialize */
 		foundfiles = directory.listFiles(SFileFilter.extensionfilter);
 		/**
 		 * offer job into queue

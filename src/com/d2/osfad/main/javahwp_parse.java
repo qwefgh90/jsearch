@@ -27,7 +27,8 @@ public class javahwp_parse implements ICallBack{
 		ICallBack callback = new javahwp_parse();
 
 		IExternalExecutor docexecutor = ExecutorWorkerDocument.getSingleInstance();
-		docexecutor.findKeywordFromAllDirectories(new File("E:\\11work\\workspaceJava\\Forked-One-Search-Find-All-Documents-1\\resource"), "", callback);
+		docexecutor.findKeywordFromAllDirectories
+		(new File("E:\\11work\\workspaceJava\\Forked-One-Search-Find-All-Documents-1\\resource"), "AAA", callback);
 
 		//docexecutor.findKeywordFromOneDirectory(new File("resource"), "", callback);
 		/*log.info("processor : "+Runtime.getRuntime().availableProcessors());
@@ -71,7 +72,7 @@ public class javahwp_parse implements ICallBack{
 			e.printStackTrace();
 		}*/
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(5000);
 			docexecutor.shutdownExecutor();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
