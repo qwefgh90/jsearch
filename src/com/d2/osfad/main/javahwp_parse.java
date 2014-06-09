@@ -27,7 +27,7 @@ public class javahwp_parse implements ICallBack{
 		ICallBack callback = new javahwp_parse();
 
 		IExternalExecutor docexecutor = ExecutorWorkerDocument.getSingleInstance();
-		docexecutor.findKeywordFromOneDirectory(new File("E:\\11work\\workspaceJava\\java-hwp-chang\\resource"), "", callback);
+		docexecutor.findKeywordFromAllDirectories(new File("E:\\11work\\workspaceJava\\Forked-One-Search-Find-All-Documents-1\\resource"), "", callback);
 
 		//docexecutor.findKeywordFromOneDirectory(new File("resource"), "", callback);
 		/*log.info("processor : "+Runtime.getRuntime().availableProcessors());

@@ -45,8 +45,6 @@ public class WorkerFunctions implements Runnable {
 			 * 3) job processing :)
 			 */
 			jobid = tempItem.getJobId();
-			log.debug("[ThreadId:"+
-					Thread.currentThread().getId() + "] Processing : " + jobid.getClassName());
 			switch (jobid) {
 			case FINDKEYWORD:
 				/**
@@ -56,14 +54,16 @@ public class WorkerFunctions implements Runnable {
 				startoff = item.startOff;
 				endoff = item.endOff;
 				list = item.getFileList();
-<<<<<<< HEAD
 				for (int i = startoff; i < endoff; i++){
-					log.info("fileName : " + list[i].getName());
-					}
-=======
-				for (int i = startoff; i < endoff; i++)
-					log.info("FileName : " + list[i].getName());
->>>>>>> master
+					log.debug("[ThreadId:"+
+							Thread.currentThread().getId() + "] FileName : " + list[i].getName());
+				}
+				/*try {
+					Thread.sleep(1);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}*/
 				break;
 			}
 		}

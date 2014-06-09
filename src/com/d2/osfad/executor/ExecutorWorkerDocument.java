@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.d2.osfad.job.IJobItem;
+import com.d2.osfad.job.WorkerFindAllDoc;
 import com.d2.osfad.job.WorkerFindDoc;
 import com.d2.osfad.job.WorkerFunctions;
 import com.d2.osfad.main.ICallBack;
@@ -33,6 +34,7 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 											 */
 	private Runnable workerFindDoc = null;
 	private Runnable workerFunctions = null;
+	private Runnable workerFindAllDoc = null;
 	private ThreadPoolExecutor threadPool = null;
 	private ExecutorService jobExecutor = null; /* Executor interface */
 
@@ -40,6 +42,7 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 		jobQueue = new ConcurrentLinkedQueue<IJobItem>();
 		workerFindDoc = new WorkerFindDoc(this);
 		workerFunctions = new WorkerFunctions(this);
+		workerFindAllDoc = new WorkerFindAllDoc(this);
 		/**
 		 * instantiate a ThreadPool as jobExecutor max = processor * factor + 1
 		 * ( plus one for light-weight thread)
@@ -93,10 +96,23 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 	@Override
 	public final void findKeywordFromAllDirectories(File path, String query,
 			ICallBack callback) {
+		/**
+		 * algorithm
+		 * 1)check available
+		 * 2)register callback
+		 * 3)path initialize
+		 * 4)execute worker
+		 */
 		if (threadPool.getActiveCount() > 0) {
 			log.info("still Running Threads...");
 			return;
 		}
+		setCallback(callback);
+		arguments.put(argumentsEnum.DIRECTORY_PATH,path);
+		arguments.put(argumentsEnum.THREAD_COUNT, threadCount);
+		setArguments(arguments);
+		jobExecutor.execute(workerFindAllDoc);
+		
 		// TODO Auto-generated method stub
 	}
 
@@ -116,10 +132,10 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 	@Override
 	public final void clearJobQueue() {
 		// TODO Auto-generated method stub
-		if (threadPool.getActiveCount() > 0) {
+		/*if (threadPool.getActiveCount() > 0) {
 			log.info("still Running Threads...");
 			return;
-		}
+		}*/
 		jobQueue.clear();
 		log.debug("clear Arguments Haspmap");
 		System.gc();
@@ -127,10 +143,10 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 	@Override
 	public final void clearArgumentsHashMap() {
 		// TODO Auto-generated method stub
-		if (threadPool.getActiveCount() > 0) {
+		/*if (threadPool.getActiveCount() > 0) {
 			log.info("still Running Threads...");
 		return;
-		}
+		}*/
 		arguments.clear();
 		log.debug("clear Arguments Haspmap");
 		System.gc();
@@ -144,8 +160,9 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 
 	public final synchronized void notifyJobFinish() {
 		// TODO Auto-generated method stub
-		log.info("Active Thread Count : " + threadPool.getActiveCount());
+//		log.debug("Active Thread Count : " + threadPool.getActiveCount());
 		if (threadPool.getActiveCount() == 1) {
+			log.debug("end Job..");
 			callBackToCaller();
 		}
 	}
@@ -154,6 +171,8 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 		// TODO Auto-generated method stub
 		if (callback != null) {
 			callback.callback();
+			clearJobQueue();
+			clearArgumentsHashMap();
 		}
 	}
 	// Implements of InternalExecutor class at top --

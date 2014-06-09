@@ -19,13 +19,9 @@ import com.d2.osfad.executor.AbstractInternalExecutor.argumentsEnum;
  *
  */
 public class WorkerFindDoc implements Runnable {
-	protected static Logger log = LoggerFactory.getLogger(WorkerFindDoc.class);
 	public static boolean stopFinderFlag = false;
-	
-	public static final String[] extension = {".hwp",".docs"};
-	public static final int exCount = extension.length;
+	protected static Logger log = LoggerFactory.getLogger(WorkerFindDoc.class);
 	private ConcurrentLinkedQueue<IJobItem> jobQueue = null;						/* Executor's queue */
-	private File directory = null;
 	private HashMap<argumentsEnum,Object> arguments = null;
 	private AbstractInternalExecutor iexecutor = null;
 	public WorkerFindDoc(AbstractInternalExecutor iexecutor){
@@ -38,6 +34,7 @@ public class WorkerFindDoc implements Runnable {
 		final int arrOffset;
 		final int remainder;
 		final File[] foundfiles;
+		final File directory;
 		/**
 		 * 1)initiate arguments & queue & directory
 		 * 2)fetch fileList to match extensions
@@ -47,9 +44,9 @@ public class WorkerFindDoc implements Runnable {
 		if(jobQueue==null)															/* queue ready */
 			jobQueue = iexecutor.getQueue();
 		arguments = (HashMap<argumentsEnum,Object>)iexecutor.getArguments();
-		directory = (File)arguments.get(argumentsEnum.DIRECTORY_PATH);
 		maxThreadCount = (Integer)arguments.get(argumentsEnum.THREAD_COUNT);
-		foundfiles = directory.listFiles(extensionfilter);
+		directory = (File)arguments.get(argumentsEnum.DIRECTORY_PATH);
+		foundfiles = directory.listFiles(SFileFilter.extensionfilter);
 		/**
 		 * offer job into queue
 		 */
@@ -83,6 +80,8 @@ public class WorkerFindDoc implements Runnable {
 					jobQueue.offer(new JobItemFile(foundfiles, i,i+1));
 				}
 			}
+		}else{
+			log.error("Not Find Error");
 		}
 		/**
 		 * execute document functions through callback
@@ -91,27 +90,4 @@ public class WorkerFindDoc implements Runnable {
 		iexecutor.notifyJobFinish();
 		return;
 	}
-	public final File getPath() {
-		return directory;
-	}
-	public final void setPath(File directory) {
-		this.directory = directory;
-	}
-	
-	/**
-	 * extension filter (hwp, doc, ... add this!!!)
-	 */
-	public static final FilenameFilter extensionfilter = new FilenameFilter() {
-		private int i = 0;
-		@Override
-		public boolean accept(File arg0, String arg1) {
-			for (i = 0 ; i < exCount ; i++){
-				if(arg1.endsWith(extension[i]))
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-	};
 }
