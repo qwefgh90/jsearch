@@ -16,10 +16,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with OSFAD.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**
+ * 
+ */
 package com.d2.osfad.job;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -30,20 +32,16 @@ import com.d2.osfad.executor.AbstractInternalExecutor;
 import com.d2.osfad.executor.AbstractInternalExecutor.argumentsEnum;
 import com.search.algorithm.QS;
 
-
 /**
- * implementions of Callable Interface
- * Find Document Class (hwp, doc, ...)
  * @author Chang
  *
  */
-public class WorkerFindDoc implements Runnable {
-	public static boolean stopFinderFlag = false;
+public class WorkerFindAllDoc implements Runnable {
 	protected static Logger log = LoggerFactory.getLogger(WorkerFindDoc.class);
 	private ConcurrentLinkedQueue<IJobItem> jobQueue = null;						/* Executor's queue */
 	private HashMap<argumentsEnum,Object> arguments = null;
 	private AbstractInternalExecutor iexecutor = null;
-	public WorkerFindDoc(AbstractInternalExecutor iexecutor){
+	public WorkerFindAllDoc(AbstractInternalExecutor iexecutor){
 		this.iexecutor = iexecutor;
 	}
 	@Override
@@ -66,7 +64,7 @@ public class WorkerFindDoc implements Runnable {
 		maxThreadCount = (Integer)arguments.get(argumentsEnum.THREAD_COUNT);
 		directory = (File)arguments.get(argumentsEnum.DIRECTORY_PATH);
 		QS.qs = QS.compile((String) arguments.get(argumentsEnum.KEYWORD));			/* static initialize */
-		foundfiles = directory.listFiles(SFileFilter.extensionfilter);
+		foundfiles = SFileFilter.getDocumentFromAllDirectory(directory);
 		/**
 		 * offer job into queue
 		 */
@@ -82,6 +80,8 @@ public class WorkerFindDoc implements Runnable {
 			arrOffset = foundfiles.length/maxThreadCount;		/* example len: 11, count: 2 ...0: 0~5, 1: 5~10*/
 			remainder = foundfiles.length%maxThreadCount;		/* remainder */
 			if (arrOffset != 0) {
+				log.debug("arrOffset == " + arrOffset);
+				log.debug("remainder == " + remainder);
 				for (int i = 0; i < maxThreadCount; i++) {
 					if (i == maxThreadCount - 1) {
 						jobQueue.offer(new JobItemFile(foundfiles, arrOffset
