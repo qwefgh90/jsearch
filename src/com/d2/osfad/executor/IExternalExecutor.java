@@ -34,14 +34,14 @@ public interface IExternalExecutor {
  * @param query a keyword to find
  * @param callback when a work is finished, call callback function 
  */
-public abstract void findKeywordFromOneDirectory(File path,String query, ICallBack callback);
+public abstract void findKeywordFromOneDirectory(String path,String query, ICallBack callback);
 /**
  * this function find all sub directories. this is different from OneDirectory
  * @param path
  * @param query
  * @param callback
  */
-public abstract void findKeywordFromAllDirectories(File path, String query, ICallBack callback);
+public abstract void findKeywordFromAllDirectories(String path, String query, ICallBack callback);
 
 public abstract void shutdownExecutor();
 void stopJobThread(); 

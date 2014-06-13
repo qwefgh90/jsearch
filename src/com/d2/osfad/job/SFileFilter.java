@@ -28,46 +28,52 @@ import org.slf4j.LoggerFactory;
 
 public class SFileFilter {
 	public static final Logger log = LoggerFactory.getLogger(SFileFilter.class);
-	public static final String[] extension = { ".hwp", ".docs" };
-	public static final int exCount = extension.length;
-	private static final ArrayList<File> listOfDocumentArray = new ArrayList<File>();
-	/**
-	 * extension filter (hwp, doc, ... add this!!!)
-	 */
-	public static final FilenameFilter extensionfilter = new FilenameFilter() {
-		private int i = 0;
 
-		@Override
-		public boolean accept(File arg0, String arg1) {
-			for (i = 0; i < exCount; i++) {
-				if (arg1.endsWith(extension[i])) {
-					return true;
-				}
-			}
-			return false;
-		}
-	};
+	public static enum EXTENSIONS {
+		HWP(".hwp"), DOC(".docx"), PPT(".pptx", "ppt"), EXCEL(".xls");
+		public String[] extension = null;
+		public int extension_count;
+
+		EXTENSIONS(String... str) {
+			this.extension = str;
+			this.extension_count = str.length;
+		};
+	}
+/*
+	public static final String[] extension = { ".hwp", ".docs", ".pptx",
+			".ppt", ".xls" };
+	public static final int exCount = extension.length;*/
+	private static final ArrayList<DocumentFile> listOfDocumentArray = new ArrayList<DocumentFile>();
+
 	public static final FileFilter directoryfilter = new FileFilter() {
 
 		@Override
 		public boolean accept(File arg0) {
 			// TODO Auto-generated method stub
-			log.debug(""+arg0.toString());
 			return arg0.isDirectory();
 		}
 	};
-/**
- * Find document files from all children
- * @param directory	This is parent directory
- * @return	File array instance
- */
-	public static final File[] getDocumentFromAllDirectory(File directory) {
-		File[] documentlist = null;
-		File[] directoryList = null;
-		File[] result = null;
-		documentlist = directory.listFiles(extensionfilter);
+
+	/**
+	 * Find document files from all children
+	 * 
+	 * @param directory
+	 *            This is parent directory
+	 * @return File array instance
+	 */
+	public static final DocumentFile[] getDocumentFromAllDirectory(DocumentFile directory) {
+		DocumentFile[] documentlist = null;
+		DocumentFile[] directoryList = null;
+		DocumentFile[] result = null;
+		documentlist = directory.listDocFiles();
+//		log.error("documentlist count number : "+documentlist.length);
+//		for (DocumentFile f : documentlist){
+//			log.error("list : "+f.toString());
+//		}
+		int documentlistLength = documentlist.length;
+		int directoryListLength = 0;
 		try {
-			for (int j = 0; j < documentlist.length; j++) {
+			for (int j = 0; j < documentlistLength; j++) {
 				listOfDocumentArray.add(documentlist[j]);
 			}
 		} catch (NullPointerException exception) {
@@ -75,28 +81,27 @@ public class SFileFilter {
 		}
 
 		try {
-			directoryList = directory.listFiles(directoryfilter);
-			for (int i = 0; i < directoryList.length; i++) {
-				addDocumentFromAllDirectory(directoryList[i]);
+			directoryList = directory.listDocFiles(directoryfilter);
+			directoryListLength = directoryList.length;
+			for (int i = 0; i < directoryListLength; i++) {
+				addDocumentFromAllDirectory((DocumentFile)directoryList[i]);
 			}
 		} catch (NullPointerException exception) {
 			log.error("Not found directories");
 		}
-//		log.error("count number : "+listOfDocumentArray.size());
 		/**
-		 * toArray require parameter
-		 * if no parameter, runtime error occurs
+		 * toArray require parameter if no parameter, runtime error occurs
 		 */
-		result = new File[listOfDocumentArray.size()];
+		result = new DocumentFile[listOfDocumentArray.size()];
 		listOfDocumentArray.toArray(result);
-		clearArrayList();									//clear Arraylist
+		clearArrayList(); // clear Arraylist
 		return result;
 	}
 
-	private static final void addDocumentFromAllDirectory(File directory) {
-		File[] documentlist = null;
-		File[] directoryList = null;
-		documentlist = directory.listFiles(extensionfilter);
+	private static final void addDocumentFromAllDirectory(DocumentFile directory) {
+		DocumentFile[] documentlist = null;
+		DocumentFile[] directoryList = null;
+		documentlist = directory.listDocFiles();
 		try {
 			for (int j = 0; j < documentlist.length; j++) {
 				listOfDocumentArray.add(documentlist[j]);
@@ -106,7 +111,7 @@ public class SFileFilter {
 		}
 		// listOfDocumentArray.add(documentlist);
 		try {
-			directoryList = directory.listFiles(directoryfilter);
+			directoryList = directory.listDocFiles(directoryfilter);
 			for (int i = 0; i < directoryList.length; i++) {
 				addDocumentFromAllDirectory(directoryList[i]);
 			}

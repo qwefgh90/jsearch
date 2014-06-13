@@ -24,6 +24,7 @@
 		<pathelement location="library/slf4j-api-1.7.7.jar"/>
 		<pathelement location="library/slf4j-log4j12-1.7.7.jar"/>
 		<pathelement location="library/log4j-1.2.17.jar"/>
+		<pathelement location="library/tika-app-1.5.jar"/>
 	</path>
 
 	<target name="init">
@@ -77,6 +78,7 @@
 				<pathelement location="library/slf4j-api-1.7.7.jar"/>
 				<pathelement location="library/slf4j-log4j12-1.7.7.jar"/>
 				<pathelement location="library/log4j-1.2.17.jar"/>
+				<pathelement location="library/tika-app-1.5.jar"/>
 			</classpath>
 		</java>
 	</target>

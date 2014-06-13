@@ -55,21 +55,19 @@ public class WorkerFunctions implements Runnable {
 	public final void run() {
 		// TODO Auto-generated method stub
 		// .info("start...");
-		int startoff=0;
-		int endoff=0;
+		int startoff = 0;
+		int endoff = 0;
 		IJobItem tempItem = null;
 		JOBID jobid;
-		JobItemFile item=null;
-		File[] fileList=null;
-		List<Integer> keywordList=null;
+		JobItemFile item = null;
+		DocumentFile[] fileList = null;
+		List<Integer> keywordList = null;
 		final StringWriter write = new StringWriter(4096);
 		jobqueue = iexecutor.getQueue();
-		while ((tempItem = jobqueue.poll())
-				!= null) {
+		while ((tempItem = jobqueue.poll()) != null) {
 			/**
-			 * 1) retrieve item and downcasting
-			 * 2) select job from jobid
-			 * 3) job processing :)
+			 * 1) retrieve item and downcasting 2) select job from jobid 3) job
+			 * processing :)
 			 */
 			jobid = tempItem.getJobId();
 			switch (jobid) {
@@ -80,34 +78,56 @@ public class WorkerFunctions implements Runnable {
 				item = (JobItemFile) tempItem;
 				startoff = item.startOff;
 				endoff = item.endOff;
-				fileList = item.getFileList();
-				for (int i = startoff; i < endoff; i++){
-//					log.info("[ThreadId:"+
-//							Thread.currentThread().getId() + "] FileName : " + fileList[i].getName());
-					try {
-						if(HwpTextExtractor.extract(fileList[i], write))
-						{
-							keywordList = QS.qs.findAll(write.toString());
-							if(keywordList.size()>0)
-								log.info("Found Keyword : "+keywordList.toString() +", " + fileList[i].getName());
+				fileList = (DocumentFile[]) item.getFileList();
+				for (int i = startoff; i < endoff; i++) {
+					// log.info("[ThreadId:"+
+					// Thread.currentThread().getId() + "] FileName : " +
+					// fileList[i].getName());
+					switch (fileList[i].extension) {
+					case HWP: {
+						try {
+							if (HwpTextExtractor.extract(fileList[i], write)) {
+								keywordList = QS.qs.findAll(write.toString());
+								if (keywordList.size() > 0)
+									log.info("Found Keyword : "
+											+ keywordList.toString() + ", "
+											+ fileList[i].getName());
+							}
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							log.error("Can't found Files in extract");
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							log.debug("IOException in extract");
+						} finally {
 						}
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						log.debug("Can't found Files in extract");
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						log.debug("IOException in extract");
-					}finally{
-						write.getBuffer().setLength(0);							/* buffer clear */
-//						write.getBuffer()..delete(0, bf.length());				/* another method to clear buffer */
 					}
+					case DOC:{
+						log.info("DOC Files");
+						
+					}
+					case PPT:{
+						log.info("PPT Files");
+						
+					}
+					case EXCEL:{
+						log.info("EXCEL Files");
+						
+					}
+					default: {
+
+					}
+					}
+
+					write.getBuffer().setLength(0); /* buffer clear */
+					// write.getBuffer()..delete(0, bf.length()); /* another
+					// method to clear buffer */
+
 				}
-				/*try {
-					Thread.sleep(1);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
+				/*
+				 * try { Thread.sleep(1); } catch (InterruptedException e) { //
+				 * TODO Auto-generated catch block e.printStackTrace(); }
+				 */
 				break;
 			}
 		}

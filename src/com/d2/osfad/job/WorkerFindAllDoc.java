@@ -51,7 +51,7 @@ public class WorkerFindAllDoc implements Runnable {
 		final int arrOffset;
 		final int remainder;
 		final File[] foundfiles;
-		final File directory;
+		final DocumentFile directory;
 		/**
 		 * 1)initiate arguments & queue & directory
 		 * 2)fetch fileList to match extensions
@@ -62,7 +62,7 @@ public class WorkerFindAllDoc implements Runnable {
 			jobQueue = iexecutor.getQueue();
 		arguments = (HashMap<argumentsEnum,Object>)iexecutor.getArguments();
 		maxThreadCount = (Integer)arguments.get(argumentsEnum.THREAD_COUNT);
-		directory = (File)arguments.get(argumentsEnum.DIRECTORY_PATH);
+		directory = (DocumentFile)arguments.get(argumentsEnum.DIRECTORY_PATH);
 		QS.qs = QS.compile((String) arguments.get(argumentsEnum.KEYWORD));			/* static initialize */
 		foundfiles = SFileFilter.getDocumentFromAllDirectory(directory);
 		/**

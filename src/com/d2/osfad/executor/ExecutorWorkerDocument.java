@@ -30,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.d2.osfad.job.DocumentFile;
 import com.d2.osfad.job.IJobItem;
 import com.d2.osfad.job.WorkerFindAllDoc;
 import com.d2.osfad.job.WorkerFindDoc;
@@ -82,7 +83,7 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 	}
 
 	@Override
-	public final void findKeywordFromOneDirectory(File path, String query,
+	public final void findKeywordFromOneDirectory(String path, String query,
 			ICallBack callback) {
 		// TODO Auto-generated method stub
 		/**
@@ -98,14 +99,14 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 		}
 		setCallback(callback);
 		arguments.put(argumentsEnum.KEYWORD,query);
-		arguments.put(argumentsEnum.DIRECTORY_PATH,path);
+		arguments.put(argumentsEnum.DIRECTORY_PATH,new DocumentFile(path));
 		arguments.put(argumentsEnum.THREAD_COUNT, threadCount);
 		setArguments(arguments);
 		jobExecutor.execute(workerFindDoc);
 	}
 	
 	@Override
-	public final void findKeywordFromAllDirectories(File path, String query,
+	public final void findKeywordFromAllDirectories(String path, String query,
 			ICallBack callback) {
 		/**
 		 * algorithm
@@ -120,7 +121,7 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 		}
 		setCallback(callback);
 		arguments.put(argumentsEnum.KEYWORD,query);
-		arguments.put(argumentsEnum.DIRECTORY_PATH,path);
+		arguments.put(argumentsEnum.DIRECTORY_PATH,new DocumentFile(path));
 		arguments.put(argumentsEnum.THREAD_COUNT, threadCount);
 		setArguments(arguments);
 		jobExecutor.execute(workerFindAllDoc);
