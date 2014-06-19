@@ -30,7 +30,7 @@ public class SFileFilter {
 	public static final Logger log = LoggerFactory.getLogger(SFileFilter.class);
 
 	public static enum EXTENSIONS {
-		HWP(".hwp"), DOC(".docx"), PPT(".pptx", "ppt"), EXCEL(".xls");
+		HWP(".hwp"), DOC(".docx"), PPT(".pptx", "ppt"), EXCEL(".xls"), TEXT(".txt");
 		public String[] extension = null;
 		public int extension_count;
 
@@ -39,10 +39,6 @@ public class SFileFilter {
 			this.extension_count = str.length;
 		};
 	}
-/*
-	public static final String[] extension = { ".hwp", ".docs", ".pptx",
-			".ppt", ".xls" };
-	public static final int exCount = extension.length;*/
 	private static final ArrayList<DocumentFile> listOfDocumentArray = new ArrayList<DocumentFile>();
 
 	public static final FileFilter directoryfilter = new FileFilter() {
@@ -65,7 +61,7 @@ public class SFileFilter {
 		DocumentFile[] documentlist = null;
 		DocumentFile[] directoryList = null;
 		DocumentFile[] result = null;
-		documentlist = directory.listDocFiles();
+		documentlist = directory.listDocFiles();		/* 	Search Document Files	*/
 //		log.error("documentlist count number : "+documentlist.length);
 //		for (DocumentFile f : documentlist){
 //			log.error("list : "+f.toString());
@@ -81,7 +77,7 @@ public class SFileFilter {
 		}
 
 		try {
-			directoryList = directory.listDocFiles(directoryfilter);
+			directoryList = directory.listDocFiles(directoryfilter);		/* 	Search Document Files using dictionary filter	*/
 			directoryListLength = directoryList.length;
 			for (int i = 0; i < directoryListLength; i++) {
 				addDocumentFromAllDirectory((DocumentFile)directoryList[i]);
@@ -101,7 +97,7 @@ public class SFileFilter {
 	private static final void addDocumentFromAllDirectory(DocumentFile directory) {
 		DocumentFile[] documentlist = null;
 		DocumentFile[] directoryList = null;
-		documentlist = directory.listDocFiles();
+		documentlist = directory.listDocFiles();				/* 	Search Document Files	*/
 		try {
 			for (int j = 0; j < documentlist.length; j++) {
 				listOfDocumentArray.add(documentlist[j]);
@@ -111,7 +107,7 @@ public class SFileFilter {
 		}
 		// listOfDocumentArray.add(documentlist);
 		try {
-			directoryList = directory.listDocFiles(directoryfilter);
+			directoryList = directory.listDocFiles(directoryfilter);		/* 	Search Document Files using dictionary filter	*/
 			for (int i = 0; i < directoryList.length; i++) {
 				addDocumentFromAllDirectory(directoryList[i]);
 			}

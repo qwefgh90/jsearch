@@ -78,22 +78,13 @@ public class javahwp_parse implements ICallBack{
 		// TODO Auto-generated method stub
 		// 파일 객체 생성 = 
 		
-		start = System.nanoTime();
+		/*start = System.nanoTime();
 		
 		ICallBack callback = new javahwp_parse();
 
 		IExternalExecutor docexecutor = ExecutorWorkerDocument.getSingleInstance();
 		docexecutor.findKeywordFromAllDirectories
 		("E:\\11work\\workspaceJava\\Forked-One-Search-Find-All-Documents-1\\resource", "AAA", callback);
-
-		
-		/*try {
-			tikaexample();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		
 		//docexecutor.findKeywordFromOneDirectory(new File("resource"), "", callback);
 			
 		try {
@@ -103,11 +94,19 @@ public class javahwp_parse implements ICallBack{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		log.info("main end");
+		log.info("main end");*/
+		
+
+		try {
+			tikaexample();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void callback() {
+	public void callback() {   
 		// TODO Auto-generated method stub
 		long end = System.nanoTime();
 		System.out.println( "실행 시간 : " + ( end - start )/1000000000.0 );
@@ -123,7 +122,7 @@ public class javahwp_parse implements ICallBack{
         Parser parser = new AutoDetectParser();
         imageParser = new ImageSavingParser(parser);
         
-       // context.set(DocumentSelector.class, new ImageDocumentSelector());
+        // context.set(DocumentSelector.class, new ImageDocumentSelector());
 //        context.set(Parser.class, imageParser);
 //if (true) return;       
         

@@ -73,7 +73,7 @@ public class WorkerFindAllDoc implements Runnable {
 			 * divide algorithm
 			 * 0~15(count)
 			 * thread Count :4
-			 * 0~4, 4~8, 8~12 (less than end number)
+			 * 0~4, 4~8, 8~12 (less than greater number)
 			 * --> 8~12 + remainder(3 = 15%4)
 			 * 0~4, 4~8, 8~15
 			 */
@@ -83,7 +83,7 @@ public class WorkerFindAllDoc implements Runnable {
 				log.debug("arrOffset == " + arrOffset);
 				log.debug("remainder == " + remainder);
 				for (int i = 0; i < maxThreadCount; i++) {
-					if (i == maxThreadCount - 1) {
+					if (i == maxThreadCount - 1) {				/* if this is a final jobItem */
 						jobQueue.offer(new JobItemFile(foundfiles, arrOffset
 								* i, (arrOffset * (i + 1)) + remainder));
 					} else {

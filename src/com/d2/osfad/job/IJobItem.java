@@ -25,13 +25,13 @@ public interface IJobItem {
 	enum JOBID {
 		FINDKEYWORD("JobItemFile");
 
-		private String className=null;
+		private String jobid=null;
 		JOBID(String arg) {
-				this.className = arg ;
+				this.jobid = arg ;
 		}
 
-		String getClassName() {
-			return className;
+		String getJobIdString() {
+			return jobid;
 		}
 	}
 

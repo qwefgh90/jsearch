@@ -1,3 +1,21 @@
+/*
+ * Copyright (C) 2014 Changwon CHOE and Bora KIM <qwefgh90@naver.com, lemiyon@naver.com>
+ * 
+ * This file is part of OSFAD.
+ *
+ * OSFAD is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * OSFAD is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with OSFAD.  If not, see <http://www.gnu.org/licenses/>.
+ */
 /**
  * 
  */
@@ -14,70 +32,100 @@ import org.slf4j.LoggerFactory;
 import com.d2.osfad.job.SFileFilter.EXTENSIONS;
 
 /**
- * @author Chang
- * for using EXTENSIONS variable, make a new File Class
+ * @author Chang for using EXTENSIONS variable, make a new File Class
  */
 public class DocumentFile extends File {
-	public static final Logger log = LoggerFactory.getLogger(DocumentFile.class);
-    
-	public EXTENSIONS extension=null;
-	public DocumentFile(String pathname,EXTENSIONS extension) {
+	public static final Logger log = LoggerFactory
+			.getLogger(DocumentFile.class);
+	public static final StringBuffer sb = new StringBuffer(255);
+	public EXTENSIONS extension = null;				/* currunt file's extension */
+
+	/**
+	 * 
+	 * @param pathname - full file path
+	 * @param extension - file extension
+	 */
+	public DocumentFile(String pathname, EXTENSIONS extension) {
 		super(pathname);
 		this.extension = extension;
 		// TODO Auto-generated constructor stub
 	}
-	public DocumentFile(String pathname){
+
+	/**
+	 * 
+	 * @param pathname - full file path
+	 */
+	public DocumentFile(String pathname) {
 		super(pathname);
 	}
 
 	/**
-	 * for make a DocumentFile instance
+	 * Make a DocumentFile instance using a extension filter
 	 */
-    public DocumentFile[] listDocFiles() {
-        String ss[] = list();
-        if (ss == null) return null;
-        ArrayList<DocumentFile> files = new ArrayList<DocumentFile>();
-        EXTENSIONS temp_extension;
-        for (String s : ss)
-            if ((temp_extension = accept(s))!=null)
-                files.add(new DocumentFile(this.getAbsolutePath()+'\\'+s,temp_extension));
-        return files.toArray(new DocumentFile[files.size()]);
-        
-        
-    }
-    /**
-     * for checking document
-     */
-    public DocumentFile[] listDocFiles(FileFilter filter) {
-        String ss[] = list();
-        if (ss == null) return null;
-        ArrayList<DocumentFile> files = new ArrayList<DocumentFile>();
-        for (String s : ss) {
+	public DocumentFile[] listDocFiles() {
+		final String ss[] = list();
+		final String parentPath = getAbsolutePath()+File.separator;
+		final int parentPath_length = parentPath.length();
+		if (ss == null)
+			return null;
+		ArrayList<DocumentFile> files = new ArrayList<DocumentFile>();
+		EXTENSIONS temp_extension;
+		sb.append(parentPath);					/* set parent path */
+		for (String s : ss)
+			if ((temp_extension = accept(s)) != null) {
+				synchronized (this) {				/*I know now single thread, so it is invalid */
+					sb.setLength(parentPath_length);
+					//sb.append(parentPath);
+					sb.append(s);
+					files.add(new DocumentFile(sb.toString(), temp_extension));
+				}
+			}
+		return files.toArray(new DocumentFile[files.size()]);
 
-        	DocumentFile f = new DocumentFile(this.getAbsolutePath()+'\\'+s);
-//
-            if ((filter == null) || filter.accept(f)){
-                files.add(f);
-            }
-        }
-        return files.toArray(new DocumentFile[files.size()]);
-    }
-    
-    /**
-     * Change File filter implementation
-     */
+	}
+
+	/**
+	 * Make a DocumentFile instance using custom filter
+	 * maybe dictionary filter
+	 */
+	public DocumentFile[] listDocFiles(FileFilter filter) {
+		DocumentFile tempfile = null;
+		final String ss[] = list();
+		final String parentPath = getAbsolutePath()+File.pathSeparatorChar;
+		final int parentPath_length = parentPath.length();
+		if (ss == null)
+			return null;
+		ArrayList<DocumentFile> files = new ArrayList<DocumentFile>();
+		sb.append(parentPath);				/* set parent path */
+		for (String s : ss) {
+			synchronized (this) {					/*I know now single thread, so it is invalid */
+				sb.setLength(parentPath_length);
+				sb.append(s);
+				tempfile = new DocumentFile(sb.toString());
+			}
+			//
+			if ((filter == null) || filter.accept(tempfile)) {
+				files.add(tempfile);
+			}
+		}
+		return files.toArray(new DocumentFile[files.size()]);
+	}
+
+	/**
+	 * File Extension Filter
+	 */
 	private int i = 0;
 	private int j = 0;
-	private int numOfExtension = EXTENSIONS.values().length;
 	private EXTENSIONS[] extensions = EXTENSIONS.values();
+	private int numOfExtension = EXTENSIONS.values().length;
+
 	/**
-	 * arg1 file name
-	 * check files extension
+	 * target - file name check files extension
 	 */
-	public EXTENSIONS accept(String arg1) {
+	public EXTENSIONS accept(String target) {
 		for (i = 0; i < numOfExtension; i++) {
 			for (j = 0; j < extensions[i].extension_count; j++) {
-				if (arg1.endsWith( extensions[i].extension[j] )) {
+				if (target.endsWith(extensions[i].extension[j])) {
 					return extensions[i];
 				}
 			}

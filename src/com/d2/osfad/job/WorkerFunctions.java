@@ -62,7 +62,11 @@ public class WorkerFunctions implements Runnable {
 		JobItemFile item = null;
 		DocumentFile[] fileList = null;
 		List<Integer> keywordList = null;
+		/**
+		 * nice combination
+		 */
 		final StringWriter write = new StringWriter(4096);
+		final StringBuffer write_bf = write.getBuffer();
 		jobqueue = iexecutor.getQueue();
 		while ((tempItem = jobqueue.poll()) != null) {
 			/**
@@ -85,6 +89,7 @@ public class WorkerFunctions implements Runnable {
 					// fileList[i].getName());
 					switch (fileList[i].extension) {
 					case HWP: {
+						log.info("HWP Files");
 						try {
 							if (HwpTextExtractor.extract(fileList[i], write)) {
 								keywordList = QS.qs.findAll(write.toString());
@@ -94,34 +99,47 @@ public class WorkerFunctions implements Runnable {
 											+ fileList[i].getName());
 							}
 						} catch (FileNotFoundException e) {
-							// TODO Auto-generated catch block
-							log.error("Can't found Files in extract");
+							
+							log.error("Can't found Document Files");
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
-							log.debug("IOException in extract");
+							log.error(e.toString());
 						} finally {
 						}
+						break;
 					}
-					case DOC:{
+					case DOC: {
 						log.info("DOC Files");
-						
+						break;
 					}
-					case PPT:{
+					case PPT: {
 						log.info("PPT Files");
-						
+						break;
 					}
-					case EXCEL:{
+					case EXCEL: {
 						log.info("EXCEL Files");
-						
+						break;
+					}
+					case TEXT: {
+						log.info("TEXT Files");
+						break;
 					}
 					default: {
 
 					}
 					}
 
-					write.getBuffer().setLength(0); /* buffer clear */
-					// write.getBuffer()..delete(0, bf.length()); /* another
-					// method to clear buffer */
+					write_bf.setLength(0); /* buffer clear */
+					/**
+					 * Very Cool & not change buffer(because 0 smaller than
+					 * original size) -->
+					 * http://grepcode.com/file/repository.grepcode
+					 * .com/java/root/
+					 * jdk/openjdk/6-b14/java/lang/AbstractStringBuilder
+					 * .java#AbstractStringBuilder.setLength%28int%29
+					 * write.getBuffer()..delete(0, bf.length()); /* another
+					 * method to clear buffer
+					 */
 
 				}
 				/*

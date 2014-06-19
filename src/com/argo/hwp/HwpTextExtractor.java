@@ -49,7 +49,6 @@ public abstract class HwpTextExtractor {
 		// 먼저 V5 부터 시도
 		boolean success = HwpTextExtractorV5.extractText(source, writer);
 
-
 		if (!success){
 //			log.debug("HWP V3 시도");
 			// 아니라면 V3 시도

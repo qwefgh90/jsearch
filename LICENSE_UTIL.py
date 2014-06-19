@@ -49,6 +49,6 @@ def addLicense(path):
 result=[]
 getjavafiles('.',result)
 print result
+raw_input('Are you add Copyright on those files?  ')
 for i in result:
-	pass
-#	addLicense(i)
+	addLicense(i)
