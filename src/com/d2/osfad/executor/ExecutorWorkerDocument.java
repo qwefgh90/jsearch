@@ -42,7 +42,7 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 	public final static int SCALE_FACTOR = 2; /* a factor of count of threads */
 	protected static Logger log = LoggerFactory
 			.getLogger(ExecutorWorkerDocument.class);
-	int threadCount; 						/* total count */
+	int threadCount; 						/* total thread count */
 	private static ExecutorWorkerDocument singleton = null;
 	/**
 	 * jobQueue a list of files to be searched
@@ -52,7 +52,7 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 											 * with threads
 											 */
 	private Runnable workerFindDoc = null;
-	private Runnable workerFunctions = null;
+	private Runnable[] workerFunctions = null;
 	private Runnable workerFindAllDoc = null;
 	private ThreadPoolExecutor threadPool = null;
 	private ExecutorService jobExecutor = null; /* Executor interface */
@@ -60,7 +60,7 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 	private ExecutorWorkerDocument() {
 		jobQueue = new ConcurrentLinkedQueue<IJobItem>();
 		workerFindDoc = new WorkerFindDoc(this);
-		workerFunctions = new WorkerFunctions(this);
+//		workerFunctions = new WorkerFunctions(this);
 		workerFindAllDoc = new WorkerFindAllDoc(this);
 		/**
 		 * instantiate a ThreadPool as jobExecutor max = processor * factor + 1
@@ -74,6 +74,12 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 				threadCount, 1, TimeUnit.MINUTES,
 				new ArrayBlockingQueue<Runnable>(threadCount * 2, true),
 				new ThreadPoolExecutor.CallerRunsPolicy());
+		workerFunctions=new WorkerFunctions[threadCount];
+		
+		for(int i=0; i < threadCount; i++){
+			workerFunctions[i] = new WorkerFunctions(this);
+		}
+		
 	}
 
 	public final static ExecutorWorkerDocument getSingleInstance() {
@@ -133,7 +139,7 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 	public final void findKeywordFromOneDirectoryInternalCallback() {
 		// TODO Auto-generated method stub
 		for (int i = 0; i < threadPool.getPoolSize(); i++) {
-			jobExecutor.execute(workerFunctions);
+			jobExecutor.execute(workerFunctions[i]);
 		}
 	}
 	@Override

@@ -71,7 +71,7 @@ public class DocumentFile extends File {
 		ArrayList<DocumentFile> files = new ArrayList<DocumentFile>();
 		EXTENSIONS temp_extension;
 		sb.append(parentPath);					/* set parent path */
-		for (String s : ss)
+		for (String s : ss){
 			if ((temp_extension = accept(s)) != null) {
 				synchronized (this) {				/*I know now single thread, so it is invalid */
 					sb.setLength(parentPath_length);
@@ -80,6 +80,8 @@ public class DocumentFile extends File {
 					files.add(new DocumentFile(sb.toString(), temp_extension));
 				}
 			}
+		}
+		sb.setLength(0);
 		return files.toArray(new DocumentFile[files.size()]);
 
 	}
@@ -91,7 +93,7 @@ public class DocumentFile extends File {
 	public DocumentFile[] listDocFiles(FileFilter filter) {
 		DocumentFile tempfile = null;
 		final String ss[] = list();
-		final String parentPath = getAbsolutePath()+File.pathSeparatorChar;
+		final String parentPath = getAbsolutePath()+File.separator;
 		final int parentPath_length = parentPath.length();
 		if (ss == null)
 			return null;
@@ -108,6 +110,7 @@ public class DocumentFile extends File {
 				files.add(tempfile);
 			}
 		}
+		sb.setLength(0);
 		return files.toArray(new DocumentFile[files.size()]);
 	}
 
