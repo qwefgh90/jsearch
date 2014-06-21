@@ -56,7 +56,7 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 	private Runnable workerFindAllDoc = null;
 	private ThreadPoolExecutor threadPool = null;
 	private ExecutorService jobExecutor = null; /* Executor interface */
-
+	
 	private ExecutorWorkerDocument() {
 		jobQueue = new ConcurrentLinkedQueue<IJobItem>();
 		workerFindDoc = new WorkerFindDoc(this);
@@ -79,7 +79,6 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 		for(int i=0; i < threadCount; i++){
 			workerFunctions[i] = new WorkerFunctions(this);
 		}
-		
 	}
 
 	public final static ExecutorWorkerDocument getSingleInstance() {
@@ -100,7 +99,7 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 		 * 4)execute worker
 		 */
 		if (threadPool.getActiveCount() > 0) {
-			log.info("still Running Threads...");
+			log.warn("Still Run Threads...");
 			return;
 		}
 		setCallback(callback);
@@ -138,7 +137,7 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 	@Override
 	public final void findKeywordFromOneDirectoryInternalCallback() {
 		// TODO Auto-generated method stub
-		for (int i = 0; i < threadPool.getPoolSize(); i++) {
+		for (int i = 0; i < threadCount; i++) {
 			jobExecutor.execute(workerFunctions[i]);
 		}
 	}

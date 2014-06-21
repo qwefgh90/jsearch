@@ -83,6 +83,7 @@ public class WorkerFindDoc implements Runnable {
 			remainder = foundfiles.length%maxThreadCount;		/* remainder */
 			if (arrOffset != 0) {
 				for (int i = 0; i < maxThreadCount; i++) {
+					log.info((arrOffset * i) +" ~ "+ ((arrOffset * (i + 1)) + remainder));
 					if (i == maxThreadCount - 1) {				/* if this is a final jobItem */
 						jobQueue.offer(new JobItemFile(foundfiles, arrOffset
 								* i, (arrOffset * (i + 1)) + remainder));

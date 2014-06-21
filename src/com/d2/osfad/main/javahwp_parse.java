@@ -78,15 +78,13 @@ public class javahwp_parse implements ICallBack {
 		// TODO Auto-generated method stub
 		// 파일 객체 생성 =
 
-		
-
 		ICallBack callback = new javahwp_parse();
 		IExternalExecutor docexecutor = ExecutorWorkerDocument
 				.getSingleInstance();
 		start = System.nanoTime();
 		docexecutor.findKeywordFromAllDirectories(
 						"E:\\11work\\workspaceJava\\Forked-One-Search-Find-All-Documents-1\\resource",
-						"최창원", callback);
+						"Table_상점", callback);
 		// docexecutor.findKeywordFromOneDirectory(new File("resource"), "",
 		// callback);
 
