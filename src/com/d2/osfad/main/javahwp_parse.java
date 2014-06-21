@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.nio.file.FileSystem;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -77,16 +78,15 @@ public class javahwp_parse implements ICallBack {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// 파일 객체 생성 =
-
 		ICallBack callback = new javahwp_parse();
 		IExternalExecutor docexecutor = ExecutorWorkerDocument
 				.getSingleInstance();
 		start = System.nanoTime();
-		docexecutor.findKeywordFromAllDirectories(
-						"E:\\11work\\workspaceJava\\Forked-One-Search-Find-All-Documents-1\\resource",
-						"Table_상점", callback);
-		// docexecutor.findKeywordFromOneDirectory(new File("resource"), "",
-		// callback);
+//		docexecutor.findKeywordFromAllDirectories(
+//						"E:\\11work\\workspaceJava\\Forked-One-Search-Find-All-Documents-1\\resource",
+//						"Table_상점", callback);
+		 docexecutor.findKeywordFromOneDirectory("resource", "Table_상점",
+		 callback);
 
 		try {
 			Thread.sleep(5000);

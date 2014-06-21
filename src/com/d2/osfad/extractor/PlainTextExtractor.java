@@ -66,7 +66,7 @@ public class PlainTextExtractor {
 		byte[] buffer = null;
 		int buffer_len = 0;
 		String detectedCharset = null;
-		log.info("[TEXT]" + file.getName());
+//		log.info("[TEXT]" + file.getName());
 		try {
 			bis = new BufferedInputStream(new FileInputStream(file));
 		} catch (FileNotFoundException e) {

@@ -5,80 +5,87 @@
               directory with the processing instruction <?eclipse.ant.import?>
               as the first entry and export the buildfile again. -->
 <project basedir="." default="build" name="java-hwp-chang">
-	<property environment="env"/>
-	<property name="ECLIPSE_HOME" value="E:/11work/eclipse_python_"/>
-	<property name="debuglevel" value="source,lines,vars"/>
-	<property name="target" value="1.6"/>
-	<property name="source" value="1.6"/>
-	<property name="CLASS_HOME" value="build/classes"/>
-	<property name="JAR_HOME" value="build/jar"/>
-	<property name="main_class" value="com.d2.osfad.main.javahwp_parse"/>
+	<property environment="env" />
+	<property name="ECLIPSE_HOME" value="E:/11work/eclipse_python_" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.6" />
+	<property name="source" value="1.6" />
+	<property name="CLASS_HOME" value="build/classes" />
+	<property name="JAR_HOME" value="build/jar" />
+	<property name="main_class" value="com.d2.osfad.main.javahwp_parse" />
 	<path id="JUnit 4.libraryclasspath">
-		<pathelement location="${ECLIPSE_HOME}/plugins/org.junit_4.10.0.v4_10_0_v20120426-0900/junit.jar"/>
-		<pathelement location="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.junit_4.10.0.v4_10_0_v20120426-0900/junit.jar" />
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.1.0.v20090501071000.jar" />
 	</path>
 	<path id="java-hwp-chang.classpath">
-		<pathelement location="build"/>
-		<path refid="JUnit 4.libraryclasspath"/>
-		<pathelement location="library/poi-3.10-FINAL-20140208.jar"/>
-		<pathelement location="library/slf4j-api-1.7.7.jar"/>
-		<pathelement location="library/slf4j-log4j12-1.7.7.jar"/>
-		<pathelement location="library/log4j-1.2.17.jar"/>
-		<pathelement location="library/tika-app-1.5.jar"/>
+		<pathelement location="build" />
+		<path refid="JUnit 4.libraryclasspath" />
+		<pathelement location="library/poi-3.10-FINAL-20140208.jar" />
+		<pathelement location="library/slf4j-api-1.7.7.jar" />
+		<pathelement location="library/slf4j-log4j12-1.7.7.jar" />
+		<pathelement location="library/log4j-1.2.17.jar" />
+		<pathelement location="library/tika-app-1.5.jar" />
+		<pathelement location="library/juniversalchardet-1.0.3.jar" />
 	</path>
 
 	<target name="init">
-		<mkdir dir="${CLASS_HOME}"/>
+		<mkdir dir="${CLASS_HOME}" />
 		<copy includeemptydirs="false" todir="${CLASS_HOME}">
 			<fileset dir="src">
-				<exclude name="**/*.java"/>
+				<exclude name="**/*.java" />
 			</fileset>
 		</copy>
 	</target>
 
 	<target name="clean">
-		<delete dir="build"/>
+		<delete dir="build" />
 	</target>
-	<target depends="clean" name="cleanall"/>
-	<target depends="build-subprojects,build-project" name="build"/>
+	<target depends="clean" name="cleanall" />
+	<target depends="build-subprojects,build-project" name="build" />
 
-	<target name="build-subprojects"/>
-	
+	<target name="build-subprojects" />
+
 	<target depends="init" name="build-project">
-		<echo>"build" 스크립트 실행 중 ${source}, ${CLASS_HOME}</echo>
-		<echo message="${ant.project.name}: ${ant.file}"/>
-		<javac debug="true" debuglevel="${debuglevel}" destdir="${CLASS_HOME}" includeantruntime="false" 
-			source="${source}" target="${target}" encoding="utf-8" srcdir="src">
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<echo>build-project 스크립트 실행 중 [VERSION] ${source}->${target}, [PATH] src->${CLASS_HOME}</echo>
+		<javac debug="true" debuglevel="${debuglevel}" destdir="${CLASS_HOME}" includeantruntime="false" source="${source}" target="${target}" encoding="utf-8" srcdir="src">
 			<!--<src path="src"/>-->
-			<classpath refid="java-hwp-chang.classpath"/>
+			<classpath refid="java-hwp-chang.classpath" />
 		</javac>
 	</target>
-
-	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+	<!--
+	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects" />
 	<target name="java-hwp-chang-default">
 		<java classname="javahwp_parse" failonerror="true" fork="yes">
-			<classpath refid="java-hwp-chang.classpath"/>
+			<classpath refid="java-hwp-chang.classpath" />
 		</java>
 	</target>
-
+	-->
 	<target name="jar">
-		<mkdir dir="${JAR_HOME}"/>
+		<echo>jar 스크립트 실행 중</echo>
+		<mkdir dir="${JAR_HOME}" />
+		<delete file="${JAR_HOME}/${ant.project.name}-lib.jar">
+		</delete>
 		<jar destfile="${JAR_HOME}/${ant.project.name}-lib.jar" basedir="${CLASS_HOME}">
 			<manifest>
-				<attribute name="Main-Class" value="oata.HelloWorld"/>
+				<attribute name="Main-Class" value="oata.HelloWorld" />
 			</manifest>
 		</jar>
 	</target>
 
 	<target name="run" depends="jar">
-		<java fork="true" classname="${main_class}" classpath="${CLASS_HOME}"> <!--클래스 패스-->
+		<echo>run 스크립트 실행 중</echo>
+		<java fork="true" classname="${main_class}" classpath="${CLASS_HOME}">
+			<!--클래스 패스-->
 			<classpath>
-				<pathelement path="/"/>		<!--종속 라이브러리-->
-				<pathelement location="library/poi-3.10-FINAL-20140208.jar"/>
-				<pathelement location="library/slf4j-api-1.7.7.jar"/>
-				<pathelement location="library/slf4j-log4j12-1.7.7.jar"/>
-				<pathelement location="library/log4j-1.2.17.jar"/>
-				<pathelement location="library/tika-app-1.5.jar"/>
+				<pathelement path="/" />
+				<!--종속 라이브러리-->
+				<pathelement location="library/poi-3.10-FINAL-20140208.jar" />
+				<pathelement location="library/slf4j-api-1.7.7.jar" />
+				<pathelement location="library/slf4j-log4j12-1.7.7.jar" />
+				<pathelement location="library/log4j-1.2.17.jar" />
+				<pathelement location="library/tika-app-1.5.jar" />
+				<pathelement location="library/juniversalchardet-1.0.3.jar" />
 			</classpath>
 		</java>
 	</target>
