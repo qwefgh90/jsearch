@@ -51,11 +51,11 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 											 * a queue to save job is shared
 											 * with threads
 											 */
-	private Runnable workerFindDoc = null;
-	private Runnable[] workerFunctions = null;
-	private Runnable workerFindAllDoc = null;
-	private ThreadPoolExecutor threadPool = null;
-	private ExecutorService jobExecutor = null; /* Executor interface */
+	private Runnable workerFindDoc = null; //현재 디렉토리에서 문서 찾기 
+	private Runnable[] workerFunctions = null; //문자열 검색  : 문서 검색 후 실행됨
+	private Runnable workerFindAllDoc = null; //모든 디렉토리에서 문서 검색 순서 
+	private ThreadPoolExecutor threadPool = null; //스레드 풀 : 스레드 할당 -> 서비스 및 
+	private ExecutorService jobExecutor = null; /* Executor interface */ //스레드 매니저
 	
 	private ExecutorWorkerDocument() {
 		jobQueue = new ConcurrentLinkedQueue<IJobItem>();

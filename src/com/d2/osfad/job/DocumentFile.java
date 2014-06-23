@@ -63,7 +63,7 @@ public class DocumentFile extends File {
 	 * Make a DocumentFile instance using a extension filter
 	 */
 	public DocumentFile[] listDocFiles() {
-		final String ss[] = list();
+		final String ss[] = list(); //Error occur when request for wrong Path
 		final String parentPath = getAbsolutePath()+File.separator;
 		final int parentPath_length = parentPath.length();
 		if (ss == null)

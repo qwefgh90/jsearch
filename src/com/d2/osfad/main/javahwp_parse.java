@@ -17,7 +17,7 @@
  * along with OSFAD.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.d2.osfad.main;
-
+//Your Goal : Make Search Process for Metadata - like sort by name, date, etc...
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -85,11 +85,11 @@ public class javahwp_parse implements ICallBack {
 //		docexecutor.findKeywordFromAllDirectories(
 //						"E:\\11work\\workspaceJava\\Forked-One-Search-Find-All-Documents-1\\resource",
 //						"Table_상점", callback);
-		 docexecutor.findKeywordFromOneDirectory("resource", "Table_상점",
+		 docexecutor.findKeywordFromOneDirectory("resource", "Reverse Engineering",
 		 callback);
 
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(100000);
 			docexecutor.shutdownExecutor();
 		} catch (InterruptedException e) { // TODO Auto-generated catch block
 			e.printStackTrace();

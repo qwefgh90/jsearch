@@ -147,6 +147,16 @@ public class WorkerFunctions implements Runnable {
 						}
 						break;
 					}
+					case PDF: {
+						log.info("[PDF] "+fileList[i].getName());
+						if(tikaExtractor.extract(fileList[i])){
+							keywordList = QS.qs.findAll(tikaExtractor.getExtractText());
+							if (keywordList.size() > 0)
+								log.info("[OK Found] "+
+										fileList[i].getName() + ", " + keywordList.toString());
+						}
+						break;
+					}
 					default: {
 
 					}

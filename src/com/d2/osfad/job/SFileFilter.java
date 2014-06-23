@@ -16,7 +16,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with OSFAD.  If not, see <http://www.gnu.org/licenses/>.
  */
+//
+//
+//
 package com.d2.osfad.job;
+
+//Goal : Make Exception Handler for request for wrong path
 
 import java.io.File;
 import java.io.FileFilter;
@@ -30,7 +35,7 @@ public class SFileFilter {
 	public static final Logger log = LoggerFactory.getLogger(SFileFilter.class);
 
 	public static enum EXTENSIONS {
-		HWP(".hwp"), DOC(".docx"), PPT(".pptx", "ppt"), EXCEL(".xls"), TEXT(".txt");
+		HWP(".hwp"), DOC(".docx"), PPT(".pptx", ".ppt"), EXCEL(".xls"), TEXT(".txt"), PDF(".pdf");
 		public String[] extension = null;
 		public int extension_count;
 
