@@ -20,7 +20,6 @@
 	<path id="java-hwp-chang.classpath">
 		<pathelement location="build" />
 		<path refid="JUnit 4.libraryclasspath" />
-		<pathelement location="library/poi-3.10-FINAL-20140208.jar" />
 		<pathelement location="library/slf4j-api-1.7.7.jar" />
 		<pathelement location="library/slf4j-log4j12-1.7.7.jar" />
 		<pathelement location="library/log4j-1.2.17.jar" />
@@ -80,7 +79,6 @@
 			<classpath>
 				<pathelement path="/" />
 				<!--종속 라이브러리-->
-				<pathelement location="library/poi-3.10-FINAL-20140208.jar" />
 				<pathelement location="library/slf4j-api-1.7.7.jar" />
 				<pathelement location="library/slf4j-log4j12-1.7.7.jar" />
 				<pathelement location="library/log4j-1.2.17.jar" />

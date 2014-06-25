@@ -182,12 +182,13 @@ public class ExecutorWorkerDocument extends AbstractInternalExecutor implements
 		// TODO Auto-generated method stub
 		return this.jobQueue;
 	}
-
-	public final synchronized void notifyJobFinish() {
+	int result=0;
+	public final synchronized void notifyJobFinish(int result) {
+		this.result += result;
 		// TODO Auto-generated method stub
 //		log.debug("Active Thread Count : " + threadPool.getActiveCount());
 		if (threadPool.getActiveCount() == 1) {
-			log.debug("end Job..");
+			log.info("end Job.. Find "+result+" Documents");
 			callBackToCaller();
 		}
 	}

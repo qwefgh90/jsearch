@@ -76,6 +76,7 @@ public class TikaTextExtractor {
 		try {
 			textBuffer.setLength(0);
 			parser.parse(input, handler, metadata, context);
+			
 			success=true;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -86,6 +87,13 @@ public class TikaTextExtractor {
 		} catch (TikaException e) {
 			// TODO Auto-generated catch block
 			log.error(e.toString());
+		}finally{
+			try {
+				input.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				log.error(e.toString());
+			}
 		}
 		// log.info(textWriter.toString());
 		// log.info(textMainBuffer.toString());

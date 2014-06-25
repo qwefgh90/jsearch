@@ -108,7 +108,7 @@ public class WorkerFindDoc implements Runnable {
 		 * execute document functions through callback
 		 */
 		iexecutor.findKeywordFromOneDirectoryInternalCallback();			
-		iexecutor.notifyJobFinish();
+		iexecutor.notifyJobFinish(0);
 		return;
 	}
 }

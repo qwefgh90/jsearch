@@ -45,7 +45,7 @@ public abstract void findKeywordFromOneDirectoryInternalCallback();
  * Observer Pattern & Callback Function
  * notify finishing job
  */
-public abstract void notifyJobFinish();
+public abstract void notifyJobFinish(int result);
 /**
  * call caller's functions
  */
