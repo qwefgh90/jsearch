@@ -1,0 +1,7 @@
+We only use open sources that is mentioned below
+
+1. JAVA-HWP (https://github.com/ddoleye/java-hwp)
+2. TIKA(http://tika.apache.org/)
+3. LOG4J(http://logging.apache.org/log4j/2.x/)
+4. SLF4J(http://www.slf4j.org/)
+5. juniversalchardet(https://code.google.com/p/juniversalchardet/)
