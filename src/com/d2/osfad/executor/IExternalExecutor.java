@@ -18,33 +18,72 @@
  */
 package com.d2.osfad.executor;
 
-import java.io.File;
+import java.util.List;
 
+import com.d2.osfad.exception.AlreadyRunThreadsException;
 import com.d2.osfad.main.ICallBack;
+
 /**
  * 
  * @author Chang
- * contains Executor & ThreadPool
+ * contains Executor & ThreadPool and manager
  *	Whenever, threads can be stopped.
  */
 public interface IExternalExecutor {
+
 /**
  * 
- * @param path a path to be searched
- * @param query a keyword to find
- * @param callback when a work is finished, call callback function 
+ * @param path: a path to be searched
+ * @param query: a keyword to find
+ * @param callback: when a work is finished, call callback function 
  */
-public abstract void findKeywordFromOneDirectory(String path,String query, ICallBack callback);
+void findKeywordFromOneDirectory(String path, String query, ICallBack callback)
+		throws AlreadyRunThreadsException;
+
 /**
- * this function find all sub directories. this is different from OneDirectory
+ * This function find all sub directories. this is different from OneDirectory
  * @param path
  * @param query
  * @param callback
  */
-public abstract void findKeywordFromAllDirectories(String path, String query, ICallBack callback);
+void findKeywordFromRecursiveDirectories(String path, String query, ICallBack callback)
+		throws AlreadyRunThreadsException;
 
-public abstract void shutdownExecutor();
+/**
+ * This function find keyword from one file
+ * @param filePath
+ * @param query
+ * @param callback
+ */
+void findKeywordfromOneDocument(String filePath, String query, ICallBack callback)
+		throws AlreadyRunThreadsException;
+
+/**
+ * This function find keyword from a list of files
+ * @param fileList
+ * @param query
+ * @param callback
+ */
+void findKeywordfromPathList(List<String> pathList, String query, ICallBack callback)
+		throws AlreadyRunThreadsException;
+
+/**
+ * Threads is shutdown
+ */
+void shutdownExecutor();
+
+/**
+ * Stop job of finding keyword
+ */
 void stopJobThread(); 
+
+/**
+ * Clear JobQueue
+ */
 void clearJobQueue();
+
+/**
+ * Clear ArgumentsHashMap
+ */
 void clearArgumentsHashMap();
 }

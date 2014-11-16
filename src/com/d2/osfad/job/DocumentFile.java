@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.nio.file.FileSystem;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,7 +84,6 @@ public class DocumentFile extends File {
 		}
 		sb.setLength(0);
 		return files.toArray(new DocumentFile[files.size()]);
-
 	}
 
 	/**
@@ -114,18 +114,19 @@ public class DocumentFile extends File {
 		return files.toArray(new DocumentFile[files.size()]);
 	}
 
+	
 	/**
 	 * File Extension Filter
 	 */
-	private int i = 0;
-	private int j = 0;
-	private EXTENSIONS[] extensions = EXTENSIONS.values();
-	private int numOfExtension = EXTENSIONS.values().length;
+	private static int i = 0;
+	private static int j = 0;
+	private static EXTENSIONS[] extensions = EXTENSIONS.values();
+	private static int numOfExtension = EXTENSIONS.values().length;
 
 	/**
 	 * target - file name check files extension
 	 */
-	public EXTENSIONS accept(String target) {
+	public static EXTENSIONS accept(String target) {
 		for (i = 0; i < numOfExtension; i++) {
 			for (j = 0; j < extensions[i].extension_count; j++) {
 				if (target.endsWith(extensions[i].extension[j])) {
@@ -134,5 +135,32 @@ public class DocumentFile extends File {
 			}
 		}
 		return null;
+	}
+	
+	public static DocumentFile[] listDocFiles(List<String> fileList) {
+		if(null == fileList) {
+			return new DocumentFile[]{};
+		}
+		final String ss[] = (String[])fileList.toArray(); //Error occur when request for wrong Path
+		ArrayList<DocumentFile> files = new ArrayList<DocumentFile>();
+		EXTENSIONS temp_extension;
+		for (String s : ss){
+			if ((temp_extension = accept(s)) != null) {
+				files.add(new DocumentFile(s, temp_extension));
+			}
+		}
+		return files.toArray(new DocumentFile[files.size()]);
+	}
+	
+	public static DocumentFile[] listDocFiles(String path) {
+		if(null == path) {
+			return new DocumentFile[]{};
+		}
+		ArrayList<DocumentFile> files = new ArrayList<DocumentFile>();
+		EXTENSIONS temp_extension;
+		if ((temp_extension = accept(path)) != null) {
+			files.add(new DocumentFile(path, temp_extension));
+		}
+		return files.toArray(new DocumentFile[files.size()]);
 	}
 }

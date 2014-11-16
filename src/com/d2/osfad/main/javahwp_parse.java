@@ -27,6 +27,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.file.FileSystem;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -59,9 +60,12 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import com.argo.hwp.HwpTextExtractor;
-import com.d2.osfad.executor.ExecutorWorkerDocument;
+import com.d2.osfad.exception.AlreadyRunThreadsException;
+import com.d2.osfad.executor.InternalExcutor;
+import com.d2.osfad.executor.ExternalExcutor;
 import com.d2.osfad.executor.IExternalExecutor;
 import com.d2.osfad.extractor.PlainTextExtractor;
+import com.d2.osfad.job.DocumentFile;
 
 public class javahwp_parse implements ICallBack {
 	protected static Logger log = LoggerFactory
@@ -79,15 +83,21 @@ public class javahwp_parse implements ICallBack {
 		// TODO Auto-generated method stub
 		// 파일 객체 생성 =
 		ICallBack callback = new javahwp_parse();
-		IExternalExecutor docexecutor = ExecutorWorkerDocument
-				.getSingleInstance();
+		IExternalExecutor docexecutor = new ExternalExcutor();
 		start = System.nanoTime();
-		docexecutor.findKeywordFromAllDirectories(
-						"resource3",
-						"최창원", callback);
+		try {
+			docexecutor.findKeywordFromOneDirectory(
+							"resource3",
+							"전형관리", callback);
+
+//			docexecutor.findKeywordfromOneDocument(
+//							"D:\\11work\\workspaceJava\\OneSearchFindAllDocuments\\resource3\\지원자 페이지 문서.hwp",
+//							"전형관리", callback);
+		} catch (AlreadyRunThreadsException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
-//		 docexecutor.findKeywordFromOneDirectory("resource4", "Reverse Engineering", callback);
-		 
 		try {
 			Thread.sleep(10000);
 			docexecutor.shutdownExecutor();
@@ -103,11 +113,17 @@ public class javahwp_parse implements ICallBack {
 	}
 
 	@Override
+	public void callbackResultList(Map<DocumentFile, List<Integer>> result) {
+		System.out.println("실행 결과 : "+result.keySet().toString());
+		//log.info("callback from Executor");
+	}
+	
+	@Override
 	public void callback() {
 		// TODO Auto-generated method stub
 		long end = System.nanoTime();
 		System.out.println("실행 시간 : " + (end - start) / 1000000000.0);
-		log.info("callback from Executor");
+//		log.info("callback from Executor");
 	}
 
 	private static void plaintextexample(){
@@ -332,5 +348,6 @@ public class javahwp_parse implements ICallBack {
 		}
 
 	}
+
 
 }

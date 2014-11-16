@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import com.argo.hwp.HwpTextExtractor;
 import com.d2.osfad.executor.AbstractInternalExecutor;
+import com.d2.osfad.executor.InternalExcutor;
 import com.d2.osfad.extractor.PlainTextExtractor;
 import com.d2.osfad.extractor.TikaTextExtractor;
 import com.d2.osfad.job.IJobItem.JOBID;
@@ -44,7 +45,6 @@ import com.search.algorithm.QS;
 public class WorkerFunctions implements Runnable {
 	protected static Logger log = LoggerFactory
 			.getLogger(WorkerFunctions.class);
-	public static boolean stopFunctionsFlag = false;
 	private AbstractInternalExecutor iexecutor = null;
 	private ConcurrentLinkedQueue<IJobItem> jobqueue = null; /* Executor's queue */
 	private final TikaTextExtractor tikaExtractor = new TikaTextExtractor();
@@ -55,7 +55,8 @@ public class WorkerFunctions implements Runnable {
 	}
 
 	@Override
-	public final void run() {
+	public final void run()
+	{
 		// TODO Auto-generated method stub
 		// .info("start...");
 		int startoff = 0;
@@ -71,10 +72,12 @@ public class WorkerFunctions implements Runnable {
 		final StringWriter writer = new StringWriter(4096);
 		final StringBuffer writer_bf = writer.getBuffer();
 		jobqueue = iexecutor.getQueue();
-		while ((tempItem = jobqueue.poll()) != null) {
+		while ((tempItem = jobqueue.poll()) != null && iexecutor.getStopFlag() != true) {
 			/**
-			 * 1) retrieve item and downcasting 2) select job from jobid 3) job
-			 * processing :)
+			 * operation process
+			 * 1) retrieve item and down casting
+			 * 2) select job from job id
+			 * 3) job processing :)
 			 */
 			jobid = tempItem.getJobId();
 			switch (jobid) {
@@ -86,18 +89,18 @@ public class WorkerFunctions implements Runnable {
 				startoff = item.startOff;
 				endoff = item.endOff;
 				fileList = (DocumentFile[]) item.getFileList();
-				for (int i = startoff; i < endoff; i++) {
+				for (int i = startoff; i < endoff && iexecutor.getStopFlag() != true; i++) {
 					switch (fileList[i].extension) {
 					case HWP: {
 						log.info("[HWP] "+fileList[i].getName());
 						try {
-							
+
 							if (HwpTextExtractor.extract(fileList[i], writer)) {
 								keywordList = QS.qs.findAll(writer.toString());
 								if (keywordList.size() > 0){
 									log.info("[OK Found] "+
 											fileList[i].getName() + ", " + keywordList.toString());
-									result++;
+									iexecutor.notifyAddResult(fileList[i], keywordList);
 								}
 							}
 						} catch (FileNotFoundException e) {
@@ -106,72 +109,103 @@ public class WorkerFunctions implements Runnable {
 							// TODO Auto-generated catch block
 							log.error(e.toString());
 						} finally {
+							result++;
 						}
 						break;
 					}
 					case DOC: {
 						log.info("[DOC] "+fileList[i].getName());
-						if(tikaExtractor.extract(fileList[i])){
-							keywordList = QS.qs.findAll(tikaExtractor.getExtractText());
-							if (keywordList.size() > 0){
-								log.info("[OK Found] "+
-										fileList[i].getName() + ", " + keywordList.toString());
-								result++;
+						try{
+							if(tikaExtractor.extract(fileList[i])){
+								keywordList = QS.qs.findAll(tikaExtractor.getExtractText());
+								if (keywordList.size() > 0){
+									log.info("[OK Found] "+
+											fileList[i].getName() + ", " + keywordList.toString());
+									iexecutor.notifyAddResult(fileList[i], keywordList);
+								}
 							}
+						}catch(Exception e) {
+
+						}finally {
+							result++;
 						}
 						break;
 					}
 					case PPT: {
 						log.info("[PPT] "+fileList[i].getName());
-						if(tikaExtractor.extract(fileList[i])){
-							keywordList = QS.qs.findAll(tikaExtractor.getExtractText());
-							if (keywordList.size() > 0){
-								log.info("[OK Found] "+
-										fileList[i].getName() + ", " + keywordList.toString());
-								result++;
+						try{
+							if(tikaExtractor.extract(fileList[i])){
+								keywordList = QS.qs.findAll(tikaExtractor.getExtractText());
+								if (keywordList.size() > 0){
+									log.info("[OK Found] "+
+											fileList[i].getName() + ", " + keywordList.toString());
+									iexecutor.notifyAddResult(fileList[i], keywordList);
+								}
 							}
+						}catch(Exception e) {
+
+						}finally {
+							result++;
 						}
-						
+
 						break;
 					}
 					case EXCEL: {
 						log.info("[EXCEL] "+fileList[i].getName());
-						if(tikaExtractor.extract(fileList[i])){
-							keywordList = QS.qs.findAll(tikaExtractor.getExtractText());
-							if (keywordList.size() > 0){
-								log.info("[OK Found] "+
-										fileList[i].getName() + ", " + keywordList.toString());
-								result++;
+						try{
+							if(tikaExtractor.extract(fileList[i])){
+								keywordList = QS.qs.findAll(tikaExtractor.getExtractText());
+								if (keywordList.size() > 0){
+									log.info("[OK Found] "+
+											fileList[i].getName() + ", " + keywordList.toString());
+									iexecutor.notifyAddResult(fileList[i], keywordList);
+								}
 							}
+						}catch(Exception e) {
+
+						}finally {
+							result++;
 						}
 						break;
 					}
 					case TEXT: {
 						log.info("[TEXT] "+fileList[i].getName());
-						if(textExtractor.extract(fileList[i], writer)){
-							keywordList = QS.qs.findAll(writer.toString());
-							if (keywordList.size() > 0){
-								log.info("[OK Found] "+
-										fileList[i].getName() + ", " + keywordList.toString());
-								result++;
+						try{
+							if(textExtractor.extract(fileList[i], writer)){
+								keywordList = QS.qs.findAll(writer.toString());
+								if (keywordList.size() > 0){
+									log.info("[OK Found] "+
+											fileList[i].getName() + ", " + keywordList.toString());
+									iexecutor.notifyAddResult(fileList[i], keywordList);
+								}
 							}
+						}catch(Exception e) {
+
+						}finally {
+							result++;
 						}
 						break;
 					}
 					case PDF: {
 						log.info("[PDF] "+fileList[i].getName());
-						if(tikaExtractor.extract(fileList[i])){
-							keywordList = QS.qs.findAll(tikaExtractor.getExtractText());
-							if (keywordList.size() > 0){
-								log.info("[OK Found] "+
-										fileList[i].getName() + ", " + keywordList.toString());
-								result++;
+						try{
+							if(tikaExtractor.extract(fileList[i])){
+								keywordList = QS.qs.findAll(tikaExtractor.getExtractText());
+								if (keywordList.size() > 0){
+									log.info("[OK Found] "+
+											fileList[i].getName() + ", " + keywordList.toString());
+									iexecutor.notifyAddResult(fileList[i], keywordList);
+								}
 							}
+						}catch(Exception e) {
+
+						}finally {
+							result++;
 						}
 						break;
 					}
 					default: {
-
+						result++;
 					}
 					}
 
@@ -186,8 +220,8 @@ public class WorkerFunctions implements Runnable {
 					 * write.getBuffer()..delete(0, bf.length()); /* another
 					 * method to clear buffer
 					 */
-
 				}
+				
 				/*
 				 * try { Thread.sleep(1); } catch (InterruptedException e) { //
 				 * TODO Auto-generated catch block e.printStackTrace(); }
@@ -201,7 +235,9 @@ public class WorkerFunctions implements Runnable {
 			// TODO Auto-generated catch block
 			log.debug("IOException StringWriter");
 		}
-		iexecutor.notifyJobFinish(result);
+
+		iexecutor.notifyJobFinish(1);
+		
 		return;
 	}
 }

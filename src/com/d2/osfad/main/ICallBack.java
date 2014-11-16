@@ -18,6 +18,12 @@
  */
 package com.d2.osfad.main;
 
+import java.util.List;
+import java.util.Map;
+
+import com.d2.osfad.job.DocumentFile;
+
 public interface ICallBack {
 void callback();
+void callbackResultList(Map<DocumentFile,List<Integer>> result);
 }
