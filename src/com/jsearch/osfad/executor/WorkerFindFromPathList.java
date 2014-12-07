@@ -1,4 +1,4 @@
-package com.d2.osfad.executor;
+package com.jsearch.osfad.executor;
 
 public class WorkerFindFromPathList implements Runnable{
 

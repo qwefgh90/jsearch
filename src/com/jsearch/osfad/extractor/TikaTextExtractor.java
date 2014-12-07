@@ -19,7 +19,7 @@
 /**
  * 
  */
-package com.d2.osfad.extractor;
+package com.jsearch.osfad.extractor;
 
 import java.io.File;
 import java.io.FileNotFoundException;

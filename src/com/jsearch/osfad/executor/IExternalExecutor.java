@@ -16,12 +16,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with OSFAD.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.d2.osfad.executor;
+package com.jsearch.osfad.executor;
 
 import java.util.List;
 
-import com.d2.osfad.exception.AlreadyRunThreadsException;
-import com.d2.osfad.main.ICallBack;
+import com.jsearch.osfad.exception.AlreadyRunThreadsException;
+import com.jsearch.osfad.main.ICallBack;
 
 /**
  * 
@@ -67,6 +67,7 @@ void findKeywordfromOneDocument(String filePath, String query, ICallBack callbac
 void findKeywordfromPathList(List<String> pathList, String query, ICallBack callback)
 		throws AlreadyRunThreadsException;
 
+
 /**
  * Threads is shutdown
  */
@@ -75,7 +76,7 @@ void shutdownExecutor();
 /**
  * Stop job of finding keyword
  */
-void stopJobThread(); 
+void stopWork(); 
 
 /**
  * Clear JobQueue

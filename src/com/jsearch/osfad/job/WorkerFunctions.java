@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with OSFAD.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.d2.osfad.job;
+package com.jsearch.osfad.job;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,11 +29,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.argo.hwp.HwpTextExtractor;
-import com.d2.osfad.executor.AbstractInternalExecutor;
-import com.d2.osfad.executor.InternalExcutor;
-import com.d2.osfad.extractor.PlainTextExtractor;
-import com.d2.osfad.extractor.TikaTextExtractor;
-import com.d2.osfad.job.IJobItem.JOBID;
+import com.jsearch.osfad.executor.AbstractInternalExecutor;
+import com.jsearch.osfad.executor.InternalExcutor;
+import com.jsearch.osfad.extractor.PlainTextExtractor;
+import com.jsearch.osfad.extractor.TikaTextExtractor;
+import com.jsearch.osfad.job.IJobItem.JOBID;
 import com.search.algorithm.QS;
 
 /**

@@ -16,12 +16,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with OSFAD.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.d2.osfad.main;
+package com.jsearch.osfad.main;
 
 import java.util.List;
 import java.util.Map;
 
-import com.d2.osfad.job.DocumentFile;
+import com.jsearch.osfad.job.DocumentFile;
 
 public interface ICallBack {
 void callback();

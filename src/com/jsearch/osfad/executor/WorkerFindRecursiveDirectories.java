@@ -16,45 +16,50 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with OSFAD.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.d2.osfad.executor;
+/**
+ * 
+ */
+package com.jsearch.osfad.executor;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.d2.osfad.executor.AbstractInternalExecutor.argumentsEnum;
-import com.d2.osfad.job.DocumentFile;
-import com.d2.osfad.job.IJobItem;
-import com.d2.osfad.job.JobItemFile;
+import com.jsearch.osfad.exception.EmptyDirectoryException;
+import com.jsearch.osfad.executor.AbstractInternalExecutor.argumentsEnum;
+import com.jsearch.osfad.job.DocumentFile;
+import com.jsearch.osfad.job.IJobItem;
+import com.jsearch.osfad.job.JobItemFile;
+import com.jsearch.osfad.job.SFileFilter;
 import com.search.algorithm.QS;
 
 
 /**
- * implementions of Callable Interface
- * Find Document Class (hwp, doc, ...)
- * @author Chang
- *
+ * 
+ * @author changchang
+ * Contain worker thread control function 
+ * This operates on thread
  */
-public class WorkerFindFromOneDirectory implements Runnable {
+public class WorkerFindRecursiveDirectories implements Runnable{
 	protected static Logger log = LoggerFactory.getLogger(WorkerFindFromOneDirectory.class);
 	private ConcurrentLinkedQueue<IJobItem> jobQueue = null;						/* Executor's queue */
 	private HashMap<argumentsEnum,Object> arguments = null;
-	private AbstractInternalExecutor iexecutor = null;
-	public WorkerFindFromOneDirectory(AbstractInternalExecutor iexecutor){
-		this.iexecutor = iexecutor;
+	private AbstractInternalExecutor internalExecutor = null;
+	public WorkerFindRecursiveDirectories(AbstractInternalExecutor internalExecutor)
+	{
+		this.internalExecutor = internalExecutor;
 	}
 	@Override
-	public void run(){
+	public void run() {
 		// TODO Auto-generated method stub
 		final int maxThreadCount;
 		final int arrOffset;
 		final int remainder;
 		final File[] foundfiles;
-		final DocumentFile directory;
+		final String directoryPath;
 		/**
 		 * 1)initiate arguments & queue & directory
 		 * 2)fetch fileList to match extensions
@@ -62,12 +67,12 @@ public class WorkerFindFromOneDirectory implements Runnable {
 		 * 4)call findKeyword function
 		 */
 		if(jobQueue==null)															/* queue ready */
-			jobQueue = iexecutor.getQueue();
-		arguments = (HashMap<argumentsEnum,Object>)iexecutor.getArguments();
+			jobQueue = internalExecutor.getQueue();
+		arguments = (HashMap<argumentsEnum,Object>)internalExecutor.getArguments();
 		maxThreadCount = (Integer)arguments.get(argumentsEnum.THREAD_COUNT);
-		directory = (DocumentFile)arguments.get(argumentsEnum.DIRECTORY_PATH);
+		directoryPath = (String)arguments.get(argumentsEnum.DIRECTORY_PATH);
 		QS.qs = QS.compile((String) arguments.get(argumentsEnum.KEYWORD));			/* static initialize */
-		foundfiles = directory.listDocFiles();
+		foundfiles = DocumentFile.listDocFilesFromRecursive(directoryPath);
 		/**
 		 * offer job into queue
 		 */
@@ -76,13 +81,15 @@ public class WorkerFindFromOneDirectory implements Runnable {
 			 * divide algorithm
 			 * 0~15(count)
 			 * thread Count :4
-			 * 0~4, 4~8, 8~12 (less than end number)
+			 * 0~4, 4~8, 8~12 (less than greater number)
 			 * --> 8~12 + remainder(3 = 15%4)
 			 * 0~4, 4~8, 8~15
 			 */
 			arrOffset = foundfiles.length/maxThreadCount;		/* example len: 11, count: 2 ...0: 0~5, 1: 5~10*/
 			remainder = foundfiles.length%maxThreadCount;		/* remainder */
 			if (arrOffset != 0) {
+				log.debug("arrOffset == " + arrOffset);
+				log.debug("remainder == " + remainder);
 				for (int i = 0; i < maxThreadCount; i++) {
 					log.info((arrOffset * i) +" ~ "+ ((arrOffset * (i + 1)) + remainder));
 					if (i == maxThreadCount - 1) {				/* if this is a final jobItem */
@@ -104,15 +111,20 @@ public class WorkerFindFromOneDirectory implements Runnable {
 			}
 		}else{
 			log.error("Not Find Error");
+			try {
+				throw new EmptyDirectoryException();
+			} catch (EmptyDirectoryException e) {
+				e.printStackTrace();
+			}
 		}
 		/**
 		 * execute document functions through callback
 		 */
 		if(foundfiles!=null)
-			iexecutor.findKeywordFromOneDirectoryInternalCallback(foundfiles.length);	
+			internalExecutor.findKeywordFromOneDirectoryInternalCallback(foundfiles.length);	
 		else
-			iexecutor.findKeywordFromOneDirectoryInternalCallback(0);			
-		iexecutor.notifyJobFinish(0);
+			internalExecutor.findKeywordFromOneDirectoryInternalCallback(0);
+		internalExecutor.notifyJobFinish(0);
 		return;
 	}
 }

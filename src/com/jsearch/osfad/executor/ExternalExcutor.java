@@ -1,9 +1,9 @@
-package com.d2.osfad.executor;
+package com.jsearch.osfad.executor;
 
 import java.util.List;
 
-import com.d2.osfad.exception.AlreadyRunThreadsException;
-import com.d2.osfad.main.ICallBack;
+import com.jsearch.osfad.exception.AlreadyRunThreadsException;
+import com.jsearch.osfad.main.ICallBack;
 
 public class ExternalExcutor implements IExternalExecutor{
 	
@@ -51,7 +51,7 @@ public class ExternalExcutor implements IExternalExecutor{
 	}
 
 	@Override
-	public void stopJobThread() {
+	public void stopWork() {
 		// TODO Auto-generated method stub
 		internalExcutor.internalStopJobThread();
 	}
@@ -67,5 +67,6 @@ public class ExternalExcutor implements IExternalExecutor{
 		// TODO Auto-generated method stub
 		internalExcutor.internalClearArgumentsHashMap();
 	}
+
 
 }

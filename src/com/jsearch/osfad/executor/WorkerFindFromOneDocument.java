@@ -1,4 +1,4 @@
-package com.d2.osfad.executor;
+package com.jsearch.osfad.executor;
 
 import java.io.File;
 import java.util.HashMap;
@@ -7,11 +7,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.d2.osfad.executor.AbstractInternalExecutor.argumentsEnum;
-import com.d2.osfad.job.DocumentFile;
-import com.d2.osfad.job.IJobItem;
-import com.d2.osfad.job.JobItemFile;
-import com.d2.osfad.job.SFileFilter.EXTENSIONS;
+import com.jsearch.osfad.executor.AbstractInternalExecutor.argumentsEnum;
+import com.jsearch.osfad.job.DocumentFile;
+import com.jsearch.osfad.job.IJobItem;
+import com.jsearch.osfad.job.JobItemFile;
+import com.jsearch.osfad.job.SFileFilter.EXTENSIONS;
 import com.search.algorithm.QS;
 
 public class WorkerFindFromOneDocument implements Runnable {
@@ -30,7 +30,7 @@ public class WorkerFindFromOneDocument implements Runnable {
 	{
 		final int maxThreadCount;
 		final String filePath;
-		final DocumentFile[] file;
+		final DocumentFile[] files;
 		/*
 		 * 1)create document file object
 		 * 2)create job item
@@ -42,11 +42,11 @@ public class WorkerFindFromOneDocument implements Runnable {
 		arguments = (HashMap<argumentsEnum,Object>)iexecutor.getArguments();
 		maxThreadCount = (Integer)arguments.get(argumentsEnum.THREAD_COUNT);
 		filePath = (String)arguments.get(argumentsEnum.FILE_PATH);
-		file = DocumentFile.listDocFiles(filePath);
+		files = DocumentFile.listDocFiles(filePath);
 		QS.qs = QS.compile((String) arguments.get(argumentsEnum.KEYWORD));			/* static initialize */
 		
-		if(null != file && file.length == 1) {
-			jobQueue.offer(new JobItemFile(file, 0, 1));
+		if(null != files && files.length == 1) {
+			jobQueue.offer(new JobItemFile(files, 0, 1));
 		} else {
 			log.error("Not Find Error");
 		}
@@ -54,8 +54,8 @@ public class WorkerFindFromOneDocument implements Runnable {
 		/**
 		 * execute document functions through callback
 		 */
-		if(null != file)
-			iexecutor.findKeywordFromOneDirectoryInternalCallback(file.length);	
+		if(null != files)
+			iexecutor.findKeywordFromOneDirectoryInternalCallback(files.length);	
 		else
 			iexecutor.findKeywordFromOneDirectoryInternalCallback(0);			
 		iexecutor.notifyJobFinish(0);

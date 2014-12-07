@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with OSFAD.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.d2.osfad.main;
+package com.jsearch.osfad.main;
 //Your Goal : Make Search Process for Metadata - like sort by name, date, etc...
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -60,12 +60,12 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 import com.argo.hwp.HwpTextExtractor;
-import com.d2.osfad.exception.AlreadyRunThreadsException;
-import com.d2.osfad.executor.InternalExcutor;
-import com.d2.osfad.executor.ExternalExcutor;
-import com.d2.osfad.executor.IExternalExecutor;
-import com.d2.osfad.extractor.PlainTextExtractor;
-import com.d2.osfad.job.DocumentFile;
+import com.jsearch.osfad.exception.AlreadyRunThreadsException;
+import com.jsearch.osfad.executor.ExternalExcutor;
+import com.jsearch.osfad.executor.IExternalExecutor;
+import com.jsearch.osfad.executor.InternalExcutor;
+import com.jsearch.osfad.extractor.PlainTextExtractor;
+import com.jsearch.osfad.job.DocumentFile;
 
 public class javahwp_parse implements ICallBack {
 	protected static Logger log = LoggerFactory
@@ -86,13 +86,17 @@ public class javahwp_parse implements ICallBack {
 		IExternalExecutor docexecutor = new ExternalExcutor();
 		start = System.nanoTime();
 		try {
-			docexecutor.findKeywordFromOneDirectory(
+/*			docexecutor.findKeywordFromRecursiveDirectories(
 							"resource3",
 							"전형관리", callback);
-
-//			docexecutor.findKeywordfromOneDocument(
-//							"D:\\11work\\workspaceJava\\OneSearchFindAllDocuments\\resource3\\지원자 페이지 문서.hwp",
-//							"전형관리", callback);
+	*/
+/*			docexecutor.findKeywordFromOneDirectory(
+					"resource3",
+					"전형관리", callback);
+*/
+			docexecutor.findKeywordfromOneDocument(
+							"D:\\11work\\workspaceJava\\OneSearchFindAllDocuments\\resource3\\지원자 페이지 문서.hwp",
+							"전형관리", callback);
 		} catch (AlreadyRunThreadsException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

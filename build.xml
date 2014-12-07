@@ -12,7 +12,7 @@
 	<property name="source" value="1.6" />
 	<property name="CLASS_HOME" value="build/classes" />
 	<property name="JAR_HOME" value="build/jar" />
-	<property name="main_class" value="com.d2.osfad.main.javahwp_parse" />
+	<property name="main_class" value="com.jsearch.osfad.main.javahwp_parse" />
 	<path id="JUnit 4.libraryclasspath">
 		<pathelement location="${ECLIPSE_HOME}/plugins/org.junit_4.11.0.v201303080030/junit.jar" />
 		<pathelement location="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.3.0.v201303031735.jar" />

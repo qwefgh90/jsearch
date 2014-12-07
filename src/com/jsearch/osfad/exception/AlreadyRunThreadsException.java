@@ -1,4 +1,4 @@
-package com.d2.osfad.exception;
+package com.jsearch.osfad.exception;
 
 public class AlreadyRunThreadsException extends Exception {
 

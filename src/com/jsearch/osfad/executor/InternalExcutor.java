@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with OSFAD.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.d2.osfad.executor;
+package com.jsearch.osfad.executor;
 
 import java.io.File;
 import java.util.HashMap;
@@ -33,15 +33,14 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.d2.osfad.exception.AlreadyRunThreadsException;
-import com.d2.osfad.job.DocumentFile;
-import com.d2.osfad.job.IJobItem;
-import com.d2.osfad.job.WorkerFunctions;
-import com.d2.osfad.main.ICallBack;
+import com.jsearch.osfad.exception.AlreadyRunThreadsException;
+import com.jsearch.osfad.job.DocumentFile;
+import com.jsearch.osfad.job.IJobItem;
+import com.jsearch.osfad.job.WorkerFunctions;
+import com.jsearch.osfad.main.ICallBack;
 
 public class InternalExcutor extends AbstractInternalExecutor{
 	public final static int SCALE_FACTOR = 2; /* a factor of count of threads */
-	public boolean stopFlag = false;
 	protected static Logger log = LoggerFactory
 			.getLogger(InternalExcutor.class);
 	int threadCount; 						/* total thread count */
@@ -154,7 +153,7 @@ public class InternalExcutor extends AbstractInternalExecutor{
 		clear();
 		setCallback(callback);
 		arguments.put(argumentsEnum.KEYWORD, query);
-		arguments.put(argumentsEnum.DIRECTORY_PATH, new DocumentFile(path));
+		arguments.put(argumentsEnum.DIRECTORY_PATH, path);
 		arguments.put(argumentsEnum.THREAD_COUNT, threadCount);
 		setArguments(arguments);
 		jobExecutor.execute(workerFindFromRecursiveDirectories);
@@ -191,36 +190,11 @@ public class InternalExcutor extends AbstractInternalExecutor{
 		jobExecutor.shutdown();
 	}
 
-	@Override
-	public final void internalStopJobThread() {
-		// TODO Auto-generated method stub
-		setStopFlag(true);
-	}
-	
-	int endThreadsCount = 0;	//when process start, save processed documents count
-	int totalDocumentCount = 0;	//when process start, save total document count
-	Map<DocumentFile,List<Integer>> resultMap = new HashMap<DocumentFile,List<Integer>>();
-	
-	@Override
-	public void internalClearJobState() {
-		totalDocumentCount = 0;	//we can restart
-		endThreadsCount = 0;	//end thread Count
-		resultMap.clear();	//we can restart
-		setStopFlag(false);	//we can restart
-	}
-	
-	@Override
-	public void clear() {
-		internalClearJobState();	//clear thread & count value 
-		internalClearJobQueue();	//clear queue
-		internalClearArgumentsHashMap();	//clear arguments
-	}
 	
 	// Implements of InternalExecutor class at bottom --
 	@Override
 	public final void findKeywordFromOneDirectoryInternalCallback(int documentCount) {
 		// TODO Auto-generated method stub
-		this.totalDocumentCount = documentCount;
 		for (int i = 0; i < threadCount; i++) {
 			jobExecutor.execute(workerFunctions[i]);
 		}
@@ -247,18 +221,10 @@ public class InternalExcutor extends AbstractInternalExecutor{
 		if (callback != null) {
 			callback.callback();
 			callback.callbackResultList(new HashMap<DocumentFile, List<Integer>>(resultMap));
+			callback = null;	// finish call callback function
 		}
 	}
 	// Implements of InternalExecutor class at top --
 
-	@Override
-	public synchronized boolean getStopFlag() {
-		return stopFlag;
-	}
-
-	@Override
-	public synchronized void setStopFlag(boolean stopFlag) {
-		this.stopFlag = stopFlag;
-	}
 
 }
