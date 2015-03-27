@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>java-hwp-chang</name>
+	<name>jSearch</name>
 	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>org.python.pydev.PyDevBuilder</name>
+			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.jdt.core.javabuilder</name>
+			<name>org.eclipse.m2e.core.maven2Builder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
-		<nature>org.python.pydev.pythonNature</nature>
+		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 	</natures>
 </projectDescription>
