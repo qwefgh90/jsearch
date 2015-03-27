@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with OSFAD.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.jsearch.osfad.job;
+package com.jsearch.osfad.executor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,10 +29,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.argo.hwp.HwpTextExtractor;
-import com.jsearch.osfad.executor.AbstractInternalExecutor;
-import com.jsearch.osfad.executor.InternalExcutor;
 import com.jsearch.osfad.extractor.PlainTextExtractor;
 import com.jsearch.osfad.extractor.TikaTextExtractor;
+import com.jsearch.osfad.job.DocumentFile;
+import com.jsearch.osfad.job.IJobItem;
+import com.jsearch.osfad.job.JobItemFile;
 import com.jsearch.osfad.job.IJobItem.JOBID;
 import com.search.algorithm.QS;
 
@@ -45,12 +46,12 @@ import com.search.algorithm.QS;
 public class WorkerFunctions implements Runnable {
 	protected static Logger log = LoggerFactory
 			.getLogger(WorkerFunctions.class);
-	private AbstractInternalExecutor iexecutor = null;
+	private AInternalExecutor iexecutor = null;
 	private ConcurrentLinkedQueue<IJobItem> jobqueue = null; /* Executor's queue */
 	private final TikaTextExtractor tikaExtractor = new TikaTextExtractor();
 	private final PlainTextExtractor textExtractor = new PlainTextExtractor();
 	private int result = 0;
-	public WorkerFunctions(AbstractInternalExecutor iexecutor) {
+	public WorkerFunctions(AInternalExecutor iexecutor) {
 		this.iexecutor = iexecutor;
 	}
 

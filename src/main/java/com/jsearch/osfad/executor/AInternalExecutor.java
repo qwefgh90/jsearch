@@ -28,7 +28,7 @@ import com.jsearch.osfad.job.DocumentFile;
 import com.jsearch.osfad.job.IJobItem;
 import com.jsearch.osfad.main.ICallBack;
 
-public abstract class AbstractInternalExecutor {
+public abstract class AInternalExecutor {
 	public static enum argumentsEnum{DIRECTORY_PATH,THREAD_COUNT,KEYWORD,FILE_LIST,FILE_PATH};
 	protected int requestId = 0;						/* caller's request id */
 	protected ICallBack callback = null;				/* caller's callback when all jobs are finished */
@@ -43,7 +43,7 @@ public abstract class AbstractInternalExecutor {
 	 * with threads
 	 */
 
-	public AbstractInternalExecutor()
+	public AInternalExecutor()
 	{
 		jobQueue = new ConcurrentLinkedQueue<IJobItem>();
 		arguments = new HashMap<argumentsEnum,Object>();

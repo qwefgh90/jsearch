@@ -53,8 +53,6 @@ import org.xml.sax.SAXException;
 public class TikaTextExtractor {
 	protected static Logger log = LoggerFactory
 			.getLogger(TikaTextExtractor.class);
-	private final ParseContext context = new ParseContext();
-	private final Metadata metadata = new Metadata();
 	private final Parser parser = new AutoDetectParser();
 	private final StringWriter textWriter = new StringWriter();
 	private final StringBuffer textBuffer = textWriter.getBuffer();
@@ -65,6 +63,10 @@ public class TikaTextExtractor {
 	 * @return success
 	 */
 	public final boolean extract(File file) {
+		ParseContext context = new ParseContext();	//only 1-run 1-use, temporary object
+		Metadata metadata = new Metadata();			//only 1-run 1-use, temporary object
+		
+		textBuffer.setLength(0);
 		boolean success = false;
 		TikaInputStream input = null;
 		try {
@@ -74,9 +76,8 @@ public class TikaTextExtractor {
 			log.error(e.toString());
 		}
 		try {
-			textBuffer.setLength(0);
 			parser.parse(input, handler, metadata, context);
-			
+
 			success=true;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -101,7 +102,7 @@ public class TikaTextExtractor {
 		// log.info(xmlBuffer.toString());
 		return success;
 	}
-	
+
 	public final String getExtractText(){
 		return textWriter.toString();
 	}

@@ -1,25 +1,22 @@
 package com.jsearch.osfad;
 
-import java.net.URI;
-import java.net.URL;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
+import com.jsearch.osfad.HwpTest.Callback;
 import com.jsearch.osfad.exception.AlreadyRunThreadsException;
 import com.jsearch.osfad.executor.ExternalExcutor;
 import com.jsearch.osfad.executor.IExternalExecutor;
 import com.jsearch.osfad.job.DocumentFile;
 import com.jsearch.osfad.main.ICallBack;
-import com.jsearch.osfad.main.javahwp_parse;
 
-public class HwpTest {
-
+public class PDFTest {
 	/** Countdown latch */
 	private CountDownLatch lock = new CountDownLatch(1);
 	
@@ -31,20 +28,17 @@ public class HwpTest {
 		IExternalExecutor docexecutor = new ExternalExcutor();
 		try {
 			docexecutor.findKeywordfromOneDocument(
-					getClass().getResource("/HTTP.hwp").getFile().substring(1),
-					"파이프라이닝", callback);
+					getClass().getResource("/boot.pdf").getFile().substring(1),
+					"부트로더", callback);
 
-			lock.await(4000,TimeUnit.MILLISECONDS);
+			lock.await(3000,TimeUnit.MILLISECONDS);
+			
 			docexecutor.findKeywordfromOneDocument(
-					getClass().getResource("/malware_info.hwp").getFile().substring(1),
-					"스파이웨어", callback);
+					getClass().getResource("/javascript.pdf").getFile().substring(1),
+					"자바스크립트", callback);
 
-			lock.await(4000,TimeUnit.MILLISECONDS);
-			docexecutor.findKeywordfromOneDocument(
-					getClass().getResource("/VHD.hwp").getFile().substring(1),
-					"자식VHD", callback);
-			lock.await(4000,TimeUnit.MILLISECONDS);
-
+			lock.await(20000,TimeUnit.MILLISECONDS);
+			
 		} catch (AlreadyRunThreadsException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -67,4 +61,3 @@ public class HwpTest {
 
 	}
 }
-

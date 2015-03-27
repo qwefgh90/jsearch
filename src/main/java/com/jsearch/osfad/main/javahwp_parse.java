@@ -117,7 +117,6 @@ public class javahwp_parse implements ICallBack {
 		// TODO Auto-generated method stub
 		long end = System.nanoTime();
 		System.out.println("실행 시간 : " + (end - start) / 1000000000.0);
-//		log.info("callback from Executor");
 	}
 
 	private static void plaintextexample(){
@@ -183,10 +182,6 @@ public class javahwp_parse implements ICallBack {
 		parser.parse(input, handler, metadata, context);
 		log.info(textBuffer.toString()
 				+ "\n===============================\n\n\n");
-		// log.info(textMainBuffer.toString()+"\n===============================\n\n\n");
-		// log.info(htmlBuffer.toString()+"\n===============================\n\n\n");
-		// log.info(xmlBuffer.toString()+"\n===============================\n\n\n");
-
 	}
 
 	private static ContentHandler getTextContentHandler(Writer writer) {

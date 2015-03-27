@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.jsearch.osfad.executor.AbstractInternalExecutor.argumentsEnum;
+import com.jsearch.osfad.executor.AInternalExecutor.argumentsEnum;
 import com.jsearch.osfad.job.DocumentFile;
 import com.jsearch.osfad.job.IJobItem;
 import com.jsearch.osfad.job.JobItemFile;
@@ -16,10 +16,10 @@ import com.search.algorithm.QS;
 
 public class WorkerFindFromOneDocument implements Runnable {
 	protected static Logger log = LoggerFactory.getLogger(WorkerFindFromOneDocument.class);
-	AbstractInternalExecutor iexecutor = null;
+	AInternalExecutor iexecutor = null;
 	private ConcurrentLinkedQueue<IJobItem> jobQueue = null;						/* Executor's queue */
 	private HashMap<argumentsEnum,Object> arguments = null;
-	public WorkerFindFromOneDocument(AbstractInternalExecutor iexecutor)
+	public WorkerFindFromOneDocument(AInternalExecutor iexecutor)
 	{
 		super();
 		this.iexecutor = iexecutor;

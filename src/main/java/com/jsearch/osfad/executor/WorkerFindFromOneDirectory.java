@@ -26,7 +26,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.jsearch.osfad.executor.AbstractInternalExecutor.argumentsEnum;
+import com.jsearch.osfad.executor.AInternalExecutor.argumentsEnum;
 import com.jsearch.osfad.job.DocumentFile;
 import com.jsearch.osfad.job.IJobItem;
 import com.jsearch.osfad.job.JobItemFile;
@@ -43,8 +43,8 @@ public class WorkerFindFromOneDirectory implements Runnable {
 	protected static Logger log = LoggerFactory.getLogger(WorkerFindFromOneDirectory.class);
 	private ConcurrentLinkedQueue<IJobItem> jobQueue = null;						/* Executor's queue */
 	private HashMap<argumentsEnum,Object> arguments = null;
-	private AbstractInternalExecutor iexecutor = null;
-	public WorkerFindFromOneDirectory(AbstractInternalExecutor iexecutor){
+	private AInternalExecutor iexecutor = null;
+	public WorkerFindFromOneDirectory(AInternalExecutor iexecutor){
 		this.iexecutor = iexecutor;
 	}
 	

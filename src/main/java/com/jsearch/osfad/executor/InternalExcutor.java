@@ -36,10 +36,9 @@ import org.slf4j.LoggerFactory;
 import com.jsearch.osfad.exception.AlreadyRunThreadsException;
 import com.jsearch.osfad.job.DocumentFile;
 import com.jsearch.osfad.job.IJobItem;
-import com.jsearch.osfad.job.WorkerFunctions;
 import com.jsearch.osfad.main.ICallBack;
 
-public class InternalExcutor extends AbstractInternalExecutor{
+public class InternalExcutor extends AInternalExecutor{
 	public final static int SCALE_FACTOR = 2; /* a factor of count of threads */
 	protected static Logger log = LoggerFactory
 			.getLogger(InternalExcutor.class);
