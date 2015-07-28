@@ -171,8 +171,8 @@ public class WorkerFunctions implements Runnable {
 					case TEXT: {
 						log.info("[TEXT] "+fileList[i].getName());
 						try{
-							if(textExtractor.extract(fileList[i], writer)){
-								keywordList = QS.qs.findAll(writer.toString());
+							if(textExtractor.extract(fileList[i])){
+								keywordList = QS.qs.findAll(textExtractor.getText());
 								if (keywordList.size() > 0){
 									log.info("[OK Found] "+
 											fileList[i].getName() + ", " + keywordList.toString());

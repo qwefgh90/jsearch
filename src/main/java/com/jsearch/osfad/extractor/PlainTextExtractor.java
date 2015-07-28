@@ -52,26 +52,28 @@ public class PlainTextExtractor {
 
 	private final UniversalDetector detector = new UniversalDetector(null);
 
+	private StringWriter writer = new StringWriter();
+	private StringBuffer wbuffer = writer.getBuffer();
 	/**
 	 * 
 	 * @param file
 	 *            - target file
-	 * @param writer
-	 *            - text content
 	 * @return whether to be success
+	 * @throws IOException 
 	 */
-	public final boolean extract(File file, StringWriter writer) {
+	public final boolean extract(File file) throws IOException {
 		boolean success = false;
 		BufferedInputStream bis = null;
 		byte[] buffer = null;
 		int buffer_len = 0;
 		String detectedCharset = null;
+		wbuffer.setLength(0);
 //		log.info("[TEXT]" + file.getName());
 		try {
 			bis = new BufferedInputStream(new FileInputStream(file));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			log.error(e.toString());
+			throw e;
 		}
 		buffer_len = (int) file.length();
 		buffer = new byte[buffer_len];
@@ -80,6 +82,7 @@ public class PlainTextExtractor {
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			log.error(e1.toString());
+			throw e1;
 		}
 		try { /* BOM (Byte Order Mask) */
 			if (UTF_BOM.UTF_8.compare(buffer)) {
@@ -132,8 +135,13 @@ public class PlainTextExtractor {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			log.error(e.toString());
+			throw e;
 		}
 
 		return success;
+	}
+	public final String getText()
+	{
+		return writer.toString();
 	}
 }

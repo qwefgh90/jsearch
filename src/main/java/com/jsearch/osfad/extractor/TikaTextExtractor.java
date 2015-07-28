@@ -61,8 +61,9 @@ public class TikaTextExtractor {
 	 * 
 	 * @param file - office file
 	 * @return success
+	 * @throws IOException 
 	 */
-	public final boolean extract(File file) {
+	public final boolean extract(File file) throws IOException {
 		ParseContext context = new ParseContext();	//only 1-run 1-use, temporary object
 		Metadata metadata = new Metadata();			//only 1-run 1-use, temporary object
 		
@@ -82,6 +83,7 @@ public class TikaTextExtractor {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			log.error(e.toString());
+			throw e;
 		} catch (SAXException e) {
 			// TODO Auto-generated catch block
 			log.error(e.toString());

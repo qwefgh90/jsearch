@@ -119,29 +119,6 @@ public class javahwp_parse implements ICallBack {
 		System.out.println("실행 시간 : " + (end - start) / 1000000000.0);
 	}
 
-	private static void plaintextexample(){
-		PlainTextExtractor pte = new PlainTextExtractor();
-		File f = new File("E:\\11work\\workspaceJava\\Forked-One-Search-Find-All-Documents-1\\resource\\unicode_big.txt");
-		StringWriter writer = new StringWriter();
-		pte.extract(f, writer);
-		log.info(writer.toString());
-		f = new File("E:\\11work\\workspaceJava\\Forked-One-Search-Find-All-Documents-1\\resource\\utf-8.txt");
-		writer.getBuffer().setLength(0);
-		pte.extract(f, writer);
-		log.info(writer.toString());
-		f = new File("E:\\11work\\workspaceJava\\Forked-One-Search-Find-All-Documents-1\\resource\\unicode.txt");
-		writer.getBuffer().setLength(0);
-		pte.extract(f, writer);
-		log.info(writer.toString());
-		f = new File("E:\\11work\\workspaceJava\\Forked-One-Search-Find-All-Documents-1\\resource\\euc-kr.txt");
-		writer.getBuffer().setLength(0);
-		pte.extract(f, writer);
-		log.info(writer.toString());
-		f = new File("E:\\11work\\workspaceJava\\Forked-One-Search-Find-All-Documents-1\\resource\\utf-8_sublime.txt");
-		writer.getBuffer().setLength(0);
-		pte.extract(f, writer);
-		log.info(writer.toString());
-	}
 	
 	static ImageSavingParser imageParser = null;
 
