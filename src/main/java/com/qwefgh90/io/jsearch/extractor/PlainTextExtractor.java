@@ -95,18 +95,18 @@ public class PlainTextExtractor {
 		}
 		try { /* BOM (Byte Order Mask) */
 			if (UTF_BOM.UTF_8.compare(buffer)) {
-				log.info("UTF_8_BOM");
+				log.debug("UTF_8_BOM");
 				writer.append(new String(buffer, UTF_BOM.UTF_8.mark.length,
 						buffer.length - UTF_BOM.UTF_8.mark.length, Charset
 								.forName("UTF-8")));
 			} else if (UTF_BOM.UTF_16_LITTLE.compare(buffer)) {
-				log.info("UTF_16LE_BOM");
+				log.debug("UTF_16LE_BOM");
 				writer.append(new String(buffer,
 						UTF_BOM.UTF_16_LITTLE.mark.length, buffer.length
 								- UTF_BOM.UTF_8.mark.length, Charset
 								.forName("UTF-16LE")));
 			} else if (UTF_BOM.UTF_16_BIG.compare(buffer)) {
-				log.info("UTF_16BE_BOM");
+				log.debug("UTF_16BE_BOM");
 				writer.append(new String(buffer,
 						UTF_BOM.UTF_16_BIG.mark.length, buffer.length
 								- UTF_BOM.UTF_8.mark.length, Charset
@@ -115,7 +115,7 @@ public class PlainTextExtractor {
 				detector.handleData(buffer, 0, buffer_len);
 				detector.dataEnd();
 				detectedCharset = detector.getDetectedCharset();
-				log.info("NOT_BOM " + detectedCharset);
+				log.debug("NOT_BOM " + detectedCharset);
 
 				if (detectedCharset != null) { /* detected encoding */
 					writer.append(new String(buffer, Charset

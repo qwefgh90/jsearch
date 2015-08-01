@@ -182,7 +182,7 @@ public class JSearch {
 	public static List<File> getFileListContainsKeywordFromDirectory(String dirPath, String keyword, boolean recursive) throws IOException
 	{
 		if(recursive == false) 
-			getFileListContainsKeywordFromDirectory(dirPath, keyword);
+			return getFileListContainsKeywordFromDirectory(dirPath, keyword);
 
 		if(dirPath == null)
 			throw new NullPointerException("Please input file name.");

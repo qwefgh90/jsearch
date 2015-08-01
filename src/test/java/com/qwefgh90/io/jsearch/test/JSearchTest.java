@@ -56,7 +56,9 @@ public class JSearchTest {
 	public void findKeywordWithDirectoryTest() throws IOException
 	{
 		int size = JSearch.getFileListContainsKeywordFromDirectory(getClass().getResource("/").getFile(), "음성, 화상, 데이타 등과 같이").size();
+		LOG.info("[디렉토리 검색 중 1]");
 		int size2 = JSearch.getFileListContainsKeywordFromDirectory(getClass().getResource("/").getFile(), "음성, 화상, 데이타 등과 같이", false).size();
+		LOG.info("[디렉토리 검색 중 2]");
 		LOG.debug(String.valueOf(size));
 		assertTrue(size>0);
 		assertTrue(size == size2);
@@ -68,9 +70,9 @@ public class JSearchTest {
 	{
 		List<File> list = JSearch.getFileListContainsKeywordFromDirectory(
 				getClass().getResource("/").getFile()
-				, "Encoder/Decoder 구현이 필요없으며 잘 작성된 정의파일을 통해 하위 호환성을 확보할 수 있으며 Java, C++, Phython등 대부분의 언어에서 사용이 가능하다"
+				, "구현이 필요없으며 잘 작성된 정의파일을 통해 하위 호환성을 확보할 수 있으며 Java, C++, Phython등 대부분의 언어에서 사용이 가능하다"
 				, true);
-		LOG.debug(list.toString());
+		LOG.info(list.toString());
 		assertTrue(list.size() > 0);
 		LOG.info("[재귀적 디렉토리 검색 성공!]");
 	}
