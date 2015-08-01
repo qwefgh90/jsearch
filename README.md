@@ -1,4 +1,4 @@
-#JSearch (developing)
+#JSearch
 
 ## Overview
 JSearch is the open software to extract string and find keyword from HWP and Office format.
@@ -13,17 +13,22 @@ JSearch is the open software to extract string and find keyword from HWP and Off
 
 ## Class
 
-**JSearch**
+**Class JSearch**
 
-- **String extractContentsFromPath(String path)** - It returns contents or null (File version will be created)
-- **JSResult searchKeywordFromPath(String path, String keyword)** - It returns JSResult (File version will be created)
-- **List<JSResult> searchKeywordFromDirPath(String dirPath, String keyword, boolean recursive)** - It returns a list of JSResult
+public class **JSearch**
+extends java.lang.Object
+JSearch supports various types of documents with open source engines. 
+And this library contains 3 types of functions. extract...() and isContainsKeyword...() and getFileList...() 
 
-**JSResult**
+HWP, DOC, PPT, EXCEL, TEXT, PDF and UNKNOWN are supported.
 
-getter/setter is provided.
 
-- boolean result 
-- File target 
-- String requestKeyword 
-- int wordCount 
+| Modifier and Type        | Method and Description |
+| ------------- | -----|
+| static java.lang.String |	extractContentsFromFile(java.io.File target) <br><strong> extract string </strong> |
+| static java.lang.String |	extractContentsFromFile(java.lang.String filePath) <br><strong>  extract string </strong> |
+| static java.util.List<java.io.File> |	getFileListContainsKeywordFromDirectory(java.lang.String dirPath, java.lang.String keyword) <br><strong>  get a list of files which are containing keyword. </strong> |
+| static java.util.List<java.io.File> |	getFileListContainsKeywordFromDirectory(java.lang.String dirPath, java.lang.String keyword, boolean recursive) <br><strong>  get a list of files which are containing keyword. </strong> |
+| static boolean |	isContainsKeywordFromFile(java.io.File file, java.lang.String keyword) <br><strong>  get true or false about containing keyword. </strong> |
+| static boolean |	isContainsKeywordFromFile(java.lang.String filePath, java.lang.String keyword) <br><strong>  get true or false about containing keyword. </strong> |
+
