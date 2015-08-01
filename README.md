@@ -32,15 +32,3 @@ HWP, DOC, PPT, EXCEL, TEXT, PDF and UNKNOWN are supported.
 | static boolean |	isContainsKeywordFromFile(java.io.File file, java.lang.String keyword) <br><strong>  get true or false about containing keyword. </strong> |
 | static boolean |	isContainsKeywordFromFile(java.lang.String filePath, java.lang.String keyword) <br><strong>  get true or false about containing keyword. </strong> |
 
-
-Modifier and Type |	Method and Description
-static java.lang.String	extractContentsFromFile(java.io.File target) | extract string
-static java.lang.String	extractContentsFromFile(java.lang.String filePath) | extract string
-static java.util.List<java.io.File>	getFileListContainsKeywordFromDirectory(java.lang.String dirPath, java.lang.String keyword) | get a list of files which are containing keyword.
-static java.util.List<java.io.File>	getFileListContainsKeywordFromDirectory(java.lang.String dirPath, java.lang.String keyword, boolean recursive) | get a list of files which are containing keyword.
-static boolean	isContainsKeywordFromFile(java.io.File file, java.lang.String keyword) | get true or false about containing keyword.
-static boolean	isContainsKeywordFromFile(java.lang.String filePath, java.lang.String keyword) | get true or false about containing keyword.
-
-
-
-
