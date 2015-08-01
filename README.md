@@ -22,6 +22,17 @@ And this library contains 3 types of functions. extract...() and isContainsKeywo
 
 HWP, DOC, PPT, EXCEL, TEXT, PDF and UNKNOWN are supported.
 
+
+| Modifier and Type        | Method and Description |
+| ------------- | -----|
+| static java.lang.String |	extractContentsFromFile(java.io.File target) <br><strong> extract string </strong> |
+| static java.lang.String |	extractContentsFromFile(java.lang.String filePath) <br><strong>  extract string </strong> |
+| static java.util.List<java.io.File> |	getFileListContainsKeywordFromDirectory(java.lang.String dirPath, java.lang.String keyword) <br><strong>  get a list of files which are containing keyword. </strong> |
+| static java.util.List<java.io.File> |	getFileListContainsKeywordFromDirectory(java.lang.String dirPath, java.lang.String keyword, boolean recursive) <br><strong>  get a list of files which are containing keyword. </strong> |
+| static boolean |	isContainsKeywordFromFile(java.io.File file, java.lang.String keyword) <br><strong>  get true or false about containing keyword. </strong> |
+| static boolean |	isContainsKeywordFromFile(java.lang.String filePath, java.lang.String keyword) <br><strong>  get true or false about containing keyword. </strong> |
+
+
 Modifier and Type |	Method and Description
 static java.lang.String	extractContentsFromFile(java.io.File target) | extract string
 static java.lang.String	extractContentsFromFile(java.lang.String filePath) | extract string
