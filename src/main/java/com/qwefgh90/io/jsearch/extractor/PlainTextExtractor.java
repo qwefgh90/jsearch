@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.jsearch.osfad.extractor;
+package com.qwefgh90.io.jsearch.extractor;
 
 import java.io.BufferedInputStream;
 import java.io.File;

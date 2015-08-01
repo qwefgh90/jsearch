@@ -19,7 +19,7 @@
 /**
  * 
  */
-package com.jsearch.osfad.extractor;
+package com.qwefgh90.io.jsearch.extractor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -105,7 +105,7 @@ public class TikaTextExtractor {
 		return success;
 	}
 
-	public final String getExtractText(){
+	public final String getText(){
 		return textWriter.toString();
 	}
 

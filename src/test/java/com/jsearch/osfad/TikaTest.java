@@ -9,7 +9,7 @@ import org.apache.log4j.spi.LoggerFactory;
 import org.junit.Test;
 
 import com.googlecode.mp4parser.util.Logger;
-import com.jsearch.osfad.extractor.TikaTextExtractor;
+import com.qwefgh90.io.jsearch.extractor.TikaTextExtractor;
 
 
 public class TikaTest {
@@ -22,19 +22,21 @@ public class TikaTest {
 		TikaTextExtractor tika = new TikaTextExtractor();
 		File f = new File(getClass().getResource("/1234.ppt").getFile());
 		assertTrue(tika.extract(f));
-		assertTrue(tika.getExtractText().length() > 100);
-		LOG.debug(String.valueOf(tika.getExtractText().length()));
+		assertTrue(tika.getText().length() > 100);
+		LOG.debug(String.valueOf(tika.getText().length()));
 		
 		tika = new TikaTextExtractor();
 		f = new File(getClass().getResource("/1234.doc").getFile());
 		assertTrue(tika.extract(f));
-		assertTrue(tika.getExtractText().length() > 100);
-		LOG.debug(String.valueOf(tika.getExtractText().length()));
+		assertTrue(tika.getText().length() > 100);
+		LOG.debug(String.valueOf(tika.getText().length()));
 		
 		tika = new TikaTextExtractor();
 		f = new File(getClass().getResource("/1234.xlsx").getFile());
 		assertTrue(tika.extract(f));
-		assertTrue(tika.getExtractText().length() > 100);
-		LOG.debug(tika.getExtractText().length()+"");
+		assertTrue(tika.getText().length() > 100);
+		LOG.debug(tika.getText().length()+"");
+		
+		LOG.info("[티카 엔진 테스트 성공!]");
 	}
 }

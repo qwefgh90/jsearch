@@ -29,13 +29,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.argo.hwp.HwpTextExtractor;
-import com.jsearch.osfad.extractor.PlainTextExtractor;
-import com.jsearch.osfad.extractor.TikaTextExtractor;
 import com.jsearch.osfad.job.DocumentFile;
 import com.jsearch.osfad.job.IJobItem;
 import com.jsearch.osfad.job.JobItemFile;
 import com.jsearch.osfad.job.IJobItem.JOBID;
-import com.search.algorithm.QS;
+import com.qwefgh90.io.jsearch.algorithm.QS;
+import com.qwefgh90.io.jsearch.extractor.PlainTextExtractor;
+import com.qwefgh90.io.jsearch.extractor.TikaTextExtractor;
 
 /**
  * contains many functions find keyword, find meta data
@@ -117,7 +117,7 @@ public class WorkerFunctions implements Runnable {
 						log.info("[DOC] "+fileList[i].getName());
 						try{
 							if(tikaExtractor.extract(fileList[i])){
-								keywordList = QS.qs.findAll(tikaExtractor.getExtractText());
+								keywordList = QS.qs.findAll(tikaExtractor.getText());
 								if (keywordList.size() > 0){
 									log.info("[OK Found] "+
 											fileList[i].getName() + ", " + keywordList.toString());
@@ -135,7 +135,7 @@ public class WorkerFunctions implements Runnable {
 						log.info("[PPT] "+fileList[i].getName());
 						try{
 							if(tikaExtractor.extract(fileList[i])){
-								keywordList = QS.qs.findAll(tikaExtractor.getExtractText());
+								keywordList = QS.qs.findAll(tikaExtractor.getText());
 								if (keywordList.size() > 0){
 									log.info("[OK Found] "+
 											fileList[i].getName() + ", " + keywordList.toString());
@@ -154,7 +154,7 @@ public class WorkerFunctions implements Runnable {
 						log.info("[EXCEL] "+fileList[i].getName());
 						try{
 							if(tikaExtractor.extract(fileList[i])){
-								keywordList = QS.qs.findAll(tikaExtractor.getExtractText());
+								keywordList = QS.qs.findAll(tikaExtractor.getText());
 								if (keywordList.size() > 0){
 									log.info("[OK Found] "+
 											fileList[i].getName() + ", " + keywordList.toString());
@@ -190,7 +190,7 @@ public class WorkerFunctions implements Runnable {
 						log.info("[PDF] "+fileList[i].getName());
 						try{
 							if(tikaExtractor.extract(fileList[i])){
-								keywordList = QS.qs.findAll(tikaExtractor.getExtractText());
+								keywordList = QS.qs.findAll(tikaExtractor.getText());
 								if (keywordList.size() > 0){
 									log.info("[OK Found] "+
 											fileList[i].getName() + ", " + keywordList.toString());

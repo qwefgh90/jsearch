@@ -64,8 +64,8 @@ import com.jsearch.osfad.exception.AlreadyRunThreadsException;
 import com.jsearch.osfad.executor.ExternalExcutor;
 import com.jsearch.osfad.executor.IExternalExecutor;
 import com.jsearch.osfad.executor.InternalExcutor;
-import com.jsearch.osfad.extractor.PlainTextExtractor;
 import com.jsearch.osfad.job.DocumentFile;
+import com.qwefgh90.io.jsearch.extractor.PlainTextExtractor;
 
 public class javahwp_parse implements ICallBack {
 	protected static Logger log = LoggerFactory

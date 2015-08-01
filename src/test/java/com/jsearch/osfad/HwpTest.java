@@ -20,9 +20,9 @@ import com.jsearch.osfad.exception.AlreadyRunThreadsException;
 import com.jsearch.osfad.executor.ExternalExcutor;
 import com.jsearch.osfad.executor.IExternalExecutor;
 import com.jsearch.osfad.executor.WorkerFunctions;
-import com.jsearch.osfad.extractor.HwpTextExtractorWrapper;
 import com.jsearch.osfad.job.DocumentFile;
 import com.jsearch.osfad.main.ICallBack;
+import com.qwefgh90.io.jsearch.extractor.HwpTextExtractorWrapper;
 
 public class HwpTest {
 	protected static Logger LOG = LoggerFactory
@@ -35,6 +35,7 @@ public class HwpTest {
 		hwpEx.extract(new File(getClass().getResource("/HTTP.hwp").getFile()));
 		assertTrue(hwpEx.getText().length() > 0);
 		LOG.debug(String.valueOf(hwpEx.getText().length()));
+		LOG.info("[한글 엔진 테스트 성공!]");
 	}
 
 }

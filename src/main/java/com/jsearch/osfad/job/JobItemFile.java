@@ -20,7 +20,7 @@ package com.jsearch.osfad.job;
 
 import java.io.File;
 
-import com.search.algorithm.QS;
+import com.qwefgh90.io.jsearch.algorithm.QS;
 
 public class JobItemFile implements IJobItem {
 	public final JOBID id = JOBID.FINDKEYWORD;

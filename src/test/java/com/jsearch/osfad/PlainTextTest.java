@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.jsearch.osfad.extractor.PlainTextExtractor;
+import com.qwefgh90.io.jsearch.extractor.PlainTextExtractor;
 public class PlainTextTest {
 	
 	public static Logger LOG = LoggerFactory.getLogger(PlainTextTest.class);
@@ -22,6 +22,6 @@ public class PlainTextTest {
 		assertTrue(e.extract(new File(getClass().getResource("/1234.txt").getFile())));
 		assertTrue(e.getText().length()>0);
 		LOG.debug(String.valueOf(e.getText().length()));
-		LOG.debug(e.getText());
+		LOG.info("[평문 엔진 테스트 성공!]");
 	}
 }

@@ -1,10 +1,14 @@
-package com.search.algorithm;
+package com.qwefgh90.io.jsearch.algorithm;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class QS {
-	public static QS qs = null;
+	/**
+	 * useless 
+	 * --->
+	 */
+	public static QS qs = null;	
 	private static void preQsBc(char[] x, int qsBc[]) {
 		int i, m = x.length;
 
@@ -61,7 +65,17 @@ public class QS {
 
 		return result;
 	}
-	
+
+	/**
+	 * <<<-----
+	 * end of useless 
+	 */
+
+	/**
+	 * Thread Safe
+	 * @param pattern
+	 * @return
+	 */
 	public static QS compile(String pattern) {
 		char[] x = pattern.toCharArray();
 		int m = x.length;
@@ -96,13 +110,24 @@ public class QS {
 		return result;
 	}
 	
+	public boolean isExist(String source) {
+		char[] y = source.toCharArray();
+		int j, n = y.length;
+		
+		j = 0;
+		while (j < n - m) {
+			if (arrayCmp(x, 0, y, j, m) == 0)
+				return true;
+			j += qsBc[y[j + m]]; /* shift */
+		}
+		if(j == n - m && arrayCmp(x, 0, y, j, m) == 0)
+			return true;
+
+		return false;
+	}
+	
 	private char[] x;
 	private int m;
 	private int[] qsBc;
 	String pattern=null;
-	
-	public static void main(String[] s){
-		System.out.print(QS.findAll(""+'\uAC00', "helloabch��elloworldabc"));
-	}
-
 }

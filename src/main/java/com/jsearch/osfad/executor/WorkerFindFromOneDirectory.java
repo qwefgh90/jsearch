@@ -30,7 +30,7 @@ import com.jsearch.osfad.executor.AInternalExecutor.argumentsEnum;
 import com.jsearch.osfad.job.DocumentFile;
 import com.jsearch.osfad.job.IJobItem;
 import com.jsearch.osfad.job.JobItemFile;
-import com.search.algorithm.QS;
+import com.qwefgh90.io.jsearch.algorithm.QS;
 
 
 /**

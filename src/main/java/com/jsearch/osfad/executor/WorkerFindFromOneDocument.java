@@ -12,7 +12,7 @@ import com.jsearch.osfad.job.DocumentFile;
 import com.jsearch.osfad.job.IJobItem;
 import com.jsearch.osfad.job.JobItemFile;
 import com.jsearch.osfad.job.SFileFilter.EXTENSIONS;
-import com.search.algorithm.QS;
+import com.qwefgh90.io.jsearch.algorithm.QS;
 
 public class WorkerFindFromOneDocument implements Runnable {
 	protected static Logger log = LoggerFactory.getLogger(WorkerFindFromOneDocument.class);
