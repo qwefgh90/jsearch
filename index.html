@@ -19,10 +19,8 @@
     </section>
 
     <section class="main-content">
-      <hr>
-
-<h1>
-<a id="jsearch-developing" class="anchor" href="#jsearch-developing" aria-hidden="true"><span class="octicon octicon-link"></span></a>JSearch (developing)</h1>
+      <h1>
+<a id="jsearch" class="anchor" href="#jsearch" aria-hidden="true"><span class="octicon octicon-link"></span></a>JSearch</h1>
 
 <h2>
 <a id="overview" class="anchor" href="#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h2>
@@ -44,27 +42,55 @@
 <h2>
 <a id="class" class="anchor" href="#class" aria-hidden="true"><span class="octicon octicon-link"></span></a>Class</h2>
 
-<p><strong>JSearch</strong></p>
+<p><strong>Class JSearch</strong></p>
 
-<ul>
-<li>
-<strong>String extractContentsFromPath(String path)</strong> - It returns contents or null (File version will be created)</li>
-<li>
-<strong>JSResult searchKeywordFromPath(String path, String keyword)</strong> - It returns JSResult (File version will be created)</li>
-<li>
-<strong>List searchKeywordFromDirPath(String dirPath, String keyword, boolean recursive)</strong> - It returns a list of JSResult</li>
-</ul>
+<p>public class <strong>JSearch</strong>
+extends java.lang.Object
+JSearch supports various types of documents with open source engines. 
+And this library contains 3 types of functions. extract...() and isContainsKeyword...() and getFileList...() </p>
 
-<p><strong>JSResult</strong></p>
+<p>HWP, DOC, PPT, EXCEL, TEXT, PDF and UNKNOWN are supported.</p>
 
-<p>getter/setter is provided.</p>
-
-<ul>
-<li>boolean result </li>
-<li>File target </li>
-<li>String requestKeyword </li>
-<li>int wordCount </li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Modifier and Type</th>
+<th>Method and Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>static java.lang.String</td>
+<td>extractContentsFromFile(java.io.File target) <br><strong> extract string </strong>
+</td>
+</tr>
+<tr>
+<td>static java.lang.String</td>
+<td>extractContentsFromFile(java.lang.String filePath) <br><strong>  extract string </strong>
+</td>
+</tr>
+<tr>
+<td>static java.util.List</td>
+<td>getFileListContainsKeywordFromDirectory(java.lang.String dirPath, java.lang.String keyword) <br><strong>  get a list of files which are containing keyword. </strong>
+</td>
+</tr>
+<tr>
+<td>static java.util.List</td>
+<td>getFileListContainsKeywordFromDirectory(java.lang.String dirPath, java.lang.String keyword, boolean recursive) <br><strong>  get a list of files which are containing keyword. </strong>
+</td>
+</tr>
+<tr>
+<td>static boolean</td>
+<td>isContainsKeywordFromFile(java.io.File file, java.lang.String keyword) <br><strong>  get true or false about containing keyword. </strong>
+</td>
+</tr>
+<tr>
+<td>static boolean</td>
+<td>isContainsKeywordFromFile(java.lang.String filePath, java.lang.String keyword) <br><strong>  get true or false about containing keyword. </strong>
+</td>
+</tr>
+</tbody>
+</table>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/qwefgh90/JSearch">JSearch</a> is maintained by <a href="https://github.com/qwefgh90">qwefgh90</a>.</span>
