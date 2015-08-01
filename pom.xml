@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.jsearch.osfad</groupId>
-	<artifactId>jSearch</artifactId>
-	<version>0.9</version>
+	<groupId>com.qwefgh90.io.jsearch</groupId>
+	<artifactId>${project.artifactId}</artifactId>
+	<version>${project.version}</version>
 
 	<repositories>
 		<repository>
@@ -16,6 +16,8 @@
 	<properties>
 		<project.source.encoding>UTF-8</project.source.encoding>
 		<project.source.version>1.7</project.source.version>
+		<project.version>1.0</project.version>
+		<project.artifactId>JSearch</project.artifactId>
 	</properties>
 
 	<dependencies>
@@ -67,5 +69,26 @@
 		</dependency>
 
 	</dependencies>
-
+	<build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.7</version>
+	        <executions>
+	        <execution>
+	          <phase>package</phase>
+	          <goals>
+	            <goal>run</goal>
+	          </goals>
+	          <configuration>
+	            <tasks>
+	              <copy file="${project.basedir}/target/${project.artifactId}-${project.version}.jar"
+	                    tofile="${project.basedir}/${project.artifactId}-${project.version}.jar"/>
+	            </tasks>
+	          </configuration>
+	        </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>

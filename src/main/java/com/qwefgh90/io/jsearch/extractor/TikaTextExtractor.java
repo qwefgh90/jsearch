@@ -47,8 +47,18 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
 /**
+ * Office Extractor with Tika which is open source
+ * <br><br>
+ * <strong>process</strong>
+ * <ol>
+ * <li>
+ * call extract()
+ * </li>
+ * <li>
+ * call getText()
+ * </li>
+ * </ol>
  * @author Chang
- * 
  */
 public class TikaTextExtractor {
 	protected static Logger log = LoggerFactory
@@ -60,8 +70,8 @@ public class TikaTextExtractor {
 	/**
 	 * 
 	 * @param file - office file
-	 * @return success
-	 * @throws IOException 
+	 * @return boolean - success
+	 * @throws IOException - a problem of file. refer to a message.
 	 */
 	public final boolean extract(File file) throws IOException {
 		ParseContext context = new ParseContext();	//only 1-run 1-use, temporary object

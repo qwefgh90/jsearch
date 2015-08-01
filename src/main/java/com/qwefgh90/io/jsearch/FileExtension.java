@@ -1,5 +1,12 @@
 package com.qwefgh90.io.jsearch;
 
+/**
+ * This enum class represents various extensions and contains utility functions.
+ * <br><br>
+ * HWP, DOC, PPT, EXCEL, TEXT, PDF and UNKNOWN are supported.
+ * @author cheochangwon
+ *
+ */
 public enum FileExtension {
 	HWP(".hwp"), DOC(".docx",".doc"), PPT(".pptx", ".ppt"), EXCEL(".xls",".xlsx"), TEXT(".txt"), PDF(".pdf"), UNKNOWN("");
 	public String[] extension = null;

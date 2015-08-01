@@ -3,8 +3,22 @@ package com.qwefgh90.io.jsearch.algorithm;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is for Quick Search Algorithm.
+ * <br><br>
+ * <strong>process</strong>
+ * <ol>
+ * <li>
+ * compile your pattern
+ * </li>
+ * <li>
+ * call findAll() or isExist()
+ * </li>
+ * </ol>
+ * @author cheochangwon
+ */
 public class QS {
-	/**
+	/*
 	 * useless 
 	 * --->
 	 */
@@ -73,8 +87,8 @@ public class QS {
 
 	/**
 	 * Thread Safe
-	 * @param pattern
-	 * @return
+	 * @param pattern - keyword you want
+	 * @return QS - New QuickSeach object
 	 */
 	public static QS compile(String pattern) {
 		char[] x = pattern.toCharArray();

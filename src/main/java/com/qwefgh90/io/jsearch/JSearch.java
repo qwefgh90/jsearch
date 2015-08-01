@@ -17,10 +17,13 @@ import com.qwefgh90.io.jsearch.extractor.PlainTextExtractor;
 import com.qwefgh90.io.jsearch.extractor.TikaTextExtractor;
 
 /**
- * 
+ * JSearch supports various types of documents with open source engines.
+ * <br>
+ * And this library contains 3 types of functions.
+ * extract...() and isContainsKeyword...() and getFileList...()
+ * <br><br>
+ * HWP, DOC, PPT, EXCEL, TEXT, PDF and UNKNOWN are supported.
  * @author cheochangwon
- * support various types of documents with open source engines
- * hwp, pdf, office
  */
 public class JSearch {
 
@@ -112,10 +115,10 @@ public class JSearch {
 
 	/**
 	 * get true or false about containing keyword.
-	 * @param filePath
-	 * @param keyword
-	 * @return
-	 * @throws IOException
+	 * @param filePath - a filePath Document you want
+	 * @param keyword - a thing you want to find
+	 * @return boolean - if having keyword, return true
+	 * @throws IOException - a problem of file. refer to a message.
 	 */
 	public static boolean isContainsKeywordFromFile(String filePath, String keyword) throws IOException
 	{
@@ -126,10 +129,10 @@ public class JSearch {
 
 	/**
 	 * get true or false about containing keyword.
-	 * @param filePath
-	 * @param keyword
-	 * @return
-	 * @throws IOException
+	 * @param file - a file object Document you want
+	 * @param keyword - a thing you want to find
+	 * @return boolean - if having keyword, return true
+	 * @throws IOException - a problem of file. refer to a message.
 	 */
 	public static boolean isContainsKeywordFromFile(File file, String keyword) throws IOException
 	{
@@ -142,8 +145,8 @@ public class JSearch {
 	 * get a list of files which are containing keyword.
 	 * @param dirPath - target directory
 	 * @param keyword - a keyword which you want to know.
-	 * @return List<File> - a list of files which are containing keyword. 
-	 * @throws IOException
+	 * @return List&lt;File&gt; - a list of files which are containing keyword. 
+	 * @throws IOException - a problem of file. refer to a message.
 	 */
 	public static List<File> getFileListContainsKeywordFromDirectory(String dirPath, String keyword) throws IOException
 	{
@@ -173,8 +176,8 @@ public class JSearch {
 	 * @param dirPath - target directory
 	 * @param keyword - a keyword which you want to know.
 	 * @param recursive - recursive mode.
-	 * @return List<File> - a list of files which contain keyword.
-	 * @throws IOException
+	 * @return List&lt;File&gt; - a list of files which contain keyword.
+	 * @throws IOException - a problem of file. refer to a message.
 	 */
 	public static List<File> getFileListContainsKeywordFromDirectory(String dirPath, String keyword, boolean recursive) throws IOException
 	{
@@ -190,7 +193,7 @@ public class JSearch {
 		dirqueue.add(new File(dirPath));
 
 		File target;
-		/**
+		/*
 		 * It is recursive.
 		 * searching through files with Queue.
 		 */

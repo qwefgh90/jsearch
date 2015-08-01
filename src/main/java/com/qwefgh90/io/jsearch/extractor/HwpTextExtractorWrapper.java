@@ -7,6 +7,21 @@ import java.io.StringWriter;
 
 import com.argo.hwp.HwpTextExtractor;
 
+/**
+ * Wrapper class of JAVA-HWP which is open source
+ * <br><br>
+ * <strong>process</strong>
+ * <ol>
+ * <li>
+ * call extract()
+ * </li>
+ * <li>
+ * call getText()
+ * </li>
+ * </ol>
+ * @author cheochangwon
+ *
+ */
 public class HwpTextExtractorWrapper {
 	
 	StringWriter writer = new StringWriter();

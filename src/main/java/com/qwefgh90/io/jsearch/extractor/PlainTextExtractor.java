@@ -17,8 +17,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Plain Text Extractor
+ * <br><br>
+ * <strong>process</strong>
+ * <ol>
+ * <li>
+ * call extract()
+ * </li>
+ * <li>
+ * call getText()
+ * </li>
+ * </ol>
  * @author Chang
- * 
  */
 public class PlainTextExtractor {
 	protected static Logger log = LoggerFactory
@@ -56,10 +66,9 @@ public class PlainTextExtractor {
 	private StringBuffer wbuffer = writer.getBuffer();
 	/**
 	 * 
-	 * @param file
-	 *            - target file
+	 * @param file - target file
 	 * @return whether to be success
-	 * @throws IOException 
+	 * @throws IOException - a problem of file. refer to a message.
 	 */
 	public final boolean extract(File file) throws IOException {
 		boolean success = false;
