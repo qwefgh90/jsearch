@@ -4,7 +4,7 @@
 JSearch is the open software to extract string and find keyword from HWP and Office format.
 
 ## Download
-[JSearch.jar](https://github.com/qwefgh90/JSearch/raw/master/JSearch-1.0.jar)
+[JSearch.jar](https://github.com/qwefgh90/JSearch/raw/master/JSearch-1.0-SHADED.jar)
 
 ## Requirement
 1. It should work with various types of document. ex) hwp, pdf, office 
