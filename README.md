@@ -16,11 +16,8 @@ JSearch is the open software to extract string and find keyword from HWP and Off
 
 ## Class
 
-**Class JSearch**
-
-public class **JSearch**
-extends java.lang.Object
-JSearch supports various types of documents with open source engines. 
+public class **JSearch**<br><br>
+JSearch supports various types of documents with open source engines.<br> 
 And this library contains 3 types of functions. extract...() and isContainsKeyword...() and getFileList...() 
 
 HWP, DOC, PPT, EXCEL, TEXT, PDF and UNKNOWN are supported.
