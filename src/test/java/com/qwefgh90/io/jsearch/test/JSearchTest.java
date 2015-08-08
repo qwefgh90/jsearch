@@ -76,6 +76,5 @@ public class JSearchTest {
 		assertTrue(list.size() > 0);
 		LOG.info("[재귀적 디렉토리 검색 성공!]");
 	}
-//	Encoder/Decoder 구현이 필요없으며 잘 작성된 정의파일을 통해 하위 호환성을 확보할 수 있으며 Java, C++, Phython등 대부분의 언어에서 사용이 가능하다
 }
 

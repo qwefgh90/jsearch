@@ -41,4 +41,27 @@ public enum FileExtension {
 		return UNKNOWN;
 	}
 	
+	/**
+	 * Find enum object with extension string
+	 * @param fileName extension string
+	 * @return FileExtension instance
+	 */
+	public static FileExtension getFileFormatbyExtensionIgnorePostfix(String fileName)
+	{
+		FileExtension[] exArray = FileExtension.values();
+		int len = exArray.length;
+		for(int i = 0; i < len; i++){
+			String[] strArray = exArray[i].extension;
+			int lenOfString = strArray.length;
+			for(int j = 0; j < lenOfString; j++){
+				if(fileName.toLowerCase().contains(strArray[j].toLowerCase())){
+					//get enum object
+					return exArray[i];
+				}
+			}
+		}
+		//cant find matching extension
+		return UNKNOWN;
+	}
+	
 }
