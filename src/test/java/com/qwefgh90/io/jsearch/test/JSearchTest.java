@@ -34,6 +34,9 @@ public class JSearchTest {
 		content = JSearch.extractContentsFromFile(getClass().getResource("/1234.txt").getFile());
 		LOG.debug(content.length()+"");
 		assertTrue(content.length()>0);
+		content = JSearch.extractContentsFromFile(getClass().getResource("/error.hwp").getFile());
+		LOG.info(content+"");
+		assertTrue(content.length()>0);
 		LOG.info("[JSearch 텍스트 추출 성공!]");
 	}
 

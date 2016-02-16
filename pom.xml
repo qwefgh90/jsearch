@@ -84,6 +84,11 @@
 					</execution>
 				</executions>
 				<configuration>
+					<artifactSet>
+						<includes>
+							<include>com.argo:hwp-utils</include>
+						</includes>
+					</artifactSet>
 					<filters>
 						<filter>
 							<artifact>*:*</artifact>	<!-- to solve security exception -->
@@ -95,7 +100,7 @@
 						</filter>
 					</filters>
 					<finalName>${project.artifactId}-${project.version}-SHADED</finalName>
-					<shadedArtifactAttached>true</shadedArtifactAttached>	<!-- delete original file for deleting useless file  -->
+					<shadedArtifactAttached>true</shadedArtifactAttached>	<!-- delete original file for deleting useless file -->
 					<shadedClassifierName>jar-with-dependencies</shadedClassifierName>
 				</configuration>
 			</plugin>
