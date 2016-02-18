@@ -84,10 +84,10 @@
 					</execution>
 				</executions>
 				<configuration>
-					<artifactSet>
+					<artifactSet><!-- 
 						<includes>
 							<include>com.argo:hwp-utils</include>
-						</includes>
+						</includes> -->
 					</artifactSet>
 					<filters>
 						<filter>
