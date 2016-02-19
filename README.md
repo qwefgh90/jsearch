@@ -15,12 +15,12 @@ JSearch is the open software to extract string and find keyword from HWP and Off
                                                                               -Dpackaging=jar \
                                                                               -DlocalRepositoryPath=.</strong>
                                                                               <br><br>
-mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file  -Dfile=JSearch-1.0-SHADED.jar \
+<strong>mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file  -Dfile=JSearch-1.0-SHADED.jar \
                                                                               -DgroupId=com.argo \
                                                                               -DartifactId=hwp-utils \
                                                                               -Dversion=0.0.1-SNAPSHOT \
                                                                               -Dpackaging=jar \
-                                                                              -DlocalRepositoryPath=.
+                                                                              -DlocalRepositoryPath=.</strong>
 
 
 ## Requirement
