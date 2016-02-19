@@ -7,8 +7,8 @@
 
 	<repositories>
 		<repository>
-			<id>java-hwp</id>
-			<name>java-hwp</name>
+			<id>local-repo</id>
+			<name>local-repo</name>
 			<url>file://${project.basedir}/ext_lib</url>
 		</repository>
 	</repositories>
