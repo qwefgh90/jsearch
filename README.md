@@ -8,6 +8,17 @@ JSearch is the open software to extract string and find keyword from HWP and Off
 ###1)just import
 <br> **Just import JSearch.jar to your project**
 ###2)make local repository
+
+<repositories>
+	<repository>
+		<id>lib-jsearch</id>
+		<name>lib-jsearch</name>
+		<url>file://${project.basedir}/ext_lib</url>
+	</repository>
+</repositories>
+
+copy to ext_lib & execute command below 
+
 <strong>mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file  -Dfile=JSearch-1.0-SHADED.jar 
                                                                               -DgroupId=com.qwefgh90.io.jsearch 
                                                                               -DartifactId=JSearch 
@@ -15,13 +26,12 @@ JSearch is the open software to extract string and find keyword from HWP and Off
                                                                               -Dpackaging=jar 
                                                                               -DlocalRepositoryPath=.</strong>
                                                                               <br><br>
-<strong>mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file  -Dfile=JSearch-1.0-SHADED.jar 
-                                                                              -DgroupId=com.argo 
-                                                                              -DartifactId=hwp-utils 
-                                                                              -Dversion=0.0.1-SNAPSHOT 
-                                                                              -Dpackaging=jar 
-                                                                              -DlocalRepositoryPath=.</strong>
-
+<strong>mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file -Dfile=JSearch-1.0-SHADED.jar 
+																						-DgroupId=com.argo 
+																						-DartifactId=java-hwp 
+																						-Dversion=0.1 
+																						-Dpackaging=jar 
+																						-DlocalRepositoryPath=.</strong>
 
 ## Requirement
 1. It should work with various types of document. ex) hwp, pdf, office 
