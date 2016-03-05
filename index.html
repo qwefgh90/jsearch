@@ -1,48 +1,88 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <meta content="JSearch" name="site_name" />
-    <meta content="JSearch index page" name="title" />
-    <meta content="JSearch project is for extracting docs, asking for keyword to exist." name="description" />
-    <meta content="검색, JSearch, 문자열, 추출, 문서, doc, ppt, pptx, docx, txt, xlsx, xls, 오피스, office, 문자열 추출, hwp, 한글, 한글 문서 추출, 문서 추출, extract, keyword, search, find, Java, Tika, java-hwp, python, jar, 라이브러리, library, string" name="keywords" />
-    <title>JSearch by qwefgh90</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">JSearch</h1>
-      <h2 class="project-tagline">Find words in Documents (office, pdf, hwp) (LGPL)</h2>
-      <a href="https://github.com/qwefgh90/JSearch" class="btn">View on GitHub</a>
-      <a href="https://github.com/qwefgh90/JSearch/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/qwefgh90/JSearch/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+<html>
 
-    <section class="main-content">
-      <p>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="JSearch : Find words in Documents (office, pdf, hwp) (LGPL)">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>JSearch</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/qwefgh90/JSearch">View on GitHub</a>
+
+          <h1 id="project_title">JSearch</h1>
+          <h2 id="project_tagline">Find words in Documents (office, pdf, hwp) (LGPL)</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/qwefgh90/JSearch/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/qwefgh90/JSearch/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>
 
 
 </p>
 
 <h1>
-<a id="jsearch" class="anchor" href="#jsearch" aria-hidden="true"><span class="octicon octicon-link"></span></a>JSearch</h1>
+<a id="jsearch" class="anchor" href="#jsearch" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JSearch</h1>
 
 <h2>
-<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h2>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h2>
 
 <p>JSearch is the open software to extract string and find keyword from HWP and Office format.</p>
 
 <h2>
-<a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Download</h2>
+<a id="download--installation-2ways" class="anchor" href="#download--installation-2ways" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Download &amp; Installation (2ways)</h2>
 
 <p><a href="https://github.com/qwefgh90/JSearch/raw/master/JSearch-1.0-SHADED.jar">JSearch.jar</a></p>
 
+<h3>
+<a id="1just-import" class="anchor" href="#1just-import" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1)just import</h3>
+
+<p><br> <strong>Just import JSearch.jar to your project</strong></p>
+
+<h3>
+<a id="2make-maven-local-repository" class="anchor" href="#2make-maven-local-repository" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2)make maven local repository</h3>
+
+<p>&lt;repositories&gt;<br>
+    &lt;repository&gt;<br>
+        &lt;id&gt;lib-jsearch&lt;/id&gt;<br>
+        &lt;name&gt;lib-jsearch&lt;/name&gt;<br>
+        &lt;url&gt;file://${project.basedir}/ext_lib&lt;/url&gt;<br>
+    &lt;/repository&gt;<br>
+&lt;/repositories&gt;<br></p>
+
+<p><strong>copy jar to ext_lib &amp; execute command below </strong></p>
+
+<p><strong>mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file  -Dfile=JSearch-1.0-SHADED.jar 
+                                          -DgroupId=com.qwefgh90.io.jsearch 
+                                                                              -DartifactId=JSearch 
+                                                                              -Dversion=1.0 
+                                                                              -Dpackaging=jar 
+                                                                              -DlocalRepositoryPath=.</strong>
+                                                                              <br><br>
+<strong>mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file -Dfile=JSearch-1.0-SHADED.jar 
+                                                                                        -DgroupId=com.argo 
+                                                                                        -DartifactId=java-hwp 
+                                                                                        -Dversion=0.1 
+                                                                                        -Dpackaging=jar 
+                                                                                        -DlocalRepositoryPath=.</strong></p>
+
 <h2>
-<a id="requirement" class="anchor" href="#requirement" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirement</h2>
+<a id="requirement" class="anchor" href="#requirement" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirement</h2>
 
 <ol>
 <li>It should work with various types of document. ex) hwp, pdf, office </li>
@@ -54,7 +94,7 @@
 </ol>
 
 <h2>
-<a id="class" class="anchor" href="#class" aria-hidden="true"><span class="octicon octicon-link"></span></a>Class</h2>
+<a id="class" class="anchor" href="#class" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class</h2>
 
 <p>public class <strong>JSearch</strong><br><br>
 JSearch supports various types of documents with open source engines.<br> 
@@ -102,16 +142,18 @@ And this library contains 3 types of functions. extract...() and isContainsKeywo
 </tr>
 </tbody>
 </table>
+      </section>
+    </div>
 
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/qwefgh90/JSearch">JSearch</a> is maintained by <a href="https://github.com/qwefgh90">qwefgh90</a>.</span>
-
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">JSearch maintained by <a href="https://github.com/qwefgh90">qwefgh90</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
       </footer>
+    </div>
 
-    </section>
+    
 
-  
   </body>
 </html>
-
