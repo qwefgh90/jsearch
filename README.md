@@ -7,20 +7,20 @@ JSearch is the open software to extract string and find keyword from HWP and Off
 [JSearch.jar](https://github.com/qwefgh90/JSearch/raw/master/JSearch-1.0-SHADED.jar)
 ###1)just import
 <br> **Just import JSearch.jar to your project**
-###2)make local repository
+###2)make maven local repository
 
-<repositories>
-	<repository>
-		<id>lib-jsearch</id>
-		<name>lib-jsearch</name>
-		<url>file://${project.basedir}/ext_lib</url>
-	</repository>
-</repositories>
+&lt;repositories&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;repository&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;id&gt;lib-jsearch&lt;/id&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;name&gt;lib-jsearch&lt;/name&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;url&gt;file://${project.basedir}/ext_lib&lt;/url&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/repository&gt;<br>
+&lt;/repositories&gt;<br>
 
-copy to ext_lib & execute command below 
+<strong>copy jar to ext_lib & execute command below </strong>
 
 <strong>mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file  -Dfile=JSearch-1.0-SHADED.jar 
-                                                                              -DgroupId=com.qwefgh90.io.jsearch 
+									      -DgroupId=com.qwefgh90.io.jsearch 
                                                                               -DartifactId=JSearch 
                                                                               -Dversion=1.0 
                                                                               -Dpackaging=jar 
