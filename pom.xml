@@ -6,10 +6,24 @@
 	<version>${project.version}</version>
 
 	<repositories>
-		<repository>
+		<!-- <repository>
 			<id>local-repo</id>
 			<name>local-repo</name>
 			<url>file://${project.basedir}/ext_lib</url>
+		</repository> -->
+		
+		<repository>
+			<id>local-repo</id>
+			<name>local-repo</name>
+			<url>https://github.com/qwefgh90/JSearch/raw/master/ext_lib</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
 		</repository>
 	</repositories>
 
