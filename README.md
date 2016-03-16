@@ -7,7 +7,7 @@ JSearch is the open software to extract string and find keyword from HWP and Off
 [JSearch.jar](https://github.com/qwefgh90/JSearch/raw/master/JSearch-1.0-SHADED.jar)
 ###1)just import
 <br> **Just import JSearch.jar to your project**
-###2)make maven local repository
+###2)download dependancy from maven repository
 
 &lt;repositories&gt;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;repository&gt;<br>
