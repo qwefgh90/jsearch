@@ -4,7 +4,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="JSearch : Find words, string in Documents (office, pdf, hwp) (LGPL)">
+    <meta name="description" content="JSearch : Find words in Documents (office, pdf, hwp) (LGPL)">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -31,12 +31,7 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <p>
-
-
-</p>
-
-<h1>
+        <h1>
 <a id="jsearch" class="anchor" href="#jsearch" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JSearch</h1>
 
 <h2>
@@ -55,31 +50,30 @@
 <p><br> <strong>Just import JSearch.jar to your project</strong></p>
 
 <h3>
-<a id="2make-maven-local-repository" class="anchor" href="#2make-maven-local-repository" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2)make maven local repository</h3>
+<a id="2download-dependency-from-maven-repository" class="anchor" href="#2download-dependency-from-maven-repository" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2)download dependency from maven repository</h3>
 
 <p>&lt;repositories&gt;<br>
     &lt;repository&gt;<br>
-        &lt;id&gt;lib-jsearch&lt;/id&gt;<br>
-        &lt;name&gt;lib-jsearch&lt;/name&gt;<br>
-        &lt;url&gt;file://${project.basedir}/ext_lib&lt;/url&gt;<br>
-    &lt;/repository&gt;<br>
-&lt;/repositories&gt;<br></p>
-
-<p><strong>copy jar to ext_lib &amp; execute command below </strong></p>
-
-<p><strong>mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file  -Dfile=JSearch-1.0-SHADED.jar 
-                                          -DgroupId=com.qwefgh90.io.jsearch 
-                                                                              -DartifactId=JSearch 
-                                                                              -Dversion=1.0 
-                                                                              -Dpackaging=jar 
-                                                                              -DlocalRepositoryPath=.</strong>
-                                                                              <br><br>
-<strong>mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file -Dfile=JSearch-1.0-SHADED.jar 
-                                                                                        -DgroupId=com.argo 
-                                                                                        -DartifactId=java-hwp 
-                                                                                        -Dversion=0.1 
-                                                                                        -Dpackaging=jar 
-                                                                                        -DlocalRepositoryPath=.</strong></p>
+        &lt;id&gt;local-repo&lt;/id&gt;<br>
+        &lt;name&gt;local-repo&lt;/name&gt;<br>
+        &lt;url&gt;<a href="https://github.com/qwefgh90/maven-repository/raw/master/repository">https://github.com/qwefgh90/maven-repository/raw/master/repository</a> &lt;/url&gt;<br>
+        &lt;releases&gt;<br>
+            &lt;enabled&gt;true&lt;/enabled&gt;<br>
+            &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;<br>
+        &lt;/releases&gt;<br>
+        &lt;snapshots&gt;<br>
+            &lt;enabled&gt;true&lt;/enabled&gt;<br>
+            &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;<br>
+        &lt;/snapshots&gt;<br>
+    &lt;/repository&gt; <br>
+&lt;/repositories&gt;<br>
+    <br>
+&lt;dependency&gt;<br>
+    &lt;groupId&gt;com.qwefgh90.io.jsearch&lt;/groupId&gt;<br>
+    &lt;artifactId&gt;JSearch&lt;/artifactId&gt;<br>
+    &lt;version&gt;1.0&lt;/version&gt;<br>
+&lt;/dependency&gt;<br>
+<br></p>
 
 <h2>
 <a id="requirement" class="anchor" href="#requirement" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirement</h2>
@@ -97,7 +91,7 @@
 <a id="class" class="anchor" href="#class" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class</h2>
 
 <p>public class <strong>JSearch</strong><br><br>
-JSearch supports various types of documents with open source engines.<br> 
+JSearch supports various types of documents with open source engines.<br>
 And this library contains 3 types of functions. extract...() and isContainsKeyword...() and getFileList...() </p>
 
 <p>HWP, DOC, PPT, EXCEL, TEXT, PDF and UNKNOWN are supported.</p>
@@ -132,7 +126,7 @@ And this library contains 3 types of functions. extract...() and isContainsKeywo
 </tr>
 <tr>
 <td>static boolean</td>
-<td>isContainsKeywordFromFile(java.io.File file, java.lang.String keyword) <br><strong>  get true or false about containing keyword. </strong>
+<td>isContainsKeywordFromFile(java.io.File file, java.lang.String keyword) <br><strong> get true or false about containing keyword. </strong>
 </td>
 </tr>
 <tr>
