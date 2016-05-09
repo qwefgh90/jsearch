@@ -19,9 +19,9 @@ public class PlainTextTest {
 	public void extract() throws IOException
 	{
 		PlainTextExtractor e = new PlainTextExtractor();
-		assertTrue(e.extract(new File(getClass().getResource("/1234.txt").getFile())));
-		assertTrue(e.getText().length()>0);
-		LOG.debug(String.valueOf(e.getText().length()));
+		String text = PlainTextExtractor.extract(new File(getClass().getResource("/1234.txt").getFile()));
+		assertTrue(text.length()>0);
+		LOG.debug(String.valueOf(text.length()));
 		LOG.info("[평문 엔진 테스트 성공!]");
 	}
 }

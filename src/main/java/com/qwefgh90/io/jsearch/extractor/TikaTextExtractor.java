@@ -22,8 +22,10 @@
 package com.qwefgh90.io.jsearch.extractor;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.Writer;
 
@@ -46,6 +48,8 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
+import com.google.common.io.Files;
+
 /**
  * Office Extractor with Tika which is open source
  * <br><br>
@@ -63,65 +67,25 @@ import org.xml.sax.SAXException;
 public class TikaTextExtractor {
 	protected static Logger log = LoggerFactory
 			.getLogger(TikaTextExtractor.class);
-	private final Parser parser = new AutoDetectParser();
-	private final StringWriter textWriter = new StringWriter();
-	private final StringBuffer textBuffer = textWriter.getBuffer();
-	private final ContentHandler handler = getTextContentHandler(textWriter);
+	private static final AutoDetectParser parser = new AutoDetectParser();	//thread-safe http://lucene.472066.n3.nabble.com/Thread-Safety-td646195.html
+
 	/**
 	 * 
 	 * @param file - office file
 	 * @return boolean - success
 	 * @throws IOException - a problem of file. refer to a message.
+	 * @throws SAXException 
+	 * @throws TikaException 
 	 */
-	public final boolean extract(File file) throws IOException {
-		ParseContext context = new ParseContext();	//only 1-run 1-use, temporary object
-		Metadata metadata = new Metadata();			//only 1-run 1-use, temporary object
-		
-		textBuffer.setLength(0);
-		boolean success = false;
-		TikaInputStream input = null;
-		try {
-			input = TikaInputStream.get(file);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			log.error(e.toString());
-		}
-		try {
-			parser.parse(input, handler, metadata, context);
-
-			success=true;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			log.error(e.toString());
-			throw e;
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			log.error(e.toString());
-		} catch (TikaException e) {
-			// TODO Auto-generated catch block
-			log.error(e.toString());
-		}finally{
-			try {
-				input.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				log.error(e.toString());
-			}
-		}
-		// log.info(textWriter.toString());
-		// log.info(textMainBuffer.toString());
-		// log.info(htmlBuffer.toString());
-		// log.info(xmlBuffer.toString());
-		return success;
+	public static final String extract(File file) throws IOException, SAXException, TikaException {
+		ContentHandler handler = new BodyContentHandler();	//only 1-run 1-use, fast gone object
+		Metadata metadata = new Metadata();			//only 1-run 1-use, fast gone object
+		try(InputStream input = new FileInputStream(file)) {
+			TikaTextExtractor.parser.parse(input, handler, metadata);
+		} 
+		return handler.toString();
 	}
 
-	public final String getText(){
-		return textWriter.toString();
-	}
-
-	private static ContentHandler getTextContentHandler(Writer writer) {
-		return new BodyContentHandler(writer);
-	}
 	/**
 	 * A recursive parser that saves certain images into the temporary
 	 * directory, and delegates everything else to another downstream parser.

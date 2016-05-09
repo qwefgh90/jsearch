@@ -17,26 +17,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Plain Text Extractor
- * <br><br>
+ * Plain Text Extractor <br>
+ * <br>
  * <strong>process</strong>
  * <ol>
- * <li>
- * call extract()
- * </li>
- * <li>
- * call getText()
- * </li>
+ * <li>call extract()</li>
+ * <li>call getText()</li>
  * </ol>
+ * 
  * @author Chang
  */
 public class PlainTextExtractor {
-	protected static Logger log = LoggerFactory
-			.getLogger(PlainTextExtractor.class);
+	protected static Logger log = LoggerFactory.getLogger(PlainTextExtractor.class);
 
 	enum UTF_BOM {
-		UTF_8(0xEF, 0xBB, 0xBF), UTF_16_LITTLE(0xFF, 0xFE), UTF_16_BIG(0xFE,
-				0xFF);
+		UTF_8(0xEF, 0xBB, 0xBF), UTF_16_LITTLE(0xFF, 0xFE), UTF_16_BIG(0xFE, 0xFF);
 
 		public byte[] mark = null;
 
@@ -60,97 +55,59 @@ public class PlainTextExtractor {
 		}
 	}
 
-	private final UniversalDetector detector = new UniversalDetector(null);
-
-	private StringWriter writer = new StringWriter();
-	private StringBuffer wbuffer = writer.getBuffer();
 	/**
 	 * 
-	 * @param file - target file
+	 * @param file
+	 *            - target file
 	 * @return whether to be success
-	 * @throws IOException - a problem of file. refer to a message.
+	 * @throws IOException
+	 *             - a problem of file. refer to a message.
 	 */
-	public final boolean extract(File file) throws IOException {
-		boolean success = false;
-		BufferedInputStream bis = null;
+	public static final String extract(File file) throws IOException {
+		UniversalDetector detector = new UniversalDetector(null);
+		StringWriter writer = new StringWriter();
+		StringBuffer wbuffer = writer.getBuffer();
+
 		byte[] buffer = null;
 		int buffer_len = 0;
 		String detectedCharset = null;
 		wbuffer.setLength(0);
-//		log.info("[TEXT]" + file.getName());
-		try {
-			bis = new BufferedInputStream(new FileInputStream(file));
-		} catch (FileNotFoundException e) {
-			log.error(e.toString());
-			throw e;
-		}
-		buffer_len = (int) file.length();
-		buffer = new byte[buffer_len];
-		try {
+		// log.info("[TEXT]" + file.getName());
+		try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))) {
+			buffer_len = (int) file.length();
+			buffer = new byte[buffer_len];
 			bis.read(buffer);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			log.error(e1.toString());
-			throw e1;
-		}
-		try { /* BOM (Byte Order Mask) */
-			if (UTF_BOM.UTF_8.compare(buffer)) {
-				log.debug("UTF_8_BOM");
-				writer.append(new String(buffer, UTF_BOM.UTF_8.mark.length,
-						buffer.length - UTF_BOM.UTF_8.mark.length, Charset
-								.forName("UTF-8")));
-			} else if (UTF_BOM.UTF_16_LITTLE.compare(buffer)) {
-				log.debug("UTF_16LE_BOM");
-				writer.append(new String(buffer,
-						UTF_BOM.UTF_16_LITTLE.mark.length, buffer.length
-								- UTF_BOM.UTF_8.mark.length, Charset
-								.forName("UTF-16LE")));
-			} else if (UTF_BOM.UTF_16_BIG.compare(buffer)) {
-				log.debug("UTF_16BE_BOM");
-				writer.append(new String(buffer,
-						UTF_BOM.UTF_16_BIG.mark.length, buffer.length
-								- UTF_BOM.UTF_8.mark.length, Charset
-								.forName("UTF-16BE")));
-			} else { /* NOT BOM (Byte Order Mask) */
-				detector.handleData(buffer, 0, buffer_len);
-				detector.dataEnd();
-				detectedCharset = detector.getDetectedCharset();
-				log.debug("NOT_BOM " + detectedCharset);
+			try { /* BOM (Byte Order Mask) */
+				if (UTF_BOM.UTF_8.compare(buffer)) {
+					log.debug("UTF_8_BOM");
+					writer.append(new String(buffer, UTF_BOM.UTF_8.mark.length,
+							buffer.length - UTF_BOM.UTF_8.mark.length, Charset.forName("UTF-8")));
+				} else if (UTF_BOM.UTF_16_LITTLE.compare(buffer)) {
+					log.debug("UTF_16LE_BOM");
+					writer.append(new String(buffer, UTF_BOM.UTF_16_LITTLE.mark.length,
+							buffer.length - UTF_BOM.UTF_8.mark.length, Charset.forName("UTF-16LE")));
+				} else if (UTF_BOM.UTF_16_BIG.compare(buffer)) {
+					log.debug("UTF_16BE_BOM");
+					writer.append(new String(buffer, UTF_BOM.UTF_16_BIG.mark.length,
+							buffer.length - UTF_BOM.UTF_8.mark.length, Charset.forName("UTF-16BE")));
+				} else { /* NOT BOM (Byte Order Mask) */
+					detector.handleData(buffer, 0, buffer_len);
+					detector.dataEnd();
+					detectedCharset = detector.getDetectedCharset();
+					log.debug("NOT_BOM " + detectedCharset);
 
-				if (detectedCharset != null) { /* detected encoding */
-					writer.append(new String(buffer, Charset
-							.forName(detectedCharset)));
-				} else { 						/* default encoding */
-					detectedCharset = "EUC-KR";
-					writer.append(new String(buffer, Charset
-							.forName(detectedCharset)));
+					if (detectedCharset != null) { /* detected encoding */
+						writer.append(new String(buffer, Charset.forName(detectedCharset)));
+					} else { /* default encoding */
+						detectedCharset = "UTF-8";
+						writer.append(new String(buffer, Charset.forName(detectedCharset)));
+					}
 				}
+			} finally {
+				detector.reset();
 			}
-			success = true;
-		} catch (IllegalCharsetNameException e) {
-			log.error(e.toString());
-		} catch (NullPointerException e) {
-			log.error(e.toString());
-		} catch (IllegalArgumentException e) {
-			log.error(e.toString());
-		} catch (Exception e) {
-			log.error(e.toString());
-		} finally {
-			detector.reset();
 		}
 
-		try {
-			bis.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			log.error(e.toString());
-			throw e;
-		}
-
-		return success;
-	}
-	public final String getText()
-	{
 		return writer.toString();
 	}
 }

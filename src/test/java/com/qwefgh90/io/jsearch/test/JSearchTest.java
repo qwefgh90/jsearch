@@ -11,13 +11,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.qwefgh90.io.jsearch.JSearch;
+import com.qwefgh90.io.jsearch.JSearch.ParseException;
 
 public class JSearchTest {
 
 	public static Logger LOG = LoggerFactory.getLogger(JSearchTest.class);
 
 	@Test
-	public void extractTextTest() throws IOException
+	public void extractTextTest() throws IOException, ParseException
 	{
 		String content = JSearch.extractContentsFromFile(new File(getClass().getResource("/HTTP.hwp").getFile()));
 		LOG.debug(content.length()+"");
@@ -34,14 +35,18 @@ public class JSearchTest {
 		content = JSearch.extractContentsFromFile(getClass().getResource("/1234.txt").getFile());
 		LOG.debug(content.length()+"");
 		assertTrue(content.length()>0);
+		try{
 		content = JSearch.extractContentsFromFile(getClass().getResource("/error.hwp").getFile());
-		LOG.info(content+"");
-		assertTrue(content.length()>0);
-		LOG.info("[JSearch 텍스트 추출 성공!]");
+		}catch(NullPointerException e){
+			assertTrue(1==1);
+			LOG.info("[JSearch 텍스트 추출 성공!]");
+			return;
+		}
+		assertTrue(false);
 	}
 
 	@Test
-	public void findTextTest() throws IOException
+	public void findTextTest() throws IOException, ParseException
 	{
 		File hwp = new File(getClass().getResource("/HTTP.hwp").getFile());
 		File ppt = new File(getClass().getResource("/1234.ppt").getFile());
@@ -56,7 +61,7 @@ public class JSearchTest {
 	}
 
 	@Test
-	public void findKeywordWithDirectoryTest() throws IOException
+	public void findKeywordWithDirectoryTest() throws IOException, ParseException
 	{
 		int size = JSearch.getFileListContainsKeywordFromDirectory(getClass().getResource("/").getFile(), "음성, 화상, 데이타 등과 같이").size();
 		LOG.info("[디렉토리 검색 중 1]");
@@ -69,7 +74,7 @@ public class JSearchTest {
 	}
 
 	@Test
-	public void findKeywordWithDirectoryRecursiveTest() throws IOException
+	public void findKeywordWithDirectoryRecursiveTest() throws IOException, ParseException
 	{
 		List<File> list = JSearch.getFileListContainsKeywordFromDirectory(
 				getClass().getResource("/").getFile()

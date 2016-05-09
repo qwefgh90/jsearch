@@ -1,14 +1,14 @@
 package com.qwefgh90.io.jsearch.test;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.Assert.*;
-
-import org.apache.log4j.spi.LoggerFactory;
+import org.apache.tika.exception.TikaException;
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
-import com.googlecode.mp4parser.util.Logger;
 import com.qwefgh90.io.jsearch.extractor.TikaTextExtractor;
 
 
@@ -17,25 +17,25 @@ public class TikaTest {
 	public static org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(TikaTest.class);
 	
 	@Test
-	public void extract() throws IOException
+	public void extract() throws IOException, SAXException, TikaException
 	{
 		TikaTextExtractor tika = new TikaTextExtractor();
 		File f = new File(getClass().getResource("/1234.ppt").getFile());
-		assertTrue(tika.extract(f));
-		assertTrue(tika.getText().length() > 100);
-		LOG.debug(String.valueOf(tika.getText().length()));
+		String text = TikaTextExtractor.extract(f);
+		assertTrue(text.length() > 100);
+		LOG.debug(String.valueOf(text.length()));
 		
 		tika = new TikaTextExtractor();
 		f = new File(getClass().getResource("/1234.doc").getFile());
-		assertTrue(tika.extract(f));
-		assertTrue(tika.getText().length() > 100);
-		LOG.debug(String.valueOf(tika.getText().length()));
+		text = TikaTextExtractor.extract(f);
+		assertTrue(text.length() > 100);
+		LOG.debug(String.valueOf(text.length()));
 		
 		tika = new TikaTextExtractor();
 		f = new File(getClass().getResource("/1234.xlsx").getFile());
-		assertTrue(tika.extract(f));
-		assertTrue(tika.getText().length() > 100);
-		LOG.debug(tika.getText().length()+"");
+		 text = TikaTextExtractor.extract(f);
+		assertTrue(text.length() > 100);
+		LOG.debug(text.length()+"");
 		
 		LOG.info("[티카 엔진 테스트 성공!]");
 	}

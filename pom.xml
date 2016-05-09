@@ -6,12 +6,8 @@
 	<version>${project.version}</version>
 
 	<repositories>
-		<!-- <repository>
-			<id>local-repo</id>
-			<name>local-repo</name>
-			<url>file://${project.basedir}/ext_lib</url>
-		</repository> -->
-		
+		<!-- <repository> <id>local-repo</id> <name>local-repo</name> <url>file://${project.basedir}/ext_lib</url> 
+			</repository> -->
 		<repository>
 			<id>local-repo</id>
 			<name>local-repo</name>
@@ -32,6 +28,8 @@
 		<project.source.version>1.7</project.source.version>
 		<project.version>1.0</project.version>
 		<project.artifactId>JSearch</project.artifactId>
+		<tika.version>1.12</tika.version>
+		<poi.version>3.14</poi.version>
 	</properties>
 
 	<dependencies>
@@ -46,11 +44,6 @@
 			<version>1.2.17</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>3.11</version>
-		</dependency>
-		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.10</version>
@@ -63,20 +56,22 @@
 		<dependency>
 			<groupId>org.apache.tika</groupId>
 			<artifactId>tika-core</artifactId>
-			<version>1.7</version>
+			<version>${tika.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tika</groupId>
 			<artifactId>tika-parsers</artifactId>
-			<version>1.7</version>
+			<version>${tika.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 		</dependency>
-		<!--  mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file -Dfile=java-hwp.jar -DgroupId=com.argo -DartifactId=java-hwp -Dversion=0.1 -Dpackaging=jar -DlocalRepositoryPath=.
-		 -->
+
+		<!-- mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file 
+			-Dfile=java-hwp.jar -DgroupId=com.argo -DartifactId=java-hwp -Dversion=0.1 
+			-Dpackaging=jar -DlocalRepositoryPath=. -->
 		<dependency>
 			<groupId>com.argo</groupId>
 			<artifactId>java-hwp</artifactId>
@@ -86,7 +81,6 @@
 	</dependencies>
 	<build>
 		<plugins>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -99,10 +93,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<artifactSet><!-- 
-						<includes>
-							<include>com.argo:hwp-utils</include>
-						</includes> -->
+					<artifactSet><!-- <includes> <include>com.argo:hwp-utils</include> </includes> -->
 					</artifactSet>
 					<filters>
 						<filter>
@@ -119,7 +110,15 @@
 					<shadedClassifierName>jar-with-dependencies</shadedClassifierName>
 				</configuration>
 			</plugin>
-
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>1.7</version>

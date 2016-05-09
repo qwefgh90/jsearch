@@ -8,8 +8,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import org.apache.tika.exception.TikaException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.SAXException;
 
 import com.qwefgh90.io.jsearch.algorithm.QS;
 import com.qwefgh90.io.jsearch.extractor.HwpTextExtractorWrapper;
@@ -34,8 +36,9 @@ public class JSearch {
 	 * @param filePath - a file path where you want to extract string.
 	 * @return String - a extracted string
 	 * @throws IOException - a problem of file. refer to a message.
+	 * @throws ParseException 
 	 */
-	public static String extractContentsFromFile(String filePath) throws IOException
+	public static String extractContentsFromFile(String filePath) throws IOException, ParseException
 	{
 		if(filePath == null)
 			throw new NullPointerException("Please input file name.");
@@ -43,14 +46,27 @@ public class JSearch {
 		File target = new File(filePath);
 		return extractContentsFromFile(target);
 	}
-	
+	public static class ParseException extends Exception{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String toString() {
+			return "file is invalid " + "\n" + super.toString();
+		}
+		
+	}
 	/**
 	 * extract string
 	 * @param target - a file where you want to extract string.
 	 * @return String - a extracted string
 	 * @throws IOException - a problem of file. refer to a message.
+	 * @throws ParseException 
 	 */
-	public static String extractContentsFromFile(File target) throws IOException
+	public static String extractContentsFromFile(File target) throws IOException, ParseException
 	{
 		if(target == null)
 			throw new NullPointerException("Please input file name.");
@@ -60,6 +76,7 @@ public class JSearch {
 
 		FileExtension fileExt = FileExtension.getFileFormatbyExtension(target.getAbsolutePath());
 
+		
 		try {
 			switch(fileExt){
 			case HWP:{
@@ -68,42 +85,48 @@ public class JSearch {
 				return ext.getText();
 			}
 			case PPT:{
-				TikaTextExtractor ext = new TikaTextExtractor();
-				ext.extract(target);
-				return ext.getText();
+				try {
+					return TikaTextExtractor.extract(target);
+				} catch (SAXException | TikaException e) {
+					LOG.error(e.toString());
+					throw new ParseException();
+				}
 			}
 			case DOC:{
-				TikaTextExtractor ext = new TikaTextExtractor();
-				ext.extract(target);
-				return ext.getText();
+				try {
+					return TikaTextExtractor.extract(target);
+				} catch (SAXException | TikaException e) {
+					LOG.error(e.toString());
+					throw new ParseException();
+				}
 			}
 			case EXCEL:{
-				TikaTextExtractor ext = new TikaTextExtractor();
-				ext.extract(target);
-				return ext.getText();
+				try {
+					return TikaTextExtractor.extract(target);
+				} catch (SAXException | TikaException e) {
+					LOG.error(e.toString());
+					throw new ParseException();
+				}
 			}
 			case PDF:{
-				TikaTextExtractor ext = new TikaTextExtractor();
-				ext.extract(target);
-				return ext.getText();
+				try {
+					return TikaTextExtractor.extract(target);
+				} catch (SAXException | TikaException e) {
+					LOG.error(e.toString());
+					throw new ParseException();
+				}
 			}
 			case TEXT:{
-				PlainTextExtractor ext = new PlainTextExtractor();
-				ext.extract(target);
-				return ext.getText();
+				return PlainTextExtractor.extract(target);
 			}
 			/**
 			 * DEFAULT & UNKNOWN VERSION operates like TEXT VERSION
 			 */
 			case UNKNOWN:{
-				PlainTextExtractor ext = new PlainTextExtractor();
-				ext.extract(target);
-				return ext.getText();
+				return PlainTextExtractor.extract(target);
 			}
 			default:{
-				PlainTextExtractor ext = new PlainTextExtractor();
-				ext.extract(target);
-				return ext.getText();
+				return PlainTextExtractor.extract(target);
 			}
 			}
 		} catch (FileNotFoundException e) {
@@ -119,8 +142,9 @@ public class JSearch {
 	 * @param keyword - a thing you want to find
 	 * @return boolean - if having keyword, return true
 	 * @throws IOException - a problem of file. refer to a message.
+	 * @throws ParseException 
 	 */
-	public static boolean isContainsKeywordFromFile(String filePath, String keyword) throws IOException
+	public static boolean isContainsKeywordFromFile(String filePath, String keyword) throws IOException, ParseException
 	{
 		String text = extractContentsFromFile(filePath);
 		QS qs = QS.compile(keyword);
@@ -133,8 +157,9 @@ public class JSearch {
 	 * @param keyword - a thing you want to find
 	 * @return boolean - if having keyword, return true
 	 * @throws IOException - a problem of file. refer to a message.
+	 * @throws ParseException 
 	 */
-	public static boolean isContainsKeywordFromFile(File file, String keyword) throws IOException
+	public static boolean isContainsKeywordFromFile(File file, String keyword) throws IOException, ParseException
 	{
 		String text = extractContentsFromFile(file);
 		QS qs = QS.compile(keyword);
@@ -147,8 +172,9 @@ public class JSearch {
 	 * @param keyword - a keyword which you want to know.
 	 * @return List&lt;File&gt; - a list of files which are containing keyword. 
 	 * @throws IOException - a problem of file. refer to a message.
+	 * @throws ParseException 
 	 */
-	public static List<File> getFileListContainsKeywordFromDirectory(String dirPath, String keyword) throws IOException
+	public static List<File> getFileListContainsKeywordFromDirectory(String dirPath, String keyword) throws IOException, ParseException
 	{
 		if(dirPath == null)
 			throw new NullPointerException("Please input file name.");
@@ -178,8 +204,9 @@ public class JSearch {
 	 * @param recursive - recursive mode.
 	 * @return List&lt;File&gt; - a list of files which contain keyword.
 	 * @throws IOException - a problem of file. refer to a message.
+	 * @throws ParseException 
 	 */
-	public static List<File> getFileListContainsKeywordFromDirectory(String dirPath, String keyword, boolean recursive) throws IOException
+	public static List<File> getFileListContainsKeywordFromDirectory(String dirPath, String keyword, boolean recursive) throws IOException, ParseException
 	{
 		if(recursive == false) 
 			return getFileListContainsKeywordFromDirectory(dirPath, keyword);
