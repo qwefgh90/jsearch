@@ -2,8 +2,10 @@ package com.qwefgh90.io.jsearch.test;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -12,10 +14,14 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.tika.exception.TikaException;
+import org.apache.tika.mime.MediaType;
+import org.apache.tika.mime.MimeType;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
+import com.qwefgh90.io.jsearch.FileExtension;
 import com.qwefgh90.io.jsearch.extractor.TikaTextExtractor;
 
 public class TikaTest {
@@ -47,11 +53,24 @@ public class TikaTest {
 
 	@Test
 	public void mimeTest() throws URISyntaxException, IOException {
-		Path resources = Paths.get(getClass().getResource("").toURI());
+		Path resources = Paths.get(getClass().getResource("/").toURI());
 		Files.walkFileTree(resources, new SimpleFileVisitor<Path>() {
 			public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 				if (attrs.isRegularFile()) {
-					TikaTextExtractor.getContentType(Files.newInputStream(file), file.getFileName().toString());
+					try {
+						try(InputStream is = new BufferedInputStream(Files.newInputStream(file))){
+						
+						System.out.println(file.toAbsolutePath().toString());
+						MediaType type = FileExtension.getContentType(is, file.getFileName().toString());
+						System.out.println(type.toString());
+						String output = TikaTextExtractor.extract(file.toFile());
+						System.out.println("출력 : " +
+													output.substring(0, output.length() > 50 ? 50 : output.length()));
+						
+						}
+					} catch (Exception e) {
+						System.out.println(ExceptionUtils.getStackTrace(e));
+					}
 				}
 				return FileVisitResult.CONTINUE;
 			}

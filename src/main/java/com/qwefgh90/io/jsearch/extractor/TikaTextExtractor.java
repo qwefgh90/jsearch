@@ -21,6 +21,7 @@
  */
 package com.qwefgh90.io.jsearch.extractor;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -75,15 +76,6 @@ public class TikaTextExtractor {
 			TikaTextExtractor.parser.parse(input, handler, metadata);
 		}
 		return handler.toString();
-	}
-
-	public static MediaType getContentType(InputStream is, String fileName) throws IOException {
-		MediaType mediaType;
-		Metadata md = new Metadata();
-		md.set(Metadata.RESOURCE_NAME_KEY, fileName);
-
-		mediaType = MimeTypes.getDefaultMimeTypes().detect(is, md);
-		return mediaType;
 	}
 
 }
