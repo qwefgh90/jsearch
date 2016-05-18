@@ -123,7 +123,12 @@ public class JSearch {
 			 * DEFAULT & UNKNOWN VERSION operates like TEXT VERSION
 			 */
 			case UNKNOWN:{
-				return PlainTextExtractor.extract(target);
+				try {
+					return TikaTextExtractor.extract(target);
+				} catch (SAXException | TikaException e) {
+					LOG.error(e.toString());
+					throw new ParseException();
+				}
 			}
 			default:{
 				return PlainTextExtractor.extract(target);

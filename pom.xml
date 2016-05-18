@@ -29,7 +29,6 @@
 		<project.version>1.0</project.version>
 		<project.artifactId>JSearch</project.artifactId>
 		<tika.version>1.12</tika.version>
-		<poi.version>3.14</poi.version>
 	</properties>
 
 	<dependencies>
@@ -68,6 +67,7 @@
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 		</dependency>
+		
 
 		<!-- mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file 
 			-Dfile=java-hwp.jar -DgroupId=com.argo -DartifactId=java-hwp -Dversion=0.1 

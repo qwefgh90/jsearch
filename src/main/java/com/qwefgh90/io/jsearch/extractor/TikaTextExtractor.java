@@ -23,71 +23,67 @@ package com.qwefgh90.io.jsearch.extractor;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringWriter;
-import java.io.Writer;
 
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.sax.SAXTransformerFactory;
-import javax.xml.transform.sax.TransformerHandler;
-import javax.xml.transform.stream.StreamResult;
-
+import org.apache.tika.detect.Detector;
 import org.apache.tika.exception.TikaException;
-import org.apache.tika.io.TikaInputStream;
 import org.apache.tika.metadata.Metadata;
+import org.apache.tika.mime.MediaType;
+import org.apache.tika.mime.MimeTypes;
 import org.apache.tika.parser.AutoDetectParser;
-import org.apache.tika.parser.ParseContext;
-import org.apache.tika.parser.Parser;
-import org.apache.tika.parser.html.BoilerpipeContentHandler;
 import org.apache.tika.sax.BodyContentHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
-import com.google.common.io.Files;
+import com.sun.swing.internal.plaf.metal.resources.metal;
 
 /**
- * Office Extractor with Tika which is open source
- * <br><br>
+ * Office Extractor with Tika which is open source <br>
+ * <br>
  * <strong>process</strong>
  * <ol>
- * <li>
- * call extract()
- * </li>
- * <li>
- * call getText()
- * </li>
+ * <li>call extract()</li>
+ * <li>call getText()</li>
  * </ol>
+ * 
  * @author Chang
  */
 public class TikaTextExtractor {
-	protected static Logger log = LoggerFactory
-			.getLogger(TikaTextExtractor.class);
-	private static final AutoDetectParser parser = new AutoDetectParser();	//thread-safe http://lucene.472066.n3.nabble.com/Thread-Safety-td646195.html
+	protected static Logger log = LoggerFactory.getLogger(TikaTextExtractor.class);
+	private static final AutoDetectParser parser = new AutoDetectParser(); // thread-safe
+																			// http://lucene.472066.n3.nabble.com/Thread-Safety-td646195.html
 
 	/**
 	 * 
-	 * @param file - office file
+	 * @param file
+	 *            - office file
 	 * @return boolean - success
-	 * @throws IOException - a problem of file. refer to a message.
-	 * @throws SAXException 
-	 * @throws TikaException 
+	 * @throws IOException
+	 *             - a problem of file. refer to a message.
+	 * @throws SAXException
+	 * @throws TikaException
 	 */
 	public static final String extract(File file) throws IOException, SAXException, TikaException {
-		ContentHandler handler = new BodyContentHandler();	//only 1-run 1-use, fast gone object
-		Metadata metadata = new Metadata();			//only 1-run 1-use, fast gone object
-		try(InputStream input = new FileInputStream(file)) {
+		ContentHandler handler = new BodyContentHandler(); // only 1-run 1-use,
+															// fast gone object
+		Metadata metadata = new Metadata(); // only 1-run 1-use, fast gone
+											// object
+		try (InputStream input = new FileInputStream(file)) {
 			TikaTextExtractor.parser.parse(input, handler, metadata);
-		} 
+		}
 		return handler.toString();
 	}
 
-	/**
-	 * A recursive parser that saves certain images into the temporary
-	 * directory, and delegates everything else to another downstream parser.
-	 */
+	public static MediaType getContentType(InputStream is, String fileName) throws IOException {
+		MediaType mediaType;
+		Metadata md = new Metadata();
+		md.set(Metadata.RESOURCE_NAME_KEY, fileName);
+
+		mediaType = MimeTypes.getDefaultMimeTypes().detect(is, md);
+		return mediaType;
+	}
+
 }

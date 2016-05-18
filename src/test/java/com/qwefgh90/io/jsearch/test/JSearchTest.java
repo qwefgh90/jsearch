@@ -35,6 +35,12 @@ public class JSearchTest {
 		content = JSearch.extractContentsFromFile(getClass().getResource("/1234.txt").getFile());
 		LOG.debug(content.length()+"");
 		assertTrue(content.length()>0);
+		content = JSearch.extractContentsFromFile(getClass().getResource("/log4j.properties").getFile());
+		LOG.debug(content+"");
+		assertTrue(content.contains("log4j."));
+		content = JSearch.extractContentsFromFile(getClass().getResource("/javascript2._p_d_f_").getFile());
+		LOG.debug(content+"");
+		assertTrue(content.contains("난독화"));
 		try{
 		content = JSearch.extractContentsFromFile(getClass().getResource("/error.hwp").getFile());
 		}catch(NullPointerException e){
