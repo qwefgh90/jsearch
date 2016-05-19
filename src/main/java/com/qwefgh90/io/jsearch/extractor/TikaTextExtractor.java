@@ -85,9 +85,5 @@ public class TikaTextExtractor {
 		} 
 		return handler.toString();
 	}
-
-	/**
-	 * A recursive parser that saves certain images into the temporary
-	 * directory, and delegates everything else to another downstream parser.
-	 */
+	
 }
