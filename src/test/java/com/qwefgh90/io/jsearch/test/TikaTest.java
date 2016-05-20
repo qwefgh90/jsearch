@@ -53,7 +53,7 @@ public class TikaTest {
 
 	@Test
 	public void mimeTest() throws URISyntaxException, IOException {
-		Path resources = Paths.get(getClass().getResource("/").toURI());
+		Path resources = Paths.get(getClass().getResource("/conf").toURI());
 		Files.walkFileTree(resources, new SimpleFileVisitor<Path>() {
 			public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 				if (attrs.isRegularFile()) {
@@ -64,12 +64,11 @@ public class TikaTest {
 						MediaType type = FileExtension.getContentType(is, file.getFileName().toString());
 						System.out.println(type.toString());
 						String output = TikaTextExtractor.extract(file.toFile());
-						System.out.println("출력 : " +
-													output.substring(0, output.length() > 50 ? 50 : output.length()));
-						
+						//System.out.println("출력 : " +
+						//							output.substring(0, output.length() > 600 ? 600 : output.length()));
 						}
 					} catch (Exception e) {
-						System.out.println(ExceptionUtils.getStackTrace(e));
+						System.out.println(e.toString());
 					}
 				}
 				return FileVisitResult.CONTINUE;
