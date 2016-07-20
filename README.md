@@ -1,5 +1,7 @@
 #JSearch
 
+[![Build Status](https://travis-ci.org/qwefgh90/JSearch.svg?branch=master)](https://travis-ci.org/qwefgh90/JSearch)
+
 ## Overview
 JSearch is the open software to extract string and find keyword from HWP and Office format.
 
