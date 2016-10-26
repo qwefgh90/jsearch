@@ -26,7 +26,7 @@ public class HwpTest {
 		StringWriter writer = new StringWriter();
 		HwpTextExtractorV5.extractText(new File(getClass().getResource("/HTTP.hwp").getFile()), writer);
 		assertTrue(hwpEx.getText().length() > 0);
-		LOG.debug(String.valueOf(hwpEx.getText().length()));
+		LOG.debug(String.valueOf(hwpEx.getText().length()) + ", " + hwpEx.getText().substring(0,300));
 		LOG.info("[한글 엔진 테스트 성공!]");
 	}
 

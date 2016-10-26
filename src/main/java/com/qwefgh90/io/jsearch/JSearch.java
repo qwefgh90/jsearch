@@ -79,13 +79,15 @@ public class JSearch {
 
 		if(target.isFile() == false)
 			throw new RuntimeException("The path which you input isn't File.");
-
 		MediaType mime = FileExtension.getContentType(target, target.getName());
+		LOG.debug("mime: "+ target.getName() + ", " + mime.toString() );
 		String mimeString = mime.toString();
 		if(mimeString.equals("application/x-hwp") || mimeString.equals("application/x-hwp-v5")){
 			HwpTextExtractorWrapper ext = new HwpTextExtractorWrapper();
 			ext.extract(target);
 			return ext.getText();
+		}else if(mimeString.equals("text/plain")){
+			return PlainTextExtractor.extract(target);
 		}else{
 			try {
 				return TikaTextExtractor.extract(target);
