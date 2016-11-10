@@ -27,24 +27,4 @@ public class PlainTextTest {
 		LOG.info("[평문 엔진 테스트 성공!]");
 	}
 	
-	@Test
-	public void extractEuckr() throws IOException
-	{
-		PlainTextExtractor e = new PlainTextExtractor();
-		String text = PlainTextExtractor.extract(new File(getClass().getResource("/euckr.txt").getFile()));
-		assertTrue(text.length()>0);
-		LOG.debug(String.valueOf(text.length()) + ", " + text);
-		LOG.info("[평문 엔진 테스트 성공!]");
-	}
-	
-	
-	@Test
-	public void extractEuckrWithTika() throws IOException, ParseException
-	{
-		PlainTextExtractor e = new PlainTextExtractor();
-		String text = JSearch.extractContentsFromFile(new File(getClass().getResource("/euckr.txt").getFile()));
-		assertTrue(text.length()>0);
-		LOG.debug(String.valueOf(text.length()) + ", " + text);
-		LOG.info("[평문 엔진 테스트 성공!]");
-	}
 }

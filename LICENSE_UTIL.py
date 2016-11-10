@@ -2,7 +2,7 @@
 import sys
 import os
 license = '''/*
- * Copyright (C) 2014 Changwon CHOE and Bora KIM <qwefgh90@naver.com, lemiyon@naver.com>
+ * Copyright (C) 2016 Choe Changwon<qwefgh90@naver.com>
  * 
  * This file is part of Foobar.
  *

@@ -25,6 +25,8 @@
 
 	<properties>
 		<project.source.encoding>UTF-8</project.source.encoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.source.version>1.7</project.source.version>
 		<project.version>1.0</project.version>
 		<project.artifactId>JSearch</project.artifactId>
