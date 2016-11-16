@@ -21,8 +21,8 @@ import org.apache.tika.mime.MimeType;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import com.qwefgh90.io.jsearch.FileExtension;
-import com.qwefgh90.io.jsearch.extractor.TikaTextExtractor;
+import io.github.qwefgh90.jsearch.FileExtension;
+import io.github.qwefgh90.jsearch.extractor.TikaTextExtractor;
 
 public class TikaTest {
 

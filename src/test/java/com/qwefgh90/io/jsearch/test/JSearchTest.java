@@ -10,8 +10,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.qwefgh90.io.jsearch.JSearch;
-import com.qwefgh90.io.jsearch.JSearch.ParseException;
+import io.github.qwefgh90.jsearch.JSearch;
+import io.github.qwefgh90.jsearch.JSearch.ParseException;
 
 public class JSearchTest {
 

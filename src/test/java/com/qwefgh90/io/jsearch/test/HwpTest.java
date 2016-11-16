@@ -12,7 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.argo.hwp.v5.HwpTextExtractorV5;
-import com.qwefgh90.io.jsearch.extractor.HwpTextExtractorWrapper;
+
+import io.github.qwefgh90.jsearch.extractor.HwpTextExtractorWrapper;
 
 public class HwpTest {
 	protected static Logger LOG = LoggerFactory

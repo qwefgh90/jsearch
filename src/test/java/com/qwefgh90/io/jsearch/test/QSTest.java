@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.qwefgh90.io.jsearch.algorithm.QS;
+import io.github.qwefgh90.jsearch.algorithm.QS;
 
 public class QSTest {
 

@@ -4,22 +4,40 @@
 	<groupId>io.github.qwefgh90</groupId>
 	<artifactId>${project.artifactId}</artifactId>
 	<version>${project.version}</version>
+	<name>JSearch extractLib</name>
+	<description>text extractor for various documents</description>
+	<url>https://github.com/qwefgh90/JSearch</url>
+ <!-- jira (https://issues.sonatype.org/browse/OSSRH-26241) -->
+ <!-- download snapshot (https://oss.sonatype.org/content/groups/staging/io/github/qwefgh90/) -->
 
-	<repositories>
-		<repository>
-			<id>local-repo</id>
-			<name>local-repo</name>
-        	<url>file:${project.basedir}/lib</url>
-		</repository>
-	</repositories>
+	<developers>
+		<developer>
+			<id>qwefgh90</id>
+			<name>ChoeChangwon</name>
+			<email>qwefgh90@naver.com</email>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:https://github.com/qwefgh90/JSearch.git</connection>
+		<developerConnection>scm:git:https://github.com/qwefgh90/JSearch.git</developerConnection>
+		<url>https://github.com/qwefgh90/JSearch.git</url>
+	</scm>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
 
 	<properties>
 		<project.source.encoding>UTF-8</project.source.encoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.source.version>1.7</project.source.version>
-		<project.version>0.1</project.version>
-		<project.artifactId>JSearch</project.artifactId>
+		<project.version>0.2.0</project.version>
+		<project.artifactId>jsearch</project.artifactId>
 		<tika.version>1.12</tika.version>
 	</properties>
 
@@ -60,44 +78,21 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.argo</groupId>
-			<artifactId>java-hwp</artifactId>
-			<version>0.1</version>
-		</dependency>
-
 	</dependencies>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<artifactSet><!-- <includes> <include>com.argo:hwp-utils</include> </includes> -->
-					</artifactSet>
-					<filters>
-						<filter>
-							<artifact>*:*</artifact>	<!-- to solve security exception -->
-							<excludes>
-								<exclude>META-INF/*.SF</exclude>
-								<exclude>META-INF/*.DSA</exclude>
-								<exclude>META-INF/*.RSA</exclude>
-							</excludes>
-						</filter>
-					</filters>
-					<finalName>${project.artifactId}-${project.version}-SHADED</finalName>
-					<shadedArtifactAttached>true</shadedArtifactAttached>	<!-- delete original file for deleting useless file -->
-					<shadedClassifierName>jar-with-dependencies</shadedClassifierName>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -106,6 +101,47 @@
 					<source>1.7</source>
 					<target>1.7</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
