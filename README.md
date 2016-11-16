@@ -5,34 +5,16 @@
 ## Overview
 JSearch is the open software to extract string and find keyword from HWP and Office format.
 
-## Download & Installation (2ways)
-[JSearch.jar](https://github.com/qwefgh90/JSearch/raw/master/JSearch-1.0-SHADED.jar)
-###1)just import
-<br> **Just import JSearch.jar to your project**
-###2)download dependency from maven repository
+## Download (Maven Central Repository)
 
-&lt;repositories&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;repository&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;id&gt;local-repo&lt;/id&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;name&gt;local-repo&lt;/name&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;url&gt;https://github.com/qwefgh90/maven-repository/raw/master/repository &lt;/url&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;releases&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;enabled&gt;true&lt;/enabled&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;updatePolicy&gt;never&lt;/updatePolicy&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/releases&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;snapshots&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;enabled&gt;true&lt;/enabled&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;updatePolicy&gt;never&lt;/updatePolicy&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/snapshots&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;/repository&gt; <br>
-&lt;/repositories&gt;<br>
-	<br>
-&lt;dependency&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;groupId&gt;com.qwefgh90.io.jsearch&lt;/groupId&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;artifactId&gt;JSearch&lt;/artifactId&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;version&gt;1.0&lt;/version&gt;<br>
-&lt;/dependency&gt;<br>
-<br>
+```
+<dependency>
+	<groupId>io.github.qwefgh90</groupId>
+	<artifactId>jsearch</artifactId>
+	<version>0.2.0</version>
+</dependency>
+```
+
 ## Requirement
 1. It should work with various types of document. ex) hwp, pdf, office 
 2. It should support extract string and rapidly find keyword from doucments.
