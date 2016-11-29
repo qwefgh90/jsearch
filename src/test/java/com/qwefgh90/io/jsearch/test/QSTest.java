@@ -18,9 +18,7 @@ public class QSTest {
 		String target = "hello wro";
 		String pt = " wr";
 		QS qs = QS.compile(pt);
-		LOG.debug(qs.isExist(target)+"");
 		assertTrue(qs.isExist(target));
-		LOG.info("[퀵서치 알고리즘 찾기 성공!]");
 	}
 	
 	@Test
@@ -30,10 +28,7 @@ public class QSTest {
 		String target2 = "hello wro";
 		String pt = " wrx";
 		QS qs = QS.compile(pt);
-		LOG.debug(qs.findAll(target).size()+"");
 		assertTrue(qs.findAll(target).size() == 2);
-		LOG.debug(qs.findAll(target2).size()+"");
 		assertTrue(qs.findAll(target2).size() == 0);
-		LOG.info("[퀵서치 알고리즘 리스트 반환 성공!]");
 	}
 }

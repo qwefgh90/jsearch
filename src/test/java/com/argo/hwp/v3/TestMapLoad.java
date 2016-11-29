@@ -82,7 +82,7 @@ public class TestMapLoad {
 
 					map[code] = new String(chars, 0, len - 1);
 				} else {
-					System.out.println("[" + lineNumber + "]>>>" + line);
+					//System.out.println("[" + lineNumber + "]>>>" + line);
 				}
 			}
 		} finally {

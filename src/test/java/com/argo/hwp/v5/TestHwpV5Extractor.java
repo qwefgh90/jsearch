@@ -75,7 +75,6 @@ public class TestHwpV5Extractor {
 	public void testExtractText() throws IOException, ClassNotFoundException {
 //		System.out.println(extract("v5/han_grammar.hwp"));
 //		System.out.println(extract("v5/han_special_char.hwp"));
-		
-		System.out.println(extract("v5/test-distribute.hwp"));
+		//System.out.println(extract("v5/test-distribute.hwp"));
 	}
 }

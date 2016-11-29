@@ -1,11 +1,15 @@
 package com.qwefgh90.io.jsearch.test;
 
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.List;
 
+import org.hamcrest.core.StringContains;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,65 +22,86 @@ public class JSearchTest {
 	public static Logger LOG = LoggerFactory.getLogger(JSearchTest.class);
 
 	@Test
-	public void extractTextTest() throws IOException, ParseException
+	public void extractTextTest() throws IOException, ParseException, URISyntaxException
 	{
-		String content = JSearch.extractContentsFromFile(new File(getClass().getResource("/HTTP.hwp").getFile()));
-		LOG.debug(content.length()+"");
-		assertTrue(content.length()>0);
-		content = JSearch.extractContentsFromFile(new File(getClass().getResource("/1234.ppt").getFile()));
-		LOG.debug(content.length()+"");
-		assertTrue(content.length()>0);
-		content = JSearch.extractContentsFromFile(new File(getClass().getResource("/1234.xlsx").getFile()));
-		LOG.debug(content.length()+"");
-		assertTrue(content.length()>0);
-		content = JSearch.extractContentsFromFile(getClass().getResource("/1234.doc").getFile());
-		LOG.debug(content.length()+"");
-		assertTrue(content.length()>0);
-		content = JSearch.extractContentsFromFile(getClass().getResource("/1234.txt").getFile());
-		LOG.debug(content.length()+"");
-		assertTrue(content.length()>0);
-		content = JSearch.extractContentsFromFile(getClass().getResource("/log4j.properties").getFile());
-		LOG.debug(content+"");
-		assertTrue(content.contains("log4j."));
-		content = JSearch.extractContentsFromFile(getClass().getResource("/javascript2._p_d_f_").getFile());
-		LOG.debug(content+"");
-		assertTrue(content.contains("난독화"));
-		try{
-		content = JSearch.extractContentsFromFile(getClass().getResource("/error.hwp").getFile());
-		}catch(NullPointerException e){
-			assertTrue(1==1);
-			LOG.info("[JSearch 텍스트 추출 성공!]");
-			return;
-		}
-		assertTrue(false);
+		//HWP
+		String content = JSearch.extractContentsFromFile(new File(getClass().getResource("/hwp/HTTP.hwp").getFile()));
+		assertThat(content, new StringContains("Protocol"));
+		assertThat(content, new StringContains("패킷교환"));
+		assertThat(content, new StringContains("WAP와"));
+		
+		content = JSearch.extractContentsFromFile(new File(getClass().getResource("/hwp/malware_info.hwp").getFile()));
+		assertThat(content, new StringContains("Rootkit"));
+		assertThat(content, new StringContains("백도어"));
+		
+		content = JSearch.extractContentsFromFile(new File(getClass().getResource("/hwp/VHD.hwp").getFile()));
+		assertThat(content, new StringContains("diskpart"));
+		assertThat(content, new StringContains("관리자계정"));
+		
+		//PPT
+		content = JSearch.extractContentsFromFile(new File(getClass().getResource("/ppt/1234.ppt").getFile()));
+		assertThat(content, new StringContains("모바일 기기"));
+		assertThat(content, new StringContains("Tablet PC"));
+		
+		content = JSearch.extractContentsFromFile(Paths.get(getClass().getResource("/ppt/템플릿.pptx").toURI()).toFile());
+		assertThat(content, new StringContains("Insert Sub"));
+		assertThat(content, new StringContains("investigation"));
+		
+		content = JSearch.extractContentsFromFile(new File(getClass().getResource("/xlsx/1234.xlsx").getFile()));
+		assertThat(content, new StringContains("프로젝트 준비"));
+		//assertThat(content, new StringContains("2013-10-13"));
+		assertThat(content, new StringContains("13"));
+		
+		//TXT
+		content = JSearch.extractContentsFromFile(new File(getClass().getResource("/text/1234_euc_kr.txt").getFile()));
+		assertThat(content, new StringContains("직접"));
+		assertThat(content, new StringContains("txt"));
+		
+		//DOC
+		content = JSearch.extractContentsFromFile(getClass().getResource("/doc/1234.doc").getFile());
+		assertThat(content, new StringContains("BTO"));
+		assertThat(content, new StringContains("<$MSG_SEV>"));
+		
+		content = JSearch.extractContentsFromFile(getClass().getResource("/doc/template.docx").getFile());
+		assertThat(content, new StringContains("Float over text"));
+		assertThat(content, new StringContains("magnetic"));
+		
+		content = JSearch.extractContentsFromFile(Paths.get(getClass().getResource("/doc/네티한글가이드.doc").toURI()).toFile());
+		assertThat(content, new StringContains("DefaultHttpResponse"));
+		assertThat(content, new StringContains("webSocketLocation"));
+		
+		//PDF
+		content = JSearch.extractContentsFromFile(getClass().getResource("/pdf/javascript.pdf").getFile());
+		assertThat(content, new StringContains("NewHeart"));
+		assertThat(content, new StringContains("vbscript:msgbox()"));
+		
+		content = JSearch.extractContentsFromFile(getClass().getResource("/pdf/javascript2._p_d_f_").getFile());
+		assertThat(content, new StringContains("NewHeart"));
+		assertThat(content, new StringContains("vbscript:msgbox()"));
+		
+		content = JSearch.extractContentsFromFile(getClass().getResource("/pdf/boot.pdf").getFile());
+		assertThat(content, new StringContains("실습기기에서"));
+		assertThat(content, new StringContains("ld-script – linker"));
+		
+		//XML
+		content = JSearch.extractContentsFromFile(getClass().getResource("/xml/web.xml").getFile());
+		LOG.trace(content.replaceAll(" +", " ").replaceAll("\n", ""));
+		assertThat(content, new StringContains("org.apache.catalina.servlets.DefaultServlet"));
+		
+		//ETC
+		content = JSearch.extractContentsFromFile(getClass().getResource("/etc/catalina.properties").getFile());
+		assertThat(content, new StringContains("package.access"));
+		
+		content = JSearch.extractContentsFromFile(getClass().getResource("/etc/cdk.mp3").getFile());
+		assertThat(content, new StringContains("ccMixter"));
+		
 	}
 
 	@Test
-	public void findTextTest() throws IOException, ParseException
+	public void findKeywordWithDirectoryNoRecursiveTest() throws IOException, ParseException
 	{
-		File hwp = new File(getClass().getResource("/HTTP.hwp").getFile());
-		File ppt = new File(getClass().getResource("/1234.ppt").getFile());
-		File doc = new File(getClass().getResource("/1234.doc").getFile());
-		File txt = new File(getClass().getResource("/1234.txt").getFile());
-		assertTrue(JSearch.isContainsKeywordFromFile(hwp, "음성, 화상, 데이타 등과 같이"));
-		assertTrue(JSearch.isContainsKeywordFromFile(ppt, "Samsung, Sony-Ericsson, Motorola"));
-		assertTrue(JSearch.isContainsKeywordFromFile(getClass().getResource("/1234.xlsx").getFile(), "프"));
-		assertTrue(JSearch.isContainsKeywordFromFile(doc, "Add/Modify Logfile, Add"));
-		assertTrue(JSearch.isContainsKeywordFromFile(txt, "한 텍스트"));
-		LOG.info("[JSearch 텍스트 검색 성공!]");
-	}
-
-	@Test
-	public void findKeywordWithDirectoryTest() throws IOException, ParseException
-	{
-		int size = JSearch.getFileListContainsKeywordFromDirectory(getClass().getResource("/").getFile(), "음성, 화상, 데이타 등과 같이").size();
-		LOG.info("[디렉토리 검색 중 1]");
-		int size2 = JSearch.getFileListContainsKeywordFromDirectory(getClass().getResource("/").getFile(), "음성, 화상, 데이타 등과 같이", false).size();
-		LOG.info("[디렉토리 검색 중 2]");
-		LOG.debug(String.valueOf(size));
-		assertTrue(size>0);
-		assertTrue(size == size2);
-		LOG.info("[디렉토리 검색 성공!]");
+		int size = JSearch.getFileListContainsKeywordFromDirectory(getClass().getResource("/").getFile(), "음성, 화상, 데이타 등과 같이", false).size();
+		assertTrue("file count is " + size, size == 0);
 	}
 
 	@Test
@@ -84,11 +109,9 @@ public class JSearchTest {
 	{
 		List<File> list = JSearch.getFileListContainsKeywordFromDirectory(
 				getClass().getResource("/").getFile()
-				, "구현이 필요없으며 잘 작성된 정의파일을 통해 하위 호환성을 확보할 수 있으며 Java, C++, Phython등 대부분의 언어에서 사용이 가능하다"
+				, "org.apache.catalina.servlets.DefaultServlet" // /conf/web.xml
 				, true);
-		LOG.info(list.toString());
-		assertTrue(list.size() > 0);
-		LOG.info("[재귀적 디렉토리 검색 성공!]");
+		assertTrue("file count is " + list.size(), list.size() > 0);
 	}
 }
 

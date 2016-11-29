@@ -58,7 +58,6 @@ public class QS {
 
 	public static List<Integer> findAll(String pattern, String source) {
 		char[] x = pattern.toCharArray(), y = source.toCharArray();
-//		System.out.println(Integer.toHexString(x[0]));
 		int j, m = x.length, n = y.length;
 		List<Integer> result = new ArrayList<Integer>();
 

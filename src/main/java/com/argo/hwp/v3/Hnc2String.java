@@ -82,7 +82,7 @@ class Hnc2String {
 
 					map[code] = new String(chars, 0, len - 1);
 				} else {
-					System.out.println("[" + lineNumber + "]>>>" + line);
+					log.trace("[" + lineNumber + "]>>>" + line);
 				}
 			}
 		} catch (UnsupportedEncodingException e) {

@@ -64,13 +64,13 @@ public class TestHwpV3Extractor {
 	@Test
 	public void testCharConversion() {
 		// 조합형
-		System.out.println(Hnc2String.convert(Integer.parseInt(
-				"1000010001100010", 2)));
+		//System.out.println(Hnc2String.convert(Integer.parseInt(
+		//		"1000010001100010", 2)));
 	}
 
 	@Test
 	public void testExtractText() throws IOException, ClassNotFoundException {
-		System.out.println(extract("v3/4e00-62ff.hwp"));
-		System.out.println(extract("v3/han_special_char_3.0.hwp"));
+		//System.out.println(extract("v3/4e00-62ff.hwp"));
+		//System.out.println(extract("v3/han_special_char_3.0.hwp"));
 	}
 }

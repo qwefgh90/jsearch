@@ -1,16 +1,19 @@
 package io.github.qwefgh90.jsearch;
 
+import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 import org.apache.tika.exception.TikaException;
+import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MediaType;
-import org.apache.tika.mime.MimeType;
+import org.apache.tika.mime.MimeTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
@@ -134,7 +137,7 @@ public class JSearch {
 		QS qs = QS.compile(keyword);
 		return qs.isExist(text);
 	}
-
+	
 	/**
 	 * get a list of files which are containing keyword.
 	 * 
@@ -147,7 +150,7 @@ public class JSearch {
 	 *             - a problem of file. refer to a message.
 	 * @throws ParseException
 	 */
-	public static List<File> getFileListContainsKeywordFromDirectory(String dirPath, String keyword)
+	private static List<File> getFileListContainsKeywordFromDirectory(String dirPath, String keyword)
 			throws IOException, ParseException {
 		if (dirPath == null)
 			throw new NullPointerException("Please input file name.");
@@ -226,5 +229,30 @@ public class JSearch {
 
 		return result;
 	}
+	
+	public static MediaType getContentType(File f, String fileName) throws IOException {
+		MediaType mediaType;
+		try (InputStream is = new BufferedInputStream(new FileInputStream(f))) {
+			Metadata md = new Metadata();
+			md.set(Metadata.RESOURCE_NAME_KEY, fileName);
+			mediaType = MimeTypes.getDefaultMimeTypes().detect(is, md);
+		}
+		
+		if(fileName.toLowerCase().endsWith(".hwp") && mediaType.toString().equals("application/x-tika-msoffice"))
+			return new MediaType("application", "x-hwp-v5");
+		
+		return mediaType;
+	}
 
+	public static MediaType getContentType(InputStream is, String fileName) throws IOException {
+		MediaType mediaType;
+		Metadata md = new Metadata();
+		md.set(Metadata.RESOURCE_NAME_KEY, fileName);
+		mediaType = MimeTypes.getDefaultMimeTypes().detect(is, md);
+		
+		if(fileName.toLowerCase().endsWith(".hwp") && mediaType.toString().equals("application/x-tika-msoffice"))
+			return new MediaType("application", "x-hwp-v5");
+		
+		return mediaType;
+	}
 }

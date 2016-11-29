@@ -85,11 +85,11 @@ public class PlainTextExtractor {
 				} else if (UTF_BOM.UTF_16_LITTLE.compare(buffer)) {
 					log.debug("UTF_16LE_BOM");
 					writer.append(new String(buffer, UTF_BOM.UTF_16_LITTLE.mark.length,
-							buffer.length - UTF_BOM.UTF_8.mark.length, Charset.forName("UTF-16LE")));
+							buffer.length - UTF_BOM.UTF_16_LITTLE.mark.length, Charset.forName("UTF-16LE")));
 				} else if (UTF_BOM.UTF_16_BIG.compare(buffer)) {
 					log.debug("UTF_16BE_BOM");
 					writer.append(new String(buffer, UTF_BOM.UTF_16_BIG.mark.length,
-							buffer.length - UTF_BOM.UTF_8.mark.length, Charset.forName("UTF-16BE")));
+							buffer.length - UTF_BOM.UTF_16_BIG.mark.length, Charset.forName("UTF-16BE")));
 				} else { /* NOT BOM (Byte Order Mask) */
 					detector.handleData(buffer, 0, buffer_len);
 					detector.dataEnd();
