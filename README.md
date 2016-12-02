@@ -11,7 +11,7 @@ JSearch is the open software to extract string and find keyword from HWP and Off
 <dependency>
 	<groupId>io.github.qwefgh90</groupId>
 	<artifactId>jsearch</artifactId>
-	<version>0.2.0</version>
+	<version>0.3.0</version>
 </dependency>
 ```
 
