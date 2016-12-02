@@ -22,7 +22,7 @@
  * 본 제품은 다음의 소스를 참조하였습니다.
  * https://github.com/cogniti/ruby-hwp/
  */
-package com.argo.hwp.v5;
+package io.github.qwefgh90.jsearch.extractor.hwp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -53,9 +53,15 @@ import org.apache.poi.util.LittleEndian;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.argo.hwp.utils.HwpStreamReader;
-
-public abstract class HwpTextExtractorV5 {
+/**
+ * This software has been developed with reference to
+ * the HWP file format open specification by Hancom, Inc.
+ * http://www.hancom.co.kr/userofficedata.userofficedataList.do?menuFlag=3
+ * 한글과컴퓨터의 한/글 문서 파일(.hwp) 공개 문서를 참고하여 개발하였습니다.
+ * @author qwefgh90
+ *
+ */
+abstract class HwpTextExtractorV5 {
 	protected static Logger log = LoggerFactory
 			.getLogger(HwpTextExtractorV5.class);
 

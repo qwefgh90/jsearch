@@ -59,19 +59,15 @@ public class TikaTextExtractor {
 
 	/**
 	 * 
-	 * @param file
-	 *            - office file
-	 * @return boolean - success
-	 * @throws IOException - a problem of file. refer to a message.
-	 * @throws SAXException - 
-	 * @throws TikaException - throw this, if can not parse file.
+	 * @param file office file
+	 * @return boolean success
+	 * @throws IOException a problem of file. refer to a message.
+	 * @throws SAXException 
+	 * @throws TikaException throw this, if can not parse file.
 	 */
 	public static final String extract(File file) throws IOException, SAXException, TikaException {
-		ContentHandler handler = new BodyContentHandler(-1);//infinity -> -1
-															// only 1-run 1-use,
-															// fast gone object
-		Metadata metadata = new Metadata(); // only 1-run 1-use, fast gone
-											// object
+		final ContentHandler handler = new BodyContentHandler(-1);//infinity -> -1, object will be gone soon
+		final Metadata metadata = new Metadata(); // only 1-run 1-use, object will be gone soon
 		try (InputStream input = new FileInputStream(file)) {
 			TikaTextExtractor.parser.parse(input, handler, metadata);
 		}

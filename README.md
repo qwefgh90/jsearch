@@ -23,21 +23,11 @@ JSearch is the open software to extract string and find keyword from HWP and Off
 5. a result of extraction contains full string.
 6. a result of finding contains word count.
 
-## Class
+### HWP
 
-public class **JSearch**<br><br>
-JSearch supports various types of documents with open source engines.<br>
-And this library contains 3 types of functions. extract...() and isContainsKeyword...() and getFileList...() 
+This software has been developed with reference to
+the HWP file format open specification by Hancom, Inc.
+http://www.hancom.co.kr/userofficedata.userofficedataList.do?menuFlag=3
+한글과컴퓨터의 한/글 문서 파일(.hwp) 공개 문서를 참고하여 개발하였습니다. 
 
-HWP, DOC, PPT, EXCEL, TEXT, PDF and UNKNOWN are supported.
-
-
-| Modifier and Type        | Method and Description |
-| ------------- | -----|
-| static java.lang.String |	extractContentsFromFile(java.io.File target) <br><strong> extract string </strong> |
-| static java.lang.String |	extractContentsFromFile(java.lang.String filePath) <br><strong>  extract string </strong> |
-| static java.util.List<java.io.File> |	getFileListContainsKeywordFromDirectory(java.lang.String dirPath, java.lang.String keyword) <br><strong>  get a list of files which are containing keyword. </strong> |
-| static java.util.List<java.io.File> |	getFileListContainsKeywordFromDirectory(java.lang.String dirPath, java.lang.String keyword, boolean recursive) <br><strong>  get a list of files which are containing keyword. </strong> |
-| static boolean |	isContainsKeywordFromFile(java.io.File file, java.lang.String keyword) <br><strong> get true or false about containing keyword. </strong> |
-| static boolean |	isContainsKeywordFromFile(java.lang.String filePath, java.lang.String keyword) <br><strong>  get true or false about containing keyword. </strong> |
-
+a part to handle *.hwp* format is forked source in *[java-hwp](https://github.com/ddoleye/java-hwp)* project.

@@ -15,14 +15,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.github.qwefgh90.jsearch.JSearch;
-import io.github.qwefgh90.jsearch.JSearch.ParseException;
 
 public class JSearchTest {
 
 	public static Logger LOG = LoggerFactory.getLogger(JSearchTest.class);
 
 	@Test
-	public void extractTextTest() throws IOException, ParseException, URISyntaxException
+	public void extractTextTest() throws IOException, URISyntaxException
 	{
 		//HWP
 		String content = JSearch.extractContentsFromFile(new File(getClass().getResource("/hwp/HTTP.hwp").getFile()));
@@ -98,14 +97,14 @@ public class JSearchTest {
 	}
 
 	@Test
-	public void findKeywordWithDirectoryNoRecursiveTest() throws IOException, ParseException
+	public void findKeywordWithDirectoryNoRecursiveTest() throws IOException
 	{
 		int size = JSearch.getFileListContainsKeywordFromDirectory(getClass().getResource("/").getFile(), "음성, 화상, 데이타 등과 같이", false).size();
 		assertTrue("file count is " + size, size == 0);
 	}
 
 	@Test
-	public void findKeywordWithDirectoryRecursiveTest() throws IOException, ParseException
+	public void findKeywordWithDirectoryRecursiveTest() throws IOException
 	{
 		List<File> list = JSearch.getFileListContainsKeywordFromDirectory(
 				getClass().getResource("/").getFile()

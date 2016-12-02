@@ -33,7 +33,7 @@ public class PlainTextExtractor {
 	enum UTF_BOM {
 		UTF_8(0xEF, 0xBB, 0xBF), UTF_16_LITTLE(0xFF, 0xFE), UTF_16_BIG(0xFE, 0xFF);
 
-		public byte[] mark = null;
+		byte[] mark = null;
 
 		UTF_BOM(int... arg) {
 			mark = new byte[arg.length];
@@ -42,7 +42,7 @@ public class PlainTextExtractor {
 			}
 		}
 
-		public boolean compare(byte[] src) {
+		boolean compare(byte[] src) {
 			if (src != null) {
 				for (int i = 0; i < this.mark.length; i++) {
 					if (src[i] != mark[i])
@@ -57,11 +57,9 @@ public class PlainTextExtractor {
 
 	/**
 	 * 
-	 * @param file
-	 *            - target file
+	 * @param file target file
 	 * @return whether to be success
-	 * @throws IOException
-	 *             - a problem of file. refer to a message.
+	 * @throws IOException a problem of file. refer to a message.
 	 */
 	public static final String extract(File file) throws IOException {
 		UniversalDetector detector = new UniversalDetector(null);

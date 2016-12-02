@@ -22,7 +22,7 @@
  * 본 제품은 다음의 소스를 참조하였습니다.
  * https://github.com/cogniti/ruby-hwp/
  */
-package com.argo.hwp.v3;
+package io.github.qwefgh90.jsearch.extractor.hwp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,6 +31,8 @@ import java.io.StringWriter;
 import java.util.StringTokenizer;
 
 import org.junit.Test;
+
+import io.github.qwefgh90.jsearch.extractor.hwp.HwpTextExtractorV3;
 
 public class TestHwpV3Extractor {
 	private String extract(String path) throws FileNotFoundException,

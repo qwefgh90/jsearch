@@ -38,7 +38,7 @@
 		<project.source.version>1.7</project.source.version>
 		<project.version>0.2.0</project.version>
 		<project.artifactId>jsearch</project.artifactId>
-		<tika.version>1.12</tika.version>
+		<tika.version>1.14</tika.version>
 	</properties>
 
 	<dependencies>

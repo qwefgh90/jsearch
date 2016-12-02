@@ -22,7 +22,7 @@
  * 본 제품은 다음의 소스를 참조하였습니다.
  * https://github.com/cogniti/ruby-hwp/
  */
-package com.argo.hwp.utils;
+package io.github.qwefgh90.jsearch.extractor.hwp;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -32,7 +32,15 @@ import org.apache.poi.util.LittleEndian;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HwpStreamReader {
+/**
+ * This software has been developed with reference to
+ * the HWP file format open specification by Hancom, Inc.
+ * http://www.hancom.co.kr/userofficedata.userofficedataList.do?menuFlag=3
+ * 한글과컴퓨터의 한/글 문서 파일(.hwp) 공개 문서를 참고하여 개발하였습니다.
+ * @author qwefgh90
+ *
+ */
+class HwpStreamReader {
 	private Logger log = LoggerFactory.getLogger(getClass());
 	private InputStream input;
 	private byte[] buf;
