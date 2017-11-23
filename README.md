@@ -1,4 +1,4 @@
-#JSearch
+# JSearch
 
 [![Build Status](https://travis-ci.org/qwefgh90/jsearch.svg?branch=master)](https://travis-ci.org/qwefgh90/jsearch)
 
